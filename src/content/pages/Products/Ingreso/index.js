@@ -8,201 +8,237 @@ import {
   Box,
   Button
 } from '@mui/material';
-
-import { useState } from 'react';
-import PageTitleWrapper from 'src/components/PageTitleWrapper';
-import PageTitle from 'src/components/PageTitle';
-import TextField from '@mui/material/TextField';
-import MenuItem from '@mui/material/MenuItem';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import {
   fetchArticles,
-  fetchCategories,
-  fetchState,
-  fetchPresentations,
-  fetchUnitMeasurement
+  fetchArticlesCreate,
+  saveArticle
 } from 'src/redux/slices/articles/articleSlice';
-import { useSelector } from 'react-redux';
+import TextField from '@mui/material/TextField';
+import MenuItem from '@mui/material/MenuItem';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { DatePicker } from '@mui/lab';
+import { useFormik } from 'formik';
+import { validationArticle } from 'src/utils/validation';
+import BasicModal from 'src/components/common/Modals';
 
 const Ingreso = () => {
+  const [modal, setModal] = useState(false);
   const dispatch = useDispatch();
-  const { categories, states, presentations, unitMeasurements } = useSelector(
+  const { categories, presentations, units, created } = useSelector(
     (state) => state.articles
   );
 
   useEffect(() => {
     dispatch(fetchArticles());
-    dispatch(fetchCategories());
-    dispatch(fetchState());
-    dispatch(fetchPresentations());
-    dispatch(fetchUnitMeasurement());
+    dispatch(fetchArticlesCreate());
   }, [dispatch]);
-  const [value, setValue] = useState(null);
-  const [article, setArticle] = useState({
-    des_art: '',
-    cod_cat: '',
-    cod_estado_art: '',
-    cod_pres: '',
-    cod_unid_med: '',
-    image: '',
-    stock: '',
-    fecha_ingreso: {}
+
+  const formik = useFormik({
+    initialValues: {
+      cod_art: '',
+      des_art: '',
+      cod_cat: '',
+      cod_pres: '',
+      cod_unid_med: '',
+      cod_estado_art: 1,
+      stock: '',
+      imagen_art: ''
+    },
+    validationSchema: validationArticle,
+    onSubmit: (values, { resetForm }) => {
+      dispatch(saveArticle(values)).then(() => {
+        resetForm();
+        setModal(true);
+      });
+    }
   });
 
-  const handleChange = (event) => {
-    setArticle({
-      ...article,
-      [event.target.name]: event.target.value
-    });
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    dispatch(saveArticle(article));
-  };
-  console.log(typeof value);
-  console.log(article);
   return (
     <>
-      <PageTitleWrapper>
-        <PageTitle
-          heading="Ingreso de Insumos"
-          subHeading="Components that are used to build interactive placeholders used for data collection from users."
-        />
-      </PageTitleWrapper>
-      <Container maxWidth="lg">
+      <BasicModal modal={modal} setModal={setModal} message={created} />
+      <Container maxWidth="md">
         <Grid
           container
           direction="row"
           justifyContent="center"
           alignItems="stretch"
           spacing={2}
+          mt={2}
         >
           <Grid item xs={12}>
             <Card>
               <CardHeader title="Registrar Articulo" />
               <Divider />
               <CardContent>
-                <Grid container spacing={2}>
-                  <Grid item xs={6} md={6}>
-                    <TextField
-                      id="des_art"
-                      name="des_art"
-                      label="Descripción"
-                      type="search"
-                      autoComplete="off"
-                      fullWidth
-                      onChange={handleChange}
-                    />
+                <form onSubmit={formik.handleSubmit}>
+                  <Grid container spacing={2}>
+                    <Grid item xs={12} md={3}>
+                      <TextField
+                        id="cod_art"
+                        name="cod_art"
+                        label="Código"
+                        value={formik.values.cod_art}
+                        type="search"
+                        fullWidth
+                        autoComplete="off"
+                        onChange={formik.handleChange}
+                        error={
+                          formik.touched.cod_art &&
+                          Boolean(formik.errors.cod_art)
+                        }
+                        helperText={
+                          formik.errors.cod_art && formik.errors.cod_art
+                        }
+                      />
+                    </Grid>
+                    <Grid item xs={12} md={9}>
+                      <TextField
+                        id="des_art"
+                        name="des_art"
+                        label="Descripción"
+                        value={formik.values.des_art}
+                        type="search"
+                        autoComplete="off"
+                        fullWidth
+                        onChange={formik.handleChange}
+                        error={
+                          formik.touched.des_art &&
+                          Boolean(formik.errors.des_art)
+                        }
+                        helperText={
+                          formik.errors.des_art && formik.errors.des_art
+                        }
+                      />
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                      <TextField
+                        select
+                        id="cod_cat"
+                        label="Categoría"
+                        fullWidth
+                        onChange={formik.handleChange}
+                        value={formik.values.cod_cat}
+                        name="cod_cat"
+                        error={
+                          formik.touched.cod_cat &&
+                          Boolean(formik.errors.cod_cat)
+                        }
+                        helperText={
+                          formik.errors.cod_cat && formik.errors.cod_cat
+                        }
+                      >
+                        {categories.map((option) => (
+                          <MenuItem key={option.cod_cat} value={option.cod_cat}>
+                            {option.des_cat}
+                          </MenuItem>
+                        ))}
+                      </TextField>
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                      <TextField
+                        id="cod_estado_art"
+                        name="cod_pres"
+                        select
+                        label="Presentación"
+                        value={formik.values.cod_pres}
+                        fullWidth
+                        onChange={formik.handleChange}
+                        error={
+                          formik.touched.cod_pres &&
+                          Boolean(formik.errors.cod_pres)
+                        }
+                        helperText={
+                          formik.errors.cod_pres && formik.errors.cod_pres
+                        }
+                      >
+                        {presentations.map((option) => (
+                          <MenuItem
+                            key={option.cod_pres}
+                            value={option.cod_pres}
+                          >
+                            {option.des_pres}
+                          </MenuItem>
+                        ))}
+                      </TextField>
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                      <TextField
+                        id="cod_unid_med"
+                        name="cod_unid_med"
+                        select
+                        label="Unidad de Medida"
+                        value={formik.values.cod_unid_med}
+                        fullWidth
+                        onChange={formik.handleChange}
+                        error={
+                          formik.touched.cod_unid_med &&
+                          Boolean(formik.errors.cod_unid_med)
+                        }
+                        helperText={
+                          formik.errors.cod_unid_med &&
+                          formik.errors.cod_unid_med
+                        }
+                      >
+                        {units.map((option) => (
+                          <MenuItem
+                            key={option.cod_unid_med}
+                            value={option.cod_unid_med}
+                          >
+                            {option.des_unid_med}
+                          </MenuItem>
+                        ))}
+                      </TextField>
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                      <TextField
+                        id="stock"
+                        name="stock"
+                        label="Stock"
+                        autoComplete="off"
+                        type="search"
+                        fullWidth
+                        value={formik.values.stock}
+                        onChange={formik.handleChange}
+                        error={
+                          formik.touched.stock && Boolean(formik.errors.stock)
+                        }
+                        helperText={formik.errors.stock && formik.errors.stock}
+                      />
+                    </Grid>
+                    <Grid item xs={12} md={8}>
+                      <TextField
+                        id="image"
+                        name="imagen_art"
+                        label="Imagen url"
+                        type="search"
+                        fullWidth
+                        autoComplete="off"
+                        value={formik.values.imagen_art}
+                        onChange={formik.handleChange}
+                        error={
+                          formik.touched.imagen_art &&
+                          Boolean(formik.errors.imagen_art)
+                        }
+                        helperText={
+                          formik.errors.imagen_art && formik.errors.imagen_art
+                        }
+                      />
+                    </Grid>
+                    <Grid item xs={12} md={3}>
+                      <Button
+                        variant="contained"
+                        fullWidth
+                        color="primary"
+                        type="submit"
+                        size="large"
+                      >
+                        Registrar
+                      </Button>
+                    </Grid>
                   </Grid>
-                  <Grid item xs={3} md={3}>
-                    <TextField
-                      select
-                      id="cod_cat"
-                      label="Categoría"
-                      fullWidth
-                      onChange={handleChange}
-                      value={article.cod_cat}
-                      name="cod_cat"
-                      //   helperText="Please select your currency"
-                    >
-                      {categories.map((option) => (
-                        <MenuItem key={option.id} value={option.id}>
-                          {option.des_cat}
-                        </MenuItem>
-                      ))}
-                    </TextField>
-                  </Grid>
-                  <Grid item xs={3} md={3}>
-                    <TextField
-                      id="cod_estado_art"
-                      name="cod_pres"
-                      select
-                      label="Presentación"
-                      value={article.cod_pres}
-                      fullWidth
-                      onChange={handleChange}
-                    >
-                      {presentations.map((option) => (
-                        <MenuItem key={option.id} value={option.id}>
-                          {option.des_pres}
-                        </MenuItem>
-                      ))}
-                    </TextField>
-                  </Grid>
-                  <Grid item xs={3} md={3}>
-                    <TextField
-                      id="cod_unid_med"
-                      name="cod_unid_med"
-                      select
-                      label="Unidad de Medida"
-                      value={article.cod_unid_med}
-                      fullWidth
-                      onChange={handleChange}
-                    >
-                      {unitMeasurements.map((option) => (
-                        <MenuItem key={option.id} value={option.id}>
-                          {option.prefijo_unid_med}
-                        </MenuItem>
-                      ))}
-                    </TextField>
-                  </Grid>
-                  <Grid item xs={3} md={4}>
-                    <TextField
-                      id="stock"
-                      name="stock"
-                      label="Stock"
-                      autoComplete="off"
-                      type="search"
-                      fullWidth
-                      onChange={handleChange}
-                    />
-                  </Grid>
-                  <Grid item xs={6} md={5}>
-                    <TextField
-                      id="image"
-                      name="image_art"
-                      label="Imagen"
-                      type="search"
-                      fullWidth
-                      autoComplete="off"
-                      onChange={handleChange}
-                    />
-                  </Grid>
-                  <Grid item xs={3} md={4}>
-                    <TextField
-                      id="feature"
-                      name="feature"
-                      label="Caracteristica"
-                      type="search"
-                      fullWidth
-                      autoComplete="off"
-                    />
-                  </Grid>
-                  <Grid item xs={3} md={4}>
-                    <TextField
-                      id="featureValue"
-                      name="featureValue"
-                      label="Valor"
-                      type="search"
-                      fullWidth
-                      autoComplete="off"
-                    />
-                  </Grid>
-                  <Grid item xs={3} md={4}>
-                    <TextField
-                      id="cod_estado_art"
-                      name="cod_estado_art"
-                      label="Estado"
-                      type="search"
-                      fullWidth
-                      autoComplete="off"
-                    />
-                  </Grid>
-                </Grid>
-                <DatePicker
+                </form>
+                {/* <DatePicker
                   label="Fecha Ingreso"
                   value={article.fecha_ingreso}
                   onChange={(date) =>
@@ -212,25 +248,12 @@ const Ingreso = () => {
                     })
                   }
                   renderInput={(params) => <TextField {...params} />}
-                />
-
-                <Grid container spacing={2}>
-                  <Grid item xs={12} md={12}>
-                    <Box mt={2} textAlign={'right'}>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={handleSubmit}
-                      >
-                        Registrar
-                      </Button>
-                    </Box>
-                  </Grid>
-                </Grid>
+                /> */}
               </CardContent>
             </Card>
           </Grid>
         </Grid>
+        <BasicModal />
       </Container>
     </>
   );

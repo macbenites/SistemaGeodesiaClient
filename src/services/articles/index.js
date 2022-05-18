@@ -9,21 +9,12 @@ const articleServices = {
     return axios.delete(`${process.env.REACT_APP_API_URL}articulo/${id}`);
   },
   getAll: () => {
-    return axios.get(`${process.env.REACT_APP_API_URL}articulo`);
+    return axios.get(`${process.env.REACT_APP_API_URL}articulos`);
   },
 
   // Selects Form
-  getCategorias: () => {
-    return axios.get(`${process.env.REACT_APP_API_URL}categorias`);
-  },
-  getStates: () => {
-    return axios.get(`${process.env.REACT_APP_API_URL}estadoarticulo`);
-  },
-  getPresentations: () => {
-    return axios.get(`${process.env.REACT_APP_API_URL}presentacion`);
-  },
-  getUnitMeasurement: () => {
-    return axios.get(`${process.env.REACT_APP_API_URL}unidadmedida`);
+  getArticulosCreate: () => {
+    return axios.get(`${process.env.REACT_APP_API_URL}articulos/create`);
   }
 };
 

@@ -31,7 +31,7 @@ const menuItems = [
     heading: 'Productos',
     items: [
       {
-        name: 'Ingreso de Insumos',
+        name: 'Registro de Articulo',
         link: '/productos/ingreso',
         icon: Inventory2TwoToneIcon
       },

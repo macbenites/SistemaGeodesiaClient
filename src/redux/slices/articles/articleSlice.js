@@ -4,16 +4,15 @@ import articleServices from '../../../services/articles/index';
 const initialState = {
   articles: [],
   categories: [],
-  states: [],
   presentations: [],
-  unitMeasurements: [],
+  units: [],
   status: null,
   created: null
 };
 
 export const saveArticle = createAsyncThunk('saveArticle', async (article) => {
-  const response = await articleServices.create(article);
-  return response;
+  const { status } = await articleServices.create(article);
+  return status;
 });
 
 export const fetchArticles = createAsyncThunk('getArticleAll', async () => {
@@ -21,31 +20,10 @@ export const fetchArticles = createAsyncThunk('getArticleAll', async () => {
   return data;
 });
 
-export const fetchCategories = createAsyncThunk(
-  'getArticleCategories',
+export const fetchArticlesCreate = createAsyncThunk(
+  'getArticleCreate',
   async () => {
-    const { data } = await articleServices.getCategorias();
-    return data;
-  }
-);
-
-export const fetchState = createAsyncThunk('getArticleStates', async () => {
-  const { data } = await articleServices.getStates();
-  return data;
-});
-
-export const fetchPresentations = createAsyncThunk(
-  'getArticlePresentations',
-  async () => {
-    const { data } = await articleServices.getPresentations();
-    return data;
-  }
-);
-
-export const fetchUnitMeasurement = createAsyncThunk(
-  'getArticleUnitMeasurement',
-  async () => {
-    const { data } = await articleServices.getUnitMeasurement();
+    const { data } = await articleServices.getArticulosCreate();
     return data;
   }
 );
@@ -58,32 +36,30 @@ const articleSlice = createSlice({
     builder.addCase(fetchArticles.pending, (state, action) => {
       state.status = 'loading';
     });
-    builder.addCase(fetchArticles.fulfilled, (state, action) => {
-      state.articles = action.payload;
+    builder.addCase(fetchArticles.fulfilled, (state, { payload }) => {
+      state.articles = payload;
       state.status = 'success';
     });
     builder.addCase(fetchArticles.rejected, (state, action) => {
       state.status = 'error';
     });
-    builder.addCase(fetchCategories.fulfilled, (state, action) => {
-      state.categories = action.payload;
+    builder.addCase(fetchArticlesCreate.fulfilled, (state, { payload }) => {
+      state.categories = payload.categoria;
+      state.presentations = payload.presentacion;
+      state.units = payload.unid_med;
     });
 
-    builder.addCase(fetchState.fulfilled, (state, action) => {
-      state.states = action.payload;
+    builder.addCase(saveArticle.pending, (state, action) => {
+      state.created = 'loading';
     });
-    builder.addCase(fetchPresentations.fulfilled, (state, action) => {
-      state.presentations = action.payload;
+
+    builder.addCase(saveArticle.fulfilled, (state, { payload }) => {
+      state.created = 'Articulo creado satisfactoriamente';
     });
-    builder.addCase(fetchUnitMeasurement.fulfilled, (state, action) => {
-      state.unitMeasurements = action.payload;
+
+    builder.addCase(saveArticle.rejected, (state, { payload }) => {
+      state.created = 'Error al crear el articulo';
     });
-    // builder.addCase(saveArticle.fulfilled, (state, action) => {
-    //   state.created = 'Saved';
-    // });
-    // builder.addCase(saveArticle.error, (state, action) => {
-    //   state.created = 'No saved';
-    // });
   }
 });
 
