@@ -20,3 +20,9 @@ export const validationArticle = yup.object().shape({
     .required('El stock es requerido'),
   imagen_art: yup.string('Ingrese url').required('La imagen es requerida')
 });
+
+export const validationCategory = yup.object().shape({
+  des_cat: yup
+    .string('Ingrese la descripción')
+    .required('El nombre de la categoria es requerido')
+});

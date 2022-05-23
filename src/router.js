@@ -23,6 +23,28 @@ const Ingreso = Loader(
   lazy(() => import('src/content/pages/Products/Ingreso'))
 );
 
+//Insumos
+const IngresoInsumos = Loader(
+  lazy(() => import('src/content/pages/Insumos/Ingreso'))
+);
+
+// Config
+const Presentacion = Loader(
+  lazy(() => import('src/content/pages/Config/Presentation'))
+);
+const TipoTransferencia = Loader(
+  lazy(() => import('src/content/pages/Config/Transf'))
+);
+const Categoria = Loader(
+  lazy(() => import('src/content/pages/Config/Category'))
+);
+const UnidadMedida = Loader(
+  lazy(() => import('src/content/pages/Config/Unit'))
+);
+const DocIdentidad = Loader(
+  lazy(() => import('src/content/pages/Config/DocumentIden'))
+);
+
 // Dashboards
 
 const Crypto = Loader(lazy(() => import('src/content/dashboards/Crypto')));
@@ -144,6 +166,54 @@ const routes = [
     ]
   },
   {
+    path: '/insumos',
+    element: <SidebarLayout />,
+    children: [
+      {
+        path: '/',
+        element: <Navigate to="insumos" replace />
+      },
+      {
+        path: 'ingreso',
+        element: <IngresoInsumos />
+      },
+      {
+        path: 'salida',
+        element: <h1>Ingreso de Salida</h1>
+      }
+    ]
+  },
+  {
+    path: '/config',
+    element: <SidebarLayout />,
+    children: [
+      {
+        path: '/',
+        element: <Navigate to="config" replace />
+      },
+      {
+        path: 'presentacion',
+        element: <Presentacion />
+      },
+      {
+        path: 'tipotransferencia',
+        element: <TipoTransferencia />
+      },
+      {
+        path: 'categoria',
+        element: <Categoria />
+      },
+      {
+        path: 'unidadmedida',
+        element: <UnidadMedida />
+      },
+      {
+        path: 'docidentidad',
+        element: <DocIdentidad />
+      }
+    ]
+  },
+  {
     path: 'dashboards',
     element: <SidebarLayout />,
     children: [
@@ -191,53 +261,53 @@ const routes = [
         ]
       }
     ]
-  },
-  {
-    path: 'components',
-    element: <SidebarLayout />,
-    children: [
-      {
-        path: '/',
-        element: <Navigate to="/components/buttons" replace />
-      },
-      {
-        path: 'buttons',
-        element: <Buttons />
-      },
-      {
-        path: 'modals',
-        element: <Modals />
-      },
-      {
-        path: 'accordions',
-        element: <Accordions />
-      },
-      {
-        path: 'tabs',
-        element: <Tabs />
-      },
-      {
-        path: 'badges',
-        element: <Badges />
-      },
-      {
-        path: 'tooltips',
-        element: <Tooltips />
-      },
-      {
-        path: 'avatars',
-        element: <Avatars />
-      },
-      {
-        path: 'cards',
-        element: <Cards />
-      },
-      {
-        path: 'forms',
-        element: <Forms />
-      }
-    ]
   }
+  // {
+  //   path: 'components',
+  //   element: <SidebarLayout />,
+  //   children: [
+  //     {
+  //       path: '/',
+  //       element: <Navigate to="/components/buttons" replace />
+  //     },
+  //     {
+  //       path: 'buttons',
+  //       element: <Buttons />
+  //     },
+  //     {
+  //       path: 'modals',
+  //       element: <Modals />
+  //     },
+  //     {
+  //       path: 'accordions',
+  //       element: <Accordions />
+  //     },
+  //     {
+  //       path: 'tabs',
+  //       element: <Tabs />
+  //     },
+  //     {
+  //       path: 'badges',
+  //       element: <Badges />
+  //     },
+  //     {
+  //       path: 'tooltips',
+  //       element: <Tooltips />
+  //     },
+  //     {
+  //       path: 'avatars',
+  //       element: <Avatars />
+  //     },
+  //     {
+  //       path: 'cards',
+  //       element: <Cards />
+  //     },
+  //     {
+  //       path: 'forms',
+  //       element: <Forms />
+  //     }
+  //   ]
+  // }
 ];
 
 export default routes;

@@ -34,6 +34,51 @@ const menuItems = [
         name: 'Registro de Articulo',
         link: '/productos/ingreso',
         icon: Inventory2TwoToneIcon
+      }
+      // {
+      //   name: 'Salida de Insumos',
+      //   icon: InventoryTwoToneIcon,
+      //   link: '/productos/salida'
+      // }
+    ]
+  },
+  {
+    heading: 'Configuración',
+    items: [
+      {
+        name: 'Presentación',
+        link: '/config/presentacion',
+        icon: Inventory2TwoToneIcon
+      },
+      {
+        name: 'Tipo de Transferencia',
+        link: '/config/tipotransferencia',
+        icon: Inventory2TwoToneIcon
+      },
+      {
+        name: 'Catergoria',
+        link: '/config/categoria',
+        icon: Inventory2TwoToneIcon
+      },
+      {
+        name: 'Unidad de Medida',
+        link: '/config/unidadmedida',
+        icon: Inventory2TwoToneIcon
+      },
+      {
+        name: 'Documento de Identidad',
+        link: '/config/docidentidad',
+        icon: Inventory2TwoToneIcon
+      }
+    ]
+  },
+  {
+    heading: 'Insumos',
+    items: [
+      {
+        name: 'Registro de Insumos',
+        link: '/insumos/ingreso',
+        icon: Inventory2TwoToneIcon
       },
       {
         name: 'Salida de Insumos',
@@ -82,56 +127,56 @@ const menuItems = [
       }
     ]
   },
-  {
-    heading: 'Components',
-    items: [
-      {
-        name: 'Buttons',
-        icon: BallotTwoToneIcon,
-        link: '/components/buttons'
-      },
-      {
-        name: 'Modals',
-        icon: BeachAccessTwoToneIcon,
-        link: '/components/modals'
-      },
-      {
-        name: 'Accordions',
-        icon: EmojiEventsTwoToneIcon,
-        link: '/components/accordions'
-      },
-      {
-        name: 'Tabs',
-        icon: FilterVintageTwoToneIcon,
-        link: '/components/tabs'
-      },
-      {
-        name: 'Badges',
-        icon: HowToVoteTwoToneIcon,
-        link: '/components/badges'
-      },
-      {
-        name: 'Tooltips',
-        icon: LocalPharmacyTwoToneIcon,
-        link: '/components/tooltips'
-      },
-      {
-        name: 'Avatars',
-        icon: RedeemTwoToneIcon,
-        link: '/components/avatars'
-      },
-      {
-        name: 'Cards',
-        icon: SettingsTwoToneIcon,
-        link: '/components/cards'
-      },
-      {
-        name: 'Forms',
-        icon: TrafficTwoToneIcon,
-        link: '/components/forms'
-      }
-    ]
-  },
+  // {
+  //   heading: 'Components',
+  //   items: [
+  //     {
+  //       name: 'Buttons',
+  //       icon: BallotTwoToneIcon,
+  //       link: '/components/buttons'
+  //     },
+  //     {
+  //       name: 'Modals',
+  //       icon: BeachAccessTwoToneIcon,
+  //       link: '/components/modals'
+  //     },
+  //     {
+  //       name: 'Accordions',
+  //       icon: EmojiEventsTwoToneIcon,
+  //       link: '/components/accordions'
+  //     },
+  //     {
+  //       name: 'Tabs',
+  //       icon: FilterVintageTwoToneIcon,
+  //       link: '/components/tabs'
+  //     },
+  //     {
+  //       name: 'Badges',
+  //       icon: HowToVoteTwoToneIcon,
+  //       link: '/components/badges'
+  //     },
+  //     {
+  //       name: 'Tooltips',
+  //       icon: LocalPharmacyTwoToneIcon,
+  //       link: '/components/tooltips'
+  //     },
+  //     {
+  //       name: 'Avatars',
+  //       icon: RedeemTwoToneIcon,
+  //       link: '/components/avatars'
+  //     },
+  //     {
+  //       name: 'Cards',
+  //       icon: SettingsTwoToneIcon,
+  //       link: '/components/cards'
+  //     },
+  //     {
+  //       name: 'Forms',
+  //       icon: TrafficTwoToneIcon,
+  //       link: '/components/forms'
+  //     }
+  //   ]
+  // },
   {
     heading: 'Extra Pages',
     items: [
