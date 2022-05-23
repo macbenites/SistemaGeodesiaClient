@@ -26,3 +26,12 @@ export const validationCategory = yup.object().shape({
     .string('Ingrese la descripción')
     .required('El nombre de la categoria es requerido')
 });
+
+export const validationUnit = yup.object().shape({
+  des_unid_med: yup
+    .string('Ingrese la descripción de  unidad de medida ')
+    .required('El nombre de la categoria es requerido'),
+    prefijo_unid_med: yup
+    .string('Ingrese la unidad de medida ')
+    .required('El nombre de la categoria es requerido')
+});

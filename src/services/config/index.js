@@ -6,7 +6,7 @@ const configServices = {
     return axios.post(`${process.env.REACT_APP_API_URL}categoria`, category);
   },
   createUnit: (unit) => {
-    return axios.post(`${process.env.REACT_APP_API_URL}unidadmedida`, unit);
+    return axios.post(`${process.env.REACT_APP_API_URL}unidadMedida`, unit);
   }
 };
 
