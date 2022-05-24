@@ -42,7 +42,6 @@ const Ingreso = () => {
       cod_pres: '',
       cod_unid_med: '',
       cod_estado_art: 1,
-      stock: '',
       imagen_art: ''
     },
     validationSchema: validationArticle,
@@ -190,23 +189,7 @@ const Ingreso = () => {
                         ))}
                       </TextField>
                     </Grid>
-                    <Grid item xs={12} md={4}>
-                      <TextField
-                        id="stock"
-                        name="stock"
-                        label="Stock"
-                        autoComplete="off"
-                        type="search"
-                        fullWidth
-                        value={formik.values.stock}
-                        onChange={formik.handleChange}
-                        error={
-                          formik.touched.stock && Boolean(formik.errors.stock)
-                        }
-                        helperText={formik.errors.stock && formik.errors.stock}
-                      />
-                    </Grid>
-                    <Grid item xs={12} md={8}>
+                    <Grid item xs={12} md={12}>
                       <TextField
                         id="image"
                         name="imagen_art"
@@ -225,7 +208,8 @@ const Ingreso = () => {
                         }
                       />
                     </Grid>
-                    <Grid item xs={12} md={3}>
+                    {/* Align Rigth */}
+                    <Grid item xs={12} md={3} justifyContent={'right'}>
                       <Button
                         variant="contained"
                         fullWidth
@@ -238,17 +222,6 @@ const Ingreso = () => {
                     </Grid>
                   </Grid>
                 </form>
-                {/* <DatePicker
-                  label="Fecha Ingreso"
-                  value={article.fecha_ingreso}
-                  onChange={(date) =>
-                    setArticle({
-                      ...article,
-                      fecha_ingreso: date
-                    })
-                  }
-                  renderInput={(params) => <TextField {...params} />}
-                /> */}
               </CardContent>
             </Card>
           </Grid>
