@@ -1,5 +1,6 @@
-const DocumentIden = () => {
-  return <div>Registro de Documento </div>;
+const FormPresentation = () => {
+  return <div>Registrar Presentación</div>;
 };
 
-export default DocumentIden;
+export default FormPresentation;
+
