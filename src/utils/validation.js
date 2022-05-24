@@ -35,3 +35,15 @@ export const validationUnit = yup.object().shape({
     .string('Ingrese la unidad de medida ')
     .required('El nombre de la categoria es requerido')
 });
+
+export const validationPresentacion = yup.object().shape({
+  des_pres: yup
+    .string('Ingrese la descripción de Presentacion')
+    .required('El nombre de la presentacion es requerido')
+});
+
+export const validationTransferencia = yup.object().shape({
+  des_transf: yup
+    .string('Ingrese la descripción de tranferencia')
+    .required('El nombre de la transferencia es requerido')
+});
