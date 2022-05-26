@@ -83,7 +83,23 @@ const menuItems = [
       {
         name: 'Salida de Insumos',
         icon: InventoryTwoToneIcon,
-        link: '/productos/salida'
+        link: '/insumos/salida'
+      }
+    ]
+  },
+
+  {
+    heading: 'Reportes',
+    items: [
+      {
+        name: 'Kardex',
+        link: '/reportes/kardex',
+        icon: Inventory2TwoToneIcon
+      },
+      {
+        name: 'Inventario',
+        link: '/reportes/inventario',
+        icon: InventoryTwoToneIcon
       }
     ]
   },
@@ -101,32 +117,32 @@ const menuItems = [
         link: '/dashboards/messenger'
       }
     ]
-  },
-  {
-    heading: 'Management',
-    items: [
-      {
-        name: 'Transactions',
-        icon: TableChartTwoToneIcon,
-        link: '/management/transactions'
-      },
-      {
-        name: 'User Profile',
-        icon: AccountCircleTwoToneIcon,
-        link: '/management/profile',
-        items: [
-          {
-            name: 'Profile Details',
-            link: '/management/profile/details'
-          },
-          {
-            name: 'User Settings',
-            link: '/management/profile/settings'
-          }
-        ]
-      }
-    ]
-  },
+  }
+  // {
+  //   heading: 'Management',
+  //   items: [
+  //     {
+  //       name: 'Transactions',
+  //       icon: TableChartTwoToneIcon,
+  //       link: '/management/transactions'
+  //     },
+  //     {
+  //       name: 'User Profile',
+  //       icon: AccountCircleTwoToneIcon,
+  //       link: '/management/profile',
+  //       items: [
+  //         {
+  //           name: 'Profile Details',
+  //           link: '/management/profile/details'
+  //         },
+  //         {
+  //           name: 'User Settings',
+  //           link: '/management/profile/settings'
+  //         }
+  //       ]
+  //     }
+  //   ]
+  // },
   // {
   //   heading: 'Components',
   //   items: [
@@ -177,34 +193,34 @@ const menuItems = [
   //     }
   //   ]
   // },
-  {
-    heading: 'Extra Pages',
-    items: [
-      {
-        name: 'Status',
-        icon: VerifiedUserTwoToneIcon,
-        link: '/status',
-        items: [
-          {
-            name: 'Error 404',
-            link: '/status/404'
-          },
-          {
-            name: 'Error 500',
-            link: '/status/500'
-          },
-          {
-            name: 'Maintenance',
-            link: '/status/maintenance'
-          },
-          {
-            name: 'Coming Soon',
-            link: '/status/coming-soon'
-          }
-        ]
-      }
-    ]
-  }
+  // {
+  //   heading: 'Extra Pages',
+  //   items: [
+  //     {
+  //       name: 'Status',
+  //       icon: VerifiedUserTwoToneIcon,
+  //       link: '/status',
+  //       items: [
+  //         {
+  //           name: 'Error 404',
+  //           link: '/status/404'
+  //         },
+  //         {
+  //           name: 'Error 500',
+  //           link: '/status/500'
+  //         },
+  //         {
+  //           name: 'Maintenance',
+  //           link: '/status/maintenance'
+  //         },
+  //         {
+  //           name: 'Coming Soon',
+  //           link: '/status/coming-soon'
+  //         }
+  //       ]
+  //     }
+  //   ]
+  // }
 ];
 
 export default menuItems;

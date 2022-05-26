@@ -5,6 +5,7 @@ import SidebarLayout from 'src/layouts/SidebarLayout';
 import BaseLayout from 'src/layouts/BaseLayout';
 
 import SuspenseLoader from 'src/components/SuspenseLoader';
+import Kardex from './content/pages/Reports/Kardex';
 
 const Loader = (Component) => (props) =>
   (
@@ -26,6 +27,10 @@ const Ingreso = Loader(
 //Insumos
 const IngresoInsumos = Loader(
   lazy(() => import('src/content/pages/Insumos/Ingreso'))
+);
+
+const SalidaInsumos = Loader(
+  lazy(() => import('src/content/pages/Insumos/Salida'))
 );
 
 // Config
@@ -179,7 +184,7 @@ const routes = [
       },
       {
         path: 'salida',
-        element: <h1>Ingreso de Salida</h1>
+        element: <SalidaInsumos />
       }
     ]
   },
@@ -232,36 +237,50 @@ const routes = [
     ]
   },
   {
-    path: 'management',
+    path: 'reportes',
     element: <SidebarLayout />,
     children: [
       {
         path: '/',
-        element: <Navigate to="/management/transactions" replace />
+        element: <Navigate to="reportes" replace />
       },
       {
-        path: 'transactions',
-        element: <Transactions />
-      },
-      {
-        path: 'profile',
-        children: [
-          {
-            path: '/',
-            element: <Navigate to="details" replace />
-          },
-          {
-            path: 'details',
-            element: <UserProfile />
-          },
-          {
-            path: 'settings',
-            element: <UserSettings />
-          }
-        ]
+        path: 'kardex',
+        element: <Kardex />
       }
     ]
   }
+  // {
+  //   path: 'management',
+  //   element: <SidebarLayout />,
+  //   children: [
+  //     {
+  //       path: '/',
+  //       element: <Navigate to="/management/transactions" replace />
+  //     },
+  //     {
+  //       path: 'transactions',
+  //       element: <Transactions />
+  //     },
+  //     {
+  //       path: 'profile',
+  //       children: [
+  //         {
+  //           path: '/',
+  //           element: <Navigate to="details" replace />
+  //         },
+  //         {
+  //           path: 'details',
+  //           element: <UserProfile />
+  //         },
+  //         {
+  //           path: 'settings',
+  //           element: <UserSettings />
+  //         }
+  //       ]
+  //     }
+  //   ]
+  // }
   // {
   //   path: 'components',
   //   element: <SidebarLayout />,

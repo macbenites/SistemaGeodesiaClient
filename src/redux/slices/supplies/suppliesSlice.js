@@ -4,6 +4,7 @@ import suppliesServices from '../../../services/supplies/index';
 const initialState = {
   articlesContainer: [],
   selectedSupply: {},
+  selectedSupplyOut: {},
   status: null,
   created: null
 };
@@ -19,6 +20,15 @@ export const fetchSuppliesCreate = createAsyncThunk(
     return data;
   }
 );
+
+export const fetchSuppliesCreateOut = createAsyncThunk(
+  'getSuppliesOut',
+  async () => {
+    const { data } = await suppliesServices.getSuppliesCreateOut();
+    return data;
+  }
+);
+
 const suppliesSlice = createSlice({
   name: 'supplies',
   initialState,
@@ -31,8 +41,12 @@ const suppliesSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchSuppliesCreate.fulfilled, (state, { payload }) => {
       state.selectedSupply = payload;
-      console.log('Ingreso');
     });
+
+    builder.addCase(fetchSuppliesCreateOut.fulfilled, (state, { payload }) => {
+      state.selectedSupplyOut = payload;
+    });
+
     builder.addCase(saveSupplies.pending, (state, action) => {
       state.created = 'loading';
     });
