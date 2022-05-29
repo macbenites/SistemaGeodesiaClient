@@ -14,15 +14,19 @@ import { DatePicker } from '@mui/lab';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FieldArray, useFormik, Field } from 'formik';
+import TableSalida from './tableSalida';
 import {
   fetchSuppliesCreateOut,
-  addArticle,
-  saveSupplies
+  addArticleOut,
+  saveSuppliesOut,
+  fetchArticlesSupplies
 } from 'src/redux/slices/supplies/suppliesSlice';
-//import TableIngreso from './tableIngreso';
+
 const SalidaInsumos = () => {
   const dispatch = useDispatch();
-  const { selectedSupplyOut } = useSelector((state) => state.supplies);
+  const { selectedSupplyOut, articlesSupplies } = useSelector(
+    (state) => state.supplies
+  );
 
   const [supplies, setSupplies] = useState({
     cod_solicitador: '',
@@ -45,6 +49,9 @@ const SalidaInsumos = () => {
   });
 
   const handleChange = (event) => {
+    event.target.name === 'cod_almacen' &&
+      dispatch(fetchArticlesSupplies(event.target.value));
+
     setSupplies({
       ...supplies,
       [event.target.name]: event.target.value
@@ -67,10 +74,10 @@ const SalidaInsumos = () => {
       ...supplies,
       cod_art: [...supplies.cod_art, articles.cod_art],
       cant_art: [...supplies.cant_art, articles.cant_art],
-      obs_sal: [...supplies.obs_ing, articles.obs_sal]
+      obs_sal: [...supplies.obs_sal, articles.obs_sal]
     });
 
-    dispatch(addArticle(articles));
+    dispatch(addArticleOut(articles));
     setArticles({
       cod_art: '',
       cant_art: '',
@@ -79,9 +86,12 @@ const SalidaInsumos = () => {
   };
 
   const onSubmit = () => {
-    dispatch(saveSupplies(supplies));
+    dispatch(saveSuppliesOut(supplies));
   };
 
+  const onCancel = () => {};
+
+  console.log(supplies);
   return (
     <>
       <Container maxWidth="lg">
@@ -152,8 +162,8 @@ const SalidaInsumos = () => {
                     >
                       {selectedSupplyOut.autorizador?.map((supply) => (
                         <MenuItem
-                          key={supply.cod_autorizador}
-                          value={supply.cod_autorizador}
+                          key={supply.cod_trabajador}
+                          value={supply.cod_trabajador}
                         >
                           {supply.documento}
                         </MenuItem>
@@ -213,31 +223,11 @@ const SalidaInsumos = () => {
                       onChange={handleChange}
                     />
                   </Grid>
-                  {/* //Block 3 */}
-                  {/* <Grid item xs={12} md={4}>
-                      <DatePicker
-                        label="Fecha Documento"
-                        inputFormat="MM/dd/yyyy"
-                        value={value}
-                        onChange={handleChange}
-                        renderInput={(params) => (
-                          <TextField {...params} fullWidth />
-                        )}
-                      />
-                    </Grid> */}
+
                   <Grid item xs={12} md={4}>
-                    {/* <DatePicker
-                        label="Fecha Ingreso"
-                        inputFormat="MM/dd/yyyy"
-                        value={value}
-                        onChange={handleChange}
-                        renderInput={(params) => (
-                          <TextField {...params} fullWidth />
-                        )}
-                      /> */}
                     <TextField
-                      id="fecha_ingreso"
-                      label="Fecha Ingreso"
+                      id="fec_doc"
+                      label="Fecha Documento"
                       fullWidth
                       type="date"
                       name="fec_doc"
@@ -277,23 +267,12 @@ const SalidaInsumos = () => {
                       value={articles.cod_art}
                       onChange={handleChangeArticles}
                     >
-                      {selectedSupplyOut.articulo?.map((supply) => (
+                      {articlesSupplies.map((supply) => (
                         <MenuItem key={supply.cod_art} value={supply.cod_art}>
                           {supply.articulo}
                         </MenuItem>
                       ))}
                     </TextField>
-                  </Grid>
-                  <Grid item xs={12} md={2}>
-                    <TextField
-                      type="number"
-                      name="prec_unit"
-                      label="Precio"
-                      fullWidth
-                      values={articles.prec_unit}
-                      onChange={handleChangeArticles}
-                      autoComplete="off"
-                    />
                   </Grid>
                   <Grid item xs={12} md={2}>
                     <TextField
@@ -307,27 +286,15 @@ const SalidaInsumos = () => {
                       autoComplete="off"
                     />
                   </Grid>
-                  <Grid item xs={12} md={2}>
-                    <TextField
-                      type="number"
-                      id="prec_compr"
-                      label="Precio Compra"
-                      fullWidth
-                      name="prec_compr"
-                      autoComplete="off"
-                      value={articles.prec_compr}
-                      onChange={handleChangeArticles}
-                    />
-                  </Grid>
-                  <Grid item xs={12} md={3}>
+                  <Grid item xs={12} md={4}>
                     <TextField
                       type="search"
-                      id="obs_ing"
+                      id="obs_sal"
                       label="Glosa"
                       fullWidth
-                      name="obs_ing"
+                      name="obs_sal"
                       autoComplete="off"
-                      value={articles.obs_ing}
+                      value={articles.obs_sal}
                       onChange={handleChangeArticles}
                     />
                   </Grid>
@@ -353,7 +320,7 @@ const SalidaInsumos = () => {
         <Card>
           <CardHeader title="Articulos" />
           <Divider />
-          {/* <TableIngreso /> */}
+          <TableSalida />
           <Grid container spacing={2} mt={4}>
             <Grid item xs={12} md={3}>
               <Button
@@ -372,7 +339,7 @@ const SalidaInsumos = () => {
                 fullWidth
                 color="secondary"
                 size="large"
-                onClick={handleAddArticle}
+                onClick={onSubmit}
               >
                 Cancelar
               </Button>

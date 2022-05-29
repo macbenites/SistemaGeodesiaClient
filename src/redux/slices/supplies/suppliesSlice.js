@@ -3,8 +3,10 @@ import { createSlice } from '@reduxjs/toolkit';
 import suppliesServices from '../../../services/supplies/index';
 const initialState = {
   articlesContainer: [],
+  articlesContainerOut: [],
   selectedSupply: {},
   selectedSupplyOut: {},
+  articlesSupplies: [],
   status: null,
   created: null
 };
@@ -13,6 +15,15 @@ export const saveSupplies = createAsyncThunk('saveSupplie', async (supplie) => {
   const { status } = await suppliesServices.create(supplie);
   return status;
 });
+
+export const saveSuppliesOut = createAsyncThunk(
+  'saveSupplieOut',
+  async (supplie) => {
+    const { status } = await suppliesServices.createOut(supplie);
+    return status;
+  }
+);
+
 export const fetchSuppliesCreate = createAsyncThunk(
   'getSuppliesCreate',
   async () => {
@@ -29,13 +40,25 @@ export const fetchSuppliesCreateOut = createAsyncThunk(
   }
 );
 
+export const fetchArticlesSupplies = createAsyncThunk(
+  'getArticlesSupplies',
+  async (id) => {
+    const { data } = await suppliesServices.getArticlesSupplies(id);
+    return data.articulos;
+  }
+);
+
 const suppliesSlice = createSlice({
   name: 'supplies',
   initialState,
   reducers: {
     addArticle: (state, { payload }) => {
       state.articlesContainer.push(payload);
-      console.log('payload', payload);
+    },
+
+    addArticleOut: (state, { payload }) => {
+      state.articlesContainerOut.push(payload);
+      console.log(payload);
     }
   },
   extraReducers: (builder) => {
@@ -58,8 +81,22 @@ const suppliesSlice = createSlice({
       state.created = 'Error al crear ingreso';
       alert('Error al crear ingreso');
     });
+    builder.addCase(fetchArticlesSupplies.fulfilled, (state, { payload }) => {
+      state.articlesSupplies = payload;
+    });
+    builder.addCase(saveSuppliesOut.pending, (state, action) => {
+      state.created = 'loading';
+    });
+    builder.addCase(saveSuppliesOut.fulfilled, (state, { payload }) => {
+      state.created = 'Salida creada satisfactoriamente';
+      alert('Salida creado satisfactoriamente');
+    });
+    builder.addCase(saveSuppliesOut.rejected, (state, { payload }) => {
+      state.created = 'Error al crear Salida';
+      alert('Error al crear salida');
+    });
   }
 });
 
-export const { addArticle } = suppliesSlice.actions;
+export const { addArticle, addArticleOut } = suppliesSlice.actions;
 export default suppliesSlice.reducer;

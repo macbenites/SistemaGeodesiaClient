@@ -9,6 +9,13 @@ const suppliesServices = {
     );
   },
 
+  createOut: (supplier) => {
+    return axios.post(
+      `${process.env.REACT_APP_API_URL}registroSalida`,
+      supplier
+    );
+  },
+
   getAllSupplies: () => {
     return axios.get(`${process.env.REACT_APP_API_URL}registroIngreso`);
   },
@@ -28,6 +35,13 @@ const suppliesServices = {
 
   getSuppliesCreateOut: () => {
     return axios.get(`${process.env.REACT_APP_API_URL}registrosSalidas/create`);
+  },
+
+  //getArticles
+  getArticlesSupplies: (id) => {
+    return axios.get(
+      `${process.env.REACT_APP_API_URL}registroSalida/articulos/${id}`
+    );
   }
 };
 
