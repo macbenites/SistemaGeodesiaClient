@@ -9,12 +9,13 @@ import {
   Typography,
   useTheme
 } from '@mui/material';
-
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 const TableSalida = () => {
   const theme = useTheme();
   const { articlesContainerOut } = useSelector((state) => state.supplies);
+  useEffect(() => {}, [articlesContainerOut]);
   return (
     <Grid
       container

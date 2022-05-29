@@ -41,3 +41,16 @@ export const validationTransferencia = yup.object().shape({
     .string('Ingrese la descripción de tranferencia')
     .required('El nombre de la transferencia es requerido')
 });
+
+export const validationKardex = yup.object().shape({
+  fec_ini: yup
+    .string('Ingrese la fecha de inicio')
+    .required('La fecha de inicio es requerida'),
+  fec_fin: yup
+    .string('Ingrese la fecha de fin')
+    .required('La fecha de fin es requerida'),
+  almacen: yup.string('Ingrese el almacen').required('El almacen es requerido'),
+  articulo: yup
+    .string('Ingrese el articulo')
+    .required('El articulo es requerido')
+});

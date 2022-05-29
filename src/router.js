@@ -6,6 +6,7 @@ import BaseLayout from 'src/layouts/BaseLayout';
 
 import SuspenseLoader from 'src/components/SuspenseLoader';
 import Kardex from './content/pages/Reports/Kardex';
+import Proveedor from './content/pages/Proveedor';
 
 const Loader = (Component) => (props) =>
   (
@@ -67,6 +68,12 @@ const UserProfile = Loader(
 );
 const UserSettings = Loader(
   lazy(() => import('src/content/applications/Users/settings'))
+);
+
+// Proveedor
+
+const ProveedorRegistro = Loader(
+  lazy(() => import('src/content/pages/Proveedor'))
 );
 
 // Components
@@ -247,6 +254,20 @@ const routes = [
       {
         path: 'kardex',
         element: <Kardex />
+      }
+    ]
+  },
+  {
+    path: 'proveedor',
+    element: <SidebarLayout />,
+    children: [
+      {
+        path: '/',
+        element: <Navigate to="proveedor" replace />
+      },
+      {
+        path: 'registro',
+        element: <ProveedorRegistro />
       }
     ]
   }

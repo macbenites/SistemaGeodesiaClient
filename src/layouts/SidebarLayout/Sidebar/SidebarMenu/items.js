@@ -104,20 +104,30 @@ const menuItems = [
     ]
   },
   {
-    heading: 'Dashboards',
+    heading: 'Proveedor',
     items: [
       {
-        name: 'Crypto',
-        link: '/dashboards/crypto',
-        icon: BrightnessLowTwoToneIcon
-      },
-      {
-        name: 'Messenger',
-        icon: MmsTwoToneIcon,
-        link: '/dashboards/messenger'
+        name: 'Registro de Proveedor',
+        link: '/proveedor/registro',
+        icon: Inventory2TwoToneIcon
       }
     ]
   }
+  // {
+  //   heading: 'Dashboards',
+  //   items: [
+  //     {
+  //       name: 'Crypto',
+  //       link: '/dashboards/crypto',
+  //       icon: BrightnessLowTwoToneIcon
+  //     },
+  //     {
+  //       name: 'Messenger',
+  //       icon: MmsTwoToneIcon,
+  //       link: '/dashboards/messenger'
+  //     }
+  //   ]
+  // }
   // {
   //   heading: 'Management',
   //   items: [

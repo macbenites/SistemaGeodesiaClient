@@ -59,6 +59,10 @@ const suppliesSlice = createSlice({
     addArticleOut: (state, { payload }) => {
       state.articlesContainerOut.push(payload);
       console.log(payload);
+    },
+    resetArticles: (state) => {
+      state.articlesContainer = [];
+      state.articlesContainerOut = [];
     }
   },
   extraReducers: (builder) => {
@@ -98,5 +102,6 @@ const suppliesSlice = createSlice({
   }
 });
 
-export const { addArticle, addArticleOut } = suppliesSlice.actions;
+export const { addArticle, addArticleOut, resetArticles } =
+  suppliesSlice.actions;
 export default suppliesSlice.reducer;

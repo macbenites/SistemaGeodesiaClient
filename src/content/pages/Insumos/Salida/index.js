@@ -19,7 +19,8 @@ import {
   fetchSuppliesCreateOut,
   addArticleOut,
   saveSuppliesOut,
-  fetchArticlesSupplies
+  fetchArticlesSupplies,
+  resetArticles
 } from 'src/redux/slices/supplies/suppliesSlice';
 
 const SalidaInsumos = () => {
@@ -69,6 +70,21 @@ const SalidaInsumos = () => {
     dispatch(fetchSuppliesCreateOut());
   }, [dispatch]);
 
+  const onReset = () => {
+    setSupplies({
+      cod_solicitador: '',
+      cod_autorizador: '',
+      cod_almacen: '',
+      cod_t_transf: '',
+      cod_t_doc: '',
+      nro_doc: '',
+      fec_doc: '',
+      cod_estado_reg: '1',
+      cod_art: [],
+      cant_art: [],
+      obs_sal: []
+    });
+  };
   const handleAddArticle = () => {
     setSupplies({
       ...supplies,
@@ -86,10 +102,11 @@ const SalidaInsumos = () => {
   };
 
   const onSubmit = () => {
-    dispatch(saveSuppliesOut(supplies));
+    dispatch(saveSuppliesOut(supplies)).then(() => {
+      onReset();
+      resetArticles();
+    });
   };
-
-  const onCancel = () => {};
 
   console.log(supplies);
   return (
@@ -339,7 +356,7 @@ const SalidaInsumos = () => {
                 fullWidth
                 color="secondary"
                 size="large"
-                onClick={onSubmit}
+                onClick={onReset}
               >
                 Cancelar
               </Button>
