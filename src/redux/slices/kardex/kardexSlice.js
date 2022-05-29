@@ -19,10 +19,13 @@ export const fetchKardexArticle = createAsyncThunk(
   }
 );
 
-export const postKardex = createAsyncThunk('postKardex', async (kardex) => {
-  const { status } = await kardexServices.postKardex(kardex);
-  return status;
-});
+export const postKardexReport = createAsyncThunk(
+  'postKardex',
+  async (kardex) => {
+    const { data } = await kardexServices.postKardex(kardex);
+    return data;
+  }
+);
 
 const kardexSlice = createSlice({
   name: 'kardex',
@@ -34,7 +37,11 @@ const kardexSlice = createSlice({
     });
     builder.addCase(fetchKardexArticle.fulfilled, (state, { payload }) => {
       state.articulo = payload.articulo;
-      alert('Articulo cargado');
+    });
+
+    builder.addCase(postKardexReport.fulfilled, (state, { payload }) => {
+      alert('Reporte generado');
+      console.log(payload);
     });
   }
 });

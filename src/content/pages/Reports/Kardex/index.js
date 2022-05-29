@@ -6,18 +6,18 @@ import {
   CardContent,
   Divider,
   TextField,
-  MenuItem
+  MenuItem,
+  Button
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import BasicModal from 'src/components/common/Modals';
 import {
   fetchKardex,
   fetchKardexArticle,
-  postKardex
+  postKardexReport
 } from 'src/redux/slices/kardex/kardexSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { useFormik } from 'formik';
-import { validationKardex } from 'src/utils/validation';
+
 const Kardex = () => {
   const dispatch = useDispatch();
   const [kardex, setKardex] = useState({
@@ -33,13 +33,25 @@ const Kardex = () => {
       [e.target.name]: e.target.value
     });
   };
+
+  const onSubmit = () => {
+    dispatch(postKardexReport(kardex)).then(() => {
+      setKardex({
+        almacen: '',
+        articulo: '',
+        fec_ini: '',
+        fec_fin: ''
+      });
+    });
+  };
+
   useEffect(() => {
     dispatch(fetchKardex());
     if (kardex.almacen !== '') {
       dispatch(fetchKardexArticle(kardex.almacen));
     }
   }, [dispatch, kardex.almacen]);
-
+  console.log(kardex);
   return (
     <>
       <Container maxWidth="lg">
@@ -56,77 +68,88 @@ const Kardex = () => {
               <CardHeader title="Registrar Articulo" />
               <Divider />
               <CardContent>
-                <form>
-                  <Grid container spacing={2}>
-                    <Grid item xs={12} md={3}>
-                      <TextField
-                        select
-                        label="Almacen"
-                        name="almacen"
-                        value={kardex.almacen}
-                        fullWidth
-                        onChange={handleChange}
-                      >
-                        {almacen.map((option) => (
-                          <MenuItem
-                            key={option.cod_almacen}
-                            value={option.cod_almacen}
-                          >
-                            {option.des_almacen}
-                          </MenuItem>
-                        ))}
-                      </TextField>
-                    </Grid>
-                    <Grid item xs={12} md={3}>
-                      <TextField
-                        id="articulo"
-                        name="articulo"
-                        select
-                        label="Articulo"
-                        value={kardex.articulo}
-                        fullWidth
-                      >
-                        {articulo.map((option) => (
-                          <MenuItem key={option.cod_art} value={option.cod_art}>
-                            {option.articulo}
-                          </MenuItem>
-                        ))}
-                      </TextField>
-                    </Grid>
-                    <Grid item xs={12} md={3}>
-                      <TextField
-                        id="fecha_ingreso"
-                        label="Fecha Inicio"
-                        fullWidth
-                        type="date"
-                        name="fec_doc"
-                        autoComplete="off"
-                        InputLabelProps={{
-                          shrink: true,
-                          required: true
-                        }}
-                        // value={supplies.fec_doc}
-                        // onChange={handleChange}
-                      />
-                    </Grid>
-                    <Grid item xs={12} md={3}>
-                      <TextField
-                        id="fecha_ingreso"
-                        label="Fecha Fin"
-                        fullWidth
-                        type="date"
-                        name="fec_doc"
-                        autoComplete="off"
-                        InputLabelProps={{
-                          shrink: true,
-                          required: true
-                        }}
-                        // value={supplies.fec_doc}
-                        // onChange={handleChange}
-                      />
-                    </Grid>
+                <Grid container spacing={2}>
+                  <Grid item xs={12} md={3}>
+                    <TextField
+                      select
+                      label="Almacen"
+                      name="almacen"
+                      value={kardex.almacen}
+                      fullWidth
+                      onChange={handleChange}
+                    >
+                      {almacen.map((option) => (
+                        <MenuItem
+                          key={option.cod_almacen}
+                          value={option.cod_almacen}
+                        >
+                          {option.des_almacen}
+                        </MenuItem>
+                      ))}
+                    </TextField>
                   </Grid>
-                </form>
+                  <Grid item xs={12} md={3}>
+                    <TextField
+                      id="articulo"
+                      name="articulo"
+                      select
+                      label="Articulo"
+                      value={kardex.articulo}
+                      onChange={handleChange}
+                      fullWidth
+                    >
+                      {articulo.map((option) => (
+                        <MenuItem key={option.cod_art} value={option.cod_art}>
+                          {option.articulo}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                  </Grid>
+                  <Grid item xs={12} md={2}>
+                    <TextField
+                      id="fec_ini"
+                      label="Fecha Inicio"
+                      fullWidth
+                      type="date"
+                      name="fec_ini"
+                      autoComplete="off"
+                      InputLabelProps={{
+                        shrink: true,
+                        required: true
+                      }}
+                      value={kardex.fec_ini}
+                      onChange={handleChange}
+                    />
+                  </Grid>
+                  <Grid item xs={12} md={2}>
+                    <TextField
+                      id="fec_fin"
+                      label="Fecha Fin"
+                      fullWidth
+                      type="date"
+                      name="fec_fin"
+                      autoComplete="off"
+                      InputLabelProps={{
+                        shrink: true,
+                        required: true
+                      }}
+                      value={kardex.fec_fin}
+                      onChange={handleChange}
+                    />
+                  </Grid>
+                  <Grid item xs={12} md={2} justifyContent={'right'}>
+                    <Button
+                      variant="contained"
+                      fullWidth
+                      color="primary"
+                      type="submit"
+                      size="large"
+                      onClick={onSubmit}
+                    >
+                      Consultar
+                    </Button>
+                  </Grid>
+                </Grid>
               </CardContent>
             </Card>
           </Grid>
