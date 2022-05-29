@@ -17,6 +17,7 @@ import {
   postKardexReport
 } from 'src/redux/slices/kardex/kardexSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import TableKardex from 'src/redux/slices/kardex/tableKardex';
 
 const Kardex = () => {
   const dispatch = useDispatch();
@@ -26,7 +27,9 @@ const Kardex = () => {
     fec_ini: '',
     fec_fin: ''
   });
-  const { almacen, articulo } = useSelector((state) => state.kardex);
+  const { almacen, articulo, kardexReport } = useSelector(
+    (state) => state.kardex
+  );
   const handleChange = (e) => {
     setKardex({
       ...kardex,
@@ -51,7 +54,7 @@ const Kardex = () => {
       dispatch(fetchKardexArticle(kardex.almacen));
     }
   }, [dispatch, kardex.almacen]);
-  console.log(kardex);
+  console.log(kardexReport);
   return (
     <>
       <Container maxWidth="lg">
@@ -151,6 +154,24 @@ const Kardex = () => {
                   </Grid>
                 </Grid>
               </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
+      </Container>
+      <Container maxWidth="lg">
+        <Grid
+          container
+          direction="row"
+          justifyContent="center"
+          alignItems="stretch"
+          spacing={2}
+          mt={2}
+        >
+          <Grid item xs={12}>
+            <Card>
+              <CardHeader title="Kardex" />
+              <Divider />
+              <TableKardex />
             </Card>
           </Grid>
         </Grid>

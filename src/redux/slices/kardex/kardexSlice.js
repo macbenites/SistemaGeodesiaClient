@@ -3,7 +3,8 @@ import { createSlice } from '@reduxjs/toolkit';
 import kardexServices from '../../../services/kardex/index';
 const initialState = {
   almacen: [],
-  articulo: []
+  articulo: [],
+  kardexReport: {}
 };
 
 export const fetchKardex = createAsyncThunk('fetchKardex', async () => {
@@ -42,6 +43,7 @@ const kardexSlice = createSlice({
     builder.addCase(postKardexReport.fulfilled, (state, { payload }) => {
       alert('Reporte generado');
       console.log(payload);
+      state.kardexReport = payload;
     });
   }
 });
