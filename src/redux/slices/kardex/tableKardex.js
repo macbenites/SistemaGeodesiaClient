@@ -1,12 +1,4 @@
 import {
-  Tooltip,
-  Divider,
-  Box,
-  FormControl,
-  InputLabel,
-  Card,
-  Checkbox,
-  IconButton,
   Grid,
   Table,
   TableBody,
@@ -15,22 +7,50 @@ import {
   TablePagination,
   TableRow,
   TableContainer,
-  Select,
-  MenuItem,
   Typography,
   useTheme,
-  CardHeader
+  Card,
+  Button
 } from '@mui/material';
-import Label from 'src/components/Label';
-import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
-import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 
 import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 const TableKardex = () => {
   const theme = useTheme();
   const { kardexReport } = useSelector((state) => state.kardex);
+  const doc = new jsPDF();
+  doc.autoTable({ html: '#my-table' });
+
+  let cant =
+    kardexReport.cant_ini?.length > 0
+      ? parseInt(kardexReport?.cant_ini[0].cant_ini)
+      : 0;
+  let valorN =
+    kardexReport.val_net_ini?.length > 0
+      ? parseInt(kardexReport?.val_net_ini[0].total)
+      : 0;
+
+  const sumColumn = (key, value) => {
+    let total = 0;
+    kardexReport[key]?.map((item) => {
+      if (item[value].length > 0) {
+        total += parseFloat(item[value]);
+      }
+    });
+    return total.toFixed(2);
+  };
+
+  const sumColumnCant = (key, value) => {
+    let total = 0;
+    kardexReport[key]?.map((item) => {
+      if (item[value].length > 0) {
+        total += parseInt(item[value]);
+      }
+    });
+    return total;
+  };
 
   return (
     <Grid
@@ -40,13 +60,28 @@ const TableKardex = () => {
       alignItems="stretch"
       mt={2}
     >
+      <Grid container direction="row" alignItems="stretch" m={2}>
+        <Grid item xs={12} md={3}>
+          <Button
+            variant="contained"
+            color="primary"
+            type="submit"
+            size="large"
+            onClick={() => {
+              doc.save('kardex.pdf');
+            }}
+          >
+            Exportar PDF
+          </Button>
+        </Grid>
+      </Grid>
       <TableContainer>
-        <Table>
+        <Table id="my-table">
           <TableHead>
             <TableRow>
               <TableCell>Articulo</TableCell>
               <TableCell>Movimiento</TableCell>
-              <TableCell>Feha</TableCell>
+              <TableCell>Fecha</TableCell>
               <TableCell>C. Ing</TableCell>
               <TableCell>P. Ing</TableCell>
               <TableCell>Val Ing</TableCell>
@@ -58,6 +93,19 @@ const TableKardex = () => {
             </TableRow>
           </TableHead>
           <TableBody>
+            <TableRow>
+              <TableCell colSpan={9}></TableCell>
+              <TableCell>
+                {kardexReport.cant_ini?.length > 0
+                  ? kardexReport?.cant_ini[0].cant_ini
+                  : ' '}
+              </TableCell>
+              <TableCell>
+                {kardexReport.val_net_ini?.length > 0
+                  ? kardexReport?.val_net_ini[0].total
+                  : ''}
+              </TableCell>
+            </TableRow>
             {kardexReport.Kardex?.map((cryptoOrder, index) => {
               return (
                 <TableRow hover key={index}>
@@ -160,9 +208,42 @@ const TableKardex = () => {
                       {cryptoOrder.VAL_SAL}
                     </Typography>
                   </TableCell>
+                  <TableCell>
+                    <Typography
+                      variant="body1"
+                      fontWeight="bold"
+                      color="text.primary"
+                      gutterBottom
+                      noWrap
+                    >
+                      {(cant += cryptoOrder.CANT_ING - cryptoOrder.CANT_SAL)}
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography
+                      variant="body1"
+                      fontWeight="bold"
+                      color="text.primary"
+                      gutterBottom
+                      noWrap
+                    >
+                      {(valorN += cryptoOrder.VAL_ING - cryptoOrder.VAL_SAL)}
+                    </Typography>
+                  </TableCell>
                 </TableRow>
               );
             })}
+            <TableRow>
+              <TableCell colSpan={3}></TableCell>
+              <TableCell>{sumColumnCant('Kardex', 'CANT_ING')}</TableCell>
+              <TableCell>{sumColumn('Kardex', 'PREC_ING')}</TableCell>
+              <TableCell>{sumColumn('Kardex', 'VAL_ING')}</TableCell>
+              <TableCell>{sumColumnCant('Kardex', 'CANT_SAL')}</TableCell>
+              <TableCell>{sumColumn('Kardex', 'PREC_SAL')}</TableCell>
+              <TableCell>{sumColumn('Kardex', 'VAL_SAL')}</TableCell>
+              <TableCell>{cant}</TableCell>
+              <TableCell>{valorN}</TableCell>
+            </TableRow>
           </TableBody>
         </Table>
       </TableContainer>
