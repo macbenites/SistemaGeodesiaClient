@@ -44,7 +44,7 @@ function Header() {
         </Hidden> */}
       </Box>
       <Box display="flex" alignItems="center">
-        {/* <HeaderButtons />
+        <HeaderButtons />
         <HeaderUserbox />
         <Hidden lgUp>
           <Tooltip arrow title="Toggle Menu">
@@ -52,7 +52,7 @@ function Header() {
               {!sidebarToggle ? <MenuTwoToneIcon /> : <CloseTwoToneIcon />}
             </IconButton>
           </Tooltip>
-        </Hidden> */}
+        </Hidden>
       </Box>
     </HeaderWrapper>
   );
