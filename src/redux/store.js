@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import articleReducer from './slices/articles/articleSlice';
 import suppliesReducer from './slices/supplies/suppliesSlice';
 import kardexReducer from './slices/kardex/kardexSlice';
+import InventarioReducer from './slices/Inventario/InventarioSlice';
 import configReducer from './slices/config/configSlice';
 import providerReducer from './slices/providers/providerSlice'; //proveedor
 import { getDefaultMiddleware } from '@reduxjs/toolkit';
@@ -13,6 +14,7 @@ export const store = configureStore({
     supplies: suppliesReducer,
     config: configReducer,
     kardex: kardexReducer,
+    Inventario: InventarioReducer,
     provider: providerReducer
   },
   middleware: getDefaultMiddleware({
