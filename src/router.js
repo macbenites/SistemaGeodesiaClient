@@ -27,7 +27,7 @@ const Ingreso = Loader(
 
 //Insumos
 const IngresoInsumos = Loader(
-  lazy(() => import('src/content/pages/Insumos/Ingreso'))
+  lazy(() => import('src/content/pages/Insumos/Ingreso/ingresoTest'))
 );
 
 const SalidaInsumos = Loader(

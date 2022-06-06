@@ -12,7 +12,23 @@ const initialState = {
 };
 
 export const saveSupplies = createAsyncThunk('saveSupplie', async (supplie) => {
-  const { status } = await suppliesServices.create(supplie);
+  const postSupplie = {
+    cod_prov,
+    cod_almacen: supplie.cod_almacen,
+    cod_trabajador: supplie.cod_trabajador,
+    cod_t_transf: supplie.cod_t_transf,
+    cod_t_doc: supplie.cod_t_doc,
+    nro_doc: supplie.nro_doc,
+    fec_doc: supplie.fec_doc,
+    cod_estado_reg: supplie.cod_estado_reg,
+    tot_pagar: supplie.tot_pagar,
+    cod_art: supplie.articles.map((article) => article.cod_art),
+    prec_unit: supplie.articles.map((article) => article.prec_unit),
+    cant_art: supplie.articles.map((article) => article.cant_art),
+    prec_compr: supplie.articles.map((article) => article.prec_compr),
+    obs_ing: supplie.articles.map((article) => article.obs_ing)
+  };
+  const { status } = await suppliesServices.create(postSupplie);
   return status;
 });
 
