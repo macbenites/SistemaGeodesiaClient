@@ -13,7 +13,7 @@ const initialState = {
 
 export const saveSupplies = createAsyncThunk('saveSupplie', async (supplie) => {
   const postSupplie = {
-    cod_prov,
+    cod_prov: supplie.cod_prov,
     cod_almacen: supplie.cod_almacen,
     cod_trabajador: supplie.cod_trabajador,
     cod_t_transf: supplie.cod_t_transf,
@@ -28,6 +28,7 @@ export const saveSupplies = createAsyncThunk('saveSupplie', async (supplie) => {
     prec_compr: supplie.articles.map((article) => article.prec_compr),
     obs_ing: supplie.articles.map((article) => article.obs_ing)
   };
+  console.log(postSupplie);
   const { status } = await suppliesServices.create(postSupplie);
   return status;
 });
@@ -91,15 +92,13 @@ const suppliesSlice = createSlice({
     });
 
     builder.addCase(saveSupplies.pending, (state, action) => {
-      state.created = 'loading';
+      state.created = 'Cargando';
     });
     builder.addCase(saveSupplies.fulfilled, (state, { payload }) => {
       state.created = 'Ingreso creado satisfactoriamente';
-      alert('Ingreso creado satisfactoriamente');
     });
     builder.addCase(saveSupplies.rejected, (state, { payload }) => {
       state.created = 'Error al crear ingreso';
-      alert('Error al crear ingreso');
     });
     builder.addCase(fetchArticlesSupplies.fulfilled, (state, { payload }) => {
       state.articlesSupplies = payload;

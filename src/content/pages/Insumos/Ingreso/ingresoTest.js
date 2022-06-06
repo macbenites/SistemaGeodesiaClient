@@ -5,22 +5,22 @@ import {
   CardHeader,
   Divider,
   CardContent,
-  Box,
   Typography,
   TextField,
   CircularProgress,
   MenuItem,
-  Button
+  Button,
+  List
 } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { FieldArray, useFormik, Form, Field, Formik } from 'formik';
+import { FieldArray, Form, Field, Formik } from 'formik';
 import {
   fetchSuppliesCreate,
-  addArticle,
   saveSupplies
 } from 'src/redux/slices/supplies/suppliesSlice';
 import { validationSupplies } from 'src/utils/validation';
+import BasicModal from 'src/components/common/Modals';
 
 const emptyArticles = {
   cod_art: '',
@@ -32,18 +32,16 @@ const emptyArticles = {
 
 const IngresoTest = () => {
   const dispatch = useDispatch();
-  const { selectedSupply } = useSelector((state) => state.supplies);
+  const [modal, setModal] = useState(false);
+  const { selectedSupply, created } = useSelector((state) => state.supplies);
 
   useEffect(() => {
     dispatch(fetchSuppliesCreate());
   }, [dispatch]);
 
-  const onSubmit = () => {
-    dispatch(saveSupplies(supplies));
-  };
-
   return (
     <>
+      <BasicModal modal={modal} setModal={setModal} message={created} />
       <Container maxWidth="lg">
         <Grid
           container
@@ -73,16 +71,17 @@ const IngresoTest = () => {
                     articles: [emptyArticles]
                   }}
                   validationSchema={validationSupplies}
-                  onSubmit={async (values) => {
-                    console.log('my values', values);
-                    dispatch(saveSupplies(values));
+                  onSubmit={async (values, { resetForm }) => {
+                    dispatch(saveSupplies(values)).then(() => {
+                      setModal(true);
+                      resetForm();
+                    });
                   }}
                 >
                   {({
                     values,
                     errors,
                     isSubmitting,
-                    isValid,
                     handleChange,
                     touched
                   }) => (
@@ -237,8 +236,8 @@ const IngresoTest = () => {
                             }}
                             value={values.fec_doc}
                             onChange={handleChange}
-                            error={touched.fec_doc && Boolean(errors.fec_doc)}
                             helperText={errors.fec_doc}
+                            error={touched.fec_doc && Boolean(errors.fec_doc)}
                           />
                         </Grid>
                         <Grid item xs={12} md={8}>
@@ -262,9 +261,7 @@ const IngresoTest = () => {
                                 justifyContent="center"
                                 alignItems="center"
                               >
-                                <Typography variant="body1">
-                                  Articulos
-                                </Typography>
+                                <Typography variant="h4">Articulos</Typography>
                               </Grid>
                               <Grid
                                 item
@@ -278,20 +275,20 @@ const IngresoTest = () => {
                                 <Button
                                   disabled={isSubmitting}
                                   variant="contained"
+                                  size="large"
                                   onClick={() => push(emptyArticles)}
                                 >
                                   Agregar Articulo
                                 </Button>
                               </Grid>
-
                               {values.articles.map((_, index) => (
                                 <Grid container item key={index} spacing={2}>
                                   <Grid item container spacing={2} xs={12}>
                                     <Grid item xs={12} md={3}>
                                       <TextField
                                         select
-                                        id="cod_art"
                                         label="Articulo"
+                                        value={values.articles[index].cod_art}
                                         name={`articles.${index}.cod_art`}
                                         onChange={handleChange}
                                         fullWidth
@@ -313,6 +310,7 @@ const IngresoTest = () => {
                                         type="search"
                                         label="Glosa"
                                         fullWidth
+                                        value={values.articles[index].obs_ing}
                                         name={`articles.${index}.obs_ing`}
                                         onChange={handleChange}
                                       />
@@ -320,6 +318,7 @@ const IngresoTest = () => {
                                     <Grid item xs={12} md={2}>
                                       <TextField
                                         type="number"
+                                        value={values.articles[index].prec_unit}
                                         name={`articles.${index}.prec_unit`}
                                         label="Precio"
                                         fullWidth
@@ -329,6 +328,7 @@ const IngresoTest = () => {
                                     <Grid item xs={12} md={1}>
                                       <TextField
                                         type="number"
+                                        value={values.articles[index].cant_art}
                                         name={`articles.${index}.cant_art`}
                                         label="Cantidad"
                                         fullWidth
@@ -339,6 +339,9 @@ const IngresoTest = () => {
                                       <TextField
                                         type="number"
                                         id="prec_compr"
+                                        value={
+                                          values.articles[index].prec_compr
+                                        }
                                         label="Precio Compra"
                                         fullWidth
                                         name={`articles.${index}.prec_compr`}
@@ -361,32 +364,54 @@ const IngresoTest = () => {
                                   </Grid>
                                 </Grid>
                               ))}
-
-                              <Grid item>
-                                {typeof errors.articles === 'string' ? (
+                              <Grid item xs={12} md={12}>
+                                {errors?.articles?.length > 0 ? (
                                   <Typography color="error">
-                                    {errors.articles}
+                                    {errors?.articles?.map((error, index) => (
+                                      <List key={index}>
+                                        {error !== null && (
+                                          <>
+                                            {error?.cant_art && (
+                                              <li>
+                                                {`Articulo ${index + 1} : `}{' '}
+                                                {error.cant_art}
+                                              </li>
+                                            )}
+                                            {error?.cod_art && (
+                                              <li>
+                                                {`Articulo ${index + 1} : `}{' '}
+                                                {error.cod_art}
+                                              </li>
+                                            )}
+                                            {error?.prec_unit && (
+                                              <li>
+                                                {`Articulo ${index + 1} : `}{' '}
+                                                {error.prec_unit}
+                                              </li>
+                                            )}
+                                            {error?.prec_compr && (
+                                              <li>
+                                                {`Articulo ${index + 1} : `}{' '}
+                                                {error.prec_compr}
+                                              </li>
+                                            )}
+                                            {error?.obs_ing && (
+                                              <li>
+                                                {`Articulo ${index + 1} : `}{' '}
+                                                {error.obs_ing}
+                                              </li>
+                                            )}
+                                          </>
+                                        )}
+                                      </List>
+                                    ))}
                                   </Typography>
                                 ) : null}
                               </Grid>
                             </>
                           )}
                         </FieldArray>
-
-                        <Grid item>
-                          {/* <Field
-                              name="termsAndConditions"
-                              type="checkbox"
-                              component={CheckboxWithLabel}
-                              Label={{
-                                label: 'I accept the terms and conditions',
-                                className: errors.termsAndConditions
-                                  ? classes.errorColor
-                                  : undefined
-                              }}
-                            /> */}
-                        </Grid>
-
+                        {/* <pre>{JSON.stringify({ values, errors }, null, 4)}</pre> */}
                         <Grid item xs={12} md={12}>
                           <Button
                             disabled={isSubmitting}
@@ -404,8 +429,6 @@ const IngresoTest = () => {
                           </Button>
                         </Grid>
                       </Grid>
-
-                      <pre>{JSON.stringify({ values, errors }, null, 4)}</pre>
                     </Form>
                   )}
                 </Formik>
