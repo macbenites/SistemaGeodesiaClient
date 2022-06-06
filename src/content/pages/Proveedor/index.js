@@ -36,12 +36,13 @@ import {
   fetchProviderDistrict,
   fetchProviders
 } from 'src/redux/slices/providers/providerSlice';
+import BasicModal from 'src/components/common/Modals';
 
-//import TableTelephone from './tableTelephone';
+import TableTelephone from './tableTelephone';
 
 const Proveedor = () => {
   const [modal, setModal] = useState(false);
-  const {providersCreate,provincia,distrito} = useSelector((state) => state.provider);
+  const {providersCreate,provincia,distrito,created} = useSelector((state) => state.provider);
   const dispatch = useDispatch();
   const [provider, setProvider] = useState({
     cod_t_per:'',
@@ -51,7 +52,7 @@ const Proveedor = () => {
     correo_per:'',
     cod_dist:'',
     dir_per:'',
-    estado_prov:'',
+    estado_prov:1,
     nro_telf: []
   });
 
@@ -81,9 +82,9 @@ const Proveedor = () => {
   console.log(provider);
 
   const handleAddTelephone = () => {
-    setProviders({
-      ...providers,
-      nro_telf: [...providers.nro_telf, telephones.nro_telf]
+    setProvider({
+      ...provider,
+      nro_telf: [...provider.nro_telf, telephones.nro_telf]
     });
     dispatch(addTelephone(telephones));
     setTelephones({
@@ -92,11 +93,13 @@ const Proveedor = () => {
   };
 
   const onSubmit = () => {
-    dispatch(saveSupplies(providers));
+    dispatch(saveProvider(provider));
+    setModal(true);
   };
 
   return (
     <>
+     <BasicModal modal={modal} setModal={setModal} message={created} />
       <Container maxWidth="lg">
         <Grid
           container
@@ -247,14 +250,26 @@ const Proveedor = () => {
                       ))}
                     </TextField>
                   </Grid>
+                  <Grid item xs={12} md={4}>
+                    <TextField
+                      id="dir_per"
+                      label="Direccion"
+                      fullWidth
+                      type="search"
+                      name="dir_per"
+                      autoComplete="off"
+                      value={provider.dir_per}
+                      onChange={handleChange}
+                    />
+                  </Grid>
                   <Grid item xs={12} md={3}>
                     <TextField
-                      id="cod_estado"
+                      id="estado"
                       label="Estado"
                       value="Activo"
                       fullWidth
                       type="search"
-                      name="cod_estado"
+                      name="estado"
                       autoComplete="off"
                     />
                   </Grid>
@@ -266,7 +281,6 @@ const Proveedor = () => {
                 <Grid container spacing={2}>
                   <Grid item xs={12} md={3}>
                     <TextField
-                      select
                       id="nro_telf"
                       label="Telefono"
                       fullWidth
@@ -303,7 +317,7 @@ const Proveedor = () => {
         <Card>
           <CardHeader title="Telefonos" />
           <Divider />
-          {/* <TableTelephone /> */}
+          <TableTelephone /> 
           <Grid container spacing={2} mt={4}>
             <Grid item xs={12} md={3}>
               <Button
@@ -329,6 +343,7 @@ const Proveedor = () => {
             </Grid>
           </Grid>
         </Card>
+        <BasicModal />
       </Container>
     </>
   );

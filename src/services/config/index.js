@@ -13,7 +13,10 @@ const configServices = {
   },
   createTransferencia: (transferencia) => {
     return axios.post(`${process.env.REACT_APP_API_URL}tipoTransferencia`, transferencia);
-  }
+  },
+  createDocumento: (documento) => {//
+    return axios.post(`${process.env.REACT_APP_API_URL}tipoDocumentoRegistro`, documento);//
+  }//
 };
 
 export default configServices;
