@@ -33,7 +33,7 @@ const IngresoInsumos = () => {
     nro_doc: '',
     fec_doc: '',
     cod_estado_reg: '1',
-    tot_pagar: '21.00',
+    tot_pagar: '100.00',
     cod_art: [],
     prec_unit: [],
     cant_art: [],
