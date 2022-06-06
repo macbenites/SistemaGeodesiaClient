@@ -6,7 +6,8 @@ const initialState = {
   createdCategory: null,
   createdUnit: null,
   createdPresentation: null,
-  createdTransferencia: null
+  createdTransferencia: null,
+  createdDocumento:null
 };
 
 export const saveCategory = createAsyncThunk(
@@ -77,6 +78,12 @@ const configSlice = createSlice({
     });
     builder.addCase(saveTransferencia.rejected, (state, { payload }) => {
       state.createdTransferencia = 'No se pudo hacer la transferencia';
+    });
+    builder.addCase(saveDocumento.fulfilled, (state, { payload }) => {
+      state.createdDocumento = 'Tipo de documento creado satisfactoriamente';
+    });
+    builder.addCase(saveDocumento.rejected, (state, { payload }) => {
+      state.createdDocumento = 'No se pudo registrar el tipo de documento';
     });
   }
 });
