@@ -42,6 +42,12 @@ export const validationTransferencia = yup.object().shape({
     .required('El nombre de la transferencia es requerido')
 });
 
+export const validationDocumento = yup.object().shape({
+  des_t_doc: yup
+    .string('Ingrese la descripción del documento')
+    .required('El nombre del documento es requerido')
+});
+
 export const validationKardex = yup.object().shape({
   fec_ini: yup
     .string('Ingrese la fecha de inicio')
