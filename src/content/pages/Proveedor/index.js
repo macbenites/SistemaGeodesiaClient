@@ -41,7 +41,7 @@ import BasicModal from 'src/components/common/Modals';
 import TableTelephone from './tableTelephone';
 
 const Proveedor = () => {
-  const [modal, setModal] = useState(false);
+
   const {providersCreate,provincia,distrito,created} = useSelector((state) => state.provider);
   const dispatch = useDispatch();
   const [provider, setProvider] = useState({
