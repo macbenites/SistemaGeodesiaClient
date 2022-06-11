@@ -79,7 +79,7 @@ const FormUnit = () => {
                       <TextField
                         id="prefijo_unid_med"
                         name="prefijo_unid_med"
-                        label="Descripción de unidad de medida"
+                        label="Descripción corta de unidad de medida"
                         value={formik.values.prefijo_unid_med}
                         type="search"
                         autoComplete="off"

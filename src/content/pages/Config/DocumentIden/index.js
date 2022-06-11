@@ -72,7 +72,6 @@ const FormDocumento = () => {
                           formik.errors.tipo_reg_doc && formik.errors.tipo_reg_doc
                         }
                       >
-                        
                           <MenuItem key="Ingreso" value="Ingreso" >
                             Ingreso
                           </MenuItem>

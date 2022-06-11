@@ -31,8 +31,7 @@ const TableTelephone = () => {
         <Table>
           <TableHead>
             <TableRow>
-              {/* <TableCell>Codigo</TableCell> */}
-              <TableCell>Telefono</TableCell>
+              <TableCell>Telefonos</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
