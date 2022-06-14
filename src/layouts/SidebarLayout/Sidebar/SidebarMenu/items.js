@@ -56,7 +56,7 @@ const menuItems = [
         icon: Inventory2TwoToneIcon
       },
       {
-        name: 'Catergoria',
+        name: 'Categoria',
         link: '/config/categoria',
         icon: Inventory2TwoToneIcon
       },
@@ -66,7 +66,7 @@ const menuItems = [
         icon: Inventory2TwoToneIcon
       },
       {
-        name: 'Documento de Identidad',
+        name: 'Tipo de documento',
         link: '/config/docidentidad',
         icon: Inventory2TwoToneIcon
       }
@@ -76,7 +76,7 @@ const menuItems = [
     heading: 'Insumos',
     items: [
       {
-        name: 'Registro de Insumos',
+        name: 'Ingreso de Insumos',
         link: '/insumos/ingreso',
         icon: Inventory2TwoToneIcon
       },

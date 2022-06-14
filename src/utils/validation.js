@@ -2,13 +2,13 @@ import * as yup from 'yup';
 import { array, boolean, number, object, string, ValidationError } from 'yup';
 
 export const validationArticle = yup.object().shape({
-  cod_art: yup.string().required('El código es requerido'),
+  cod_art: yup.string().required('El codigo del articulo es requerido'),
   des_art: yup
     .string('Ingrese la descripción')
     .required('El nombre del articulo es requerido'),
   cod_cat: yup
     .string('Ingrese categoría')
-    .required('El codigo del articulo es requerido'),
+    .required('La categoria es requerida'),
   cod_pres: yup
     .string('Ingrese presentación')
     .required('La presentacion es requerida'),
@@ -25,28 +25,30 @@ export const validationCategory = yup.object().shape({
 export const validationUnit = yup.object().shape({
   des_unid_med: yup
     .string('Ingrese la descripción de  unidad de medida ')
-    .required('El nombre de la categoria es requerido'),
+    .required('El nombre largo de la unidad de medida es requerido'),
   prefijo_unid_med: yup
     .string('Ingrese la unidad de medida ')
-    .required('El nombre de la categoria es requerido')
+    .required('El nombre corto de la unidad de medida es requerido')
 });
 
 export const validationPresentacion = yup.object().shape({
   des_pres: yup
-    .string('Ingrese la descripción de Presentacion')
-    .required('El nombre de la presentacion es requerido')
+    .string('Ingrese la descripción de Presentación')
+    .required('El nombre de la presentación es requerido')
 });
 
 export const validationTransferencia = yup.object().shape({
   des_transf: yup
     .string('Ingrese la descripción de tranferencia')
-    .required('El nombre de la transferencia es requerido')
+    .required('El nombre del tipo de transferencia es requerido')
 });
 
 export const validationDocumento = yup.object().shape({
+  // tipo_reg_doc: yup
+  //   .required('El tipo de movimiento es requerido'),
   des_t_doc: yup
     .string('Ingrese la descripción del documento')
-    .required('El nombre del documento es requerido')
+    .required('El nombre del tipo de documento es requerido')
 });
 
 export const validationKardex = yup.object().shape({
@@ -98,8 +100,8 @@ export const validationSupplies = yup.object().shape({
         .required('La observacion del articulo es requerida')
         .min(3, 'La observacion del articulo debe tener minimo 3 caracteres')
         .max(
-          10,
-          '  La observacion del articulo debe tener maximo 10 caracteres'
+          255,
+          '  La observacion del articulo debe tener maximo 255 caracteres'
         )
     })
   )

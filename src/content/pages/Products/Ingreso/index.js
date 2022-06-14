@@ -193,7 +193,7 @@ const Ingreso = () => {
                       <TextField
                         id="image"
                         name="imagen_art"
-                        label="Imagen url"
+                        label="Dirección URL de la imagen"
                         type="search"
                         fullWidth
                         autoComplete="off"

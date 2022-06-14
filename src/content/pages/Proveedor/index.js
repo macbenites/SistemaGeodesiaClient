@@ -41,7 +41,7 @@ import BasicModal from 'src/components/common/Modals';
 import TableTelephone from './tableTelephone';
 
 const Proveedor = () => {
-
+  const [modal, setModal] = useState(false);
   const {providersCreate,provincia,distrito,created} = useSelector((state) => state.provider);
   const dispatch = useDispatch();
   const [provider, setProvider] = useState({
@@ -279,7 +279,7 @@ const Proveedor = () => {
               {/* Articulos */}
               <CardContent>
                 <Grid container spacing={2}>
-                  <Grid item xs={12} md={3}>
+                  <Grid item xs={12} md={2}>
                     <TextField
                       id="nro_telf"
                       label="Telefono"
@@ -295,7 +295,7 @@ const Proveedor = () => {
                       ))}
                     </TextField>
                   </Grid>
-                  <Grid item xs={12} md={3}>
+                  <Grid item xs={12} md={2}>
                     <Button
                       variant="contained"
                       fullWidth
@@ -313,12 +313,13 @@ const Proveedor = () => {
           </Grid>
         </Grid>
       </Container>
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" >
+      {/* maxWidth="lg" */}
         <Card>
-          <CardHeader title="Telefonos" />
+          {/* <CardHeader title="Telefonos" /> */}
           <Divider />
           <TableTelephone /> 
-          <Grid container spacing={2} mt={4}>
+          <Grid container justifyContent="center" spacing={2} mt={4}>
             <Grid item xs={12} md={3}>
               <Button
                 variant="contained"
