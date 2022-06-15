@@ -124,3 +124,11 @@ export const validationSupplies = yup.object().shape({
   //   return true;
   // })
 });
+
+export const validationLogin = yup.object().shape({
+  usuario: yup.string('Ingrese el usuario').required('El usuario es requerido'),
+  contraseña: yup
+    .string('Ingrese la contraseña')
+    .required('La contraseña es requerida')
+    .min(6, 'La contraseña debe tener minimo 6 caracteres')
+});

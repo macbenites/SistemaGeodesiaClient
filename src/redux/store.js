@@ -7,7 +7,7 @@ import configReducer from './slices/config/configSlice';
 import providerReducer from './slices/providers/providerSlice'; //proveedor
 import { getDefaultMiddleware } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
-
+import authReducer from './slices/auth/authSlice';
 export const store = configureStore({
   reducer: {
     articles: articleReducer,
@@ -15,7 +15,8 @@ export const store = configureStore({
     config: configReducer,
     kardex: kardexReducer,
     Inventario: InventarioReducer,
-    provider: providerReducer
+    provider: providerReducer,
+    auth: authReducer
   },
   middleware: getDefaultMiddleware({
     serializableCheck: false
