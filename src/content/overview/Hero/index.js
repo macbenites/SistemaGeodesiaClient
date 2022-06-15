@@ -1,140 +1,159 @@
+import { useEffect, useState } from 'react';
 import {
   Box,
   Button,
-  Container,
   Grid,
-  Typography
+  Typography,
+  TextField,
+  InputAdornment,
+  IconButton,
+  InputLabel,
+  OutlinedInput,
+  FormControl,
+  FormHelperText
 } from '@mui/material';
+import { useFormik } from 'formik';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { validationLogin } from '../../../utils/validation';
+import { authLogin } from 'src/redux/slices/auth/authSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import BasicModal from 'src/components/common/Modals/index';
+import { useNavigate } from 'react-router';
 
-import { Link as RouterLink } from 'react-router-dom';
+const Hero = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [modal, setModal] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const { status, user, isLoggedIn } = useSelector((state) => state.auth);
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
 
-import { styled } from '@mui/material/styles';
-
-const TypographyH1 = styled(Typography)(
-  ({ theme }) => `
-    font-size: ${theme.typography.pxToRem(50)};
-`
-);
-
-const TypographyH2 = styled(Typography)(
-  ({ theme }) => `
-    font-size: ${theme.typography.pxToRem(17)};
-`
-);
-
-const LabelWrapper = styled(Box)(
-  ({ theme }) => `
-    background-color: ${theme.colors.success.main};
-    color: ${theme.palette.success.contrastText};
-    font-weight: bold;
-    border-radius: 30px;
-    text-transform: uppercase;
-    display: inline-block;
-    font-size: ${theme.typography.pxToRem(11)};
-    padding: ${theme.spacing(.5)} ${theme.spacing(1.5)};
-    margin-bottom: ${theme.spacing(2)};
-`
-);
-
-const MuiAvatar = styled(Box)(
-  ({ theme }) => `
-    width: ${theme.spacing(8)};
-    height: ${theme.spacing(8)};
-    border-radius: ${theme.general.borderRadius};
-    background-color: #e5f7ff;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto ${theme.spacing(2)};
-
-    img {
-      width: 60%;
-      height: 60%;
-      display: block;
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+  const formik = useFormik({
+    initialValues: {
+      usuario: '',
+      contraseña: ''
+    },
+    validationSchema: validationLogin,
+    onSubmit: (values, { resetForm }) => {
+      dispatch(authLogin(values));
     }
-`
-);
+  });
 
-const JsAvatar = styled(Box)(
-  ({ theme }) => `
-    width: ${theme.spacing(8)};
-    height: ${theme.spacing(8)};
-    border-radius: ${theme.general.borderRadius};
-    background-color: #fef8d8;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto ${theme.spacing(2)};
-
-    img {
-      width: 60%;
-      height: 60%;
-      display: block;
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate('/dashboards/crypto');
     }
-`
-);
-
-function Hero() {
+  }, [isLoggedIn]);
 
   return (
-    <Container maxWidth="lg" sx={{ textAlign: 'center' }}>
-      <Grid spacing={{ xs: 6, md: 10 }} justifyContent="center" alignItems="center" container>
-        <Grid item md={10} lg={8} mx="auto">
-          <LabelWrapper color="success">Version 1.1.0</LabelWrapper>
-          <TypographyH1 sx={{ mb: 2 }} variant="h1">
-            Tokyo Free White React Javascript Admin Dashboard
-          </TypographyH1>
-          <TypographyH2
-            sx={{ lineHeight: 1.5, pb: 4 }}
-            variant="h4"
-            color="text.secondary"
-            fontWeight="normal"
+    <>
+      <BasicModal modal={modal} setModal={setModal} message={status} />
+      <Grid container spacing={2}>
+        <Grid
+          item
+          xs={12}
+          container
+          alignItems="center"
+          justifyContent="center"
+        >
+          <Box sx={{ mb: 2 }}>
+            <Typography variant="h3">Hola, Bienvenido de vuelta </Typography>
+          </Box>
+        </Grid>
+        <Grid item xs={12} md={12}>
+          <FormControl
+            fullWidth
+            error={Boolean(formik.touched.usuario && formik.errors.usuario)}
           >
-            High performance React template built with lots of powerful Material-UI components across multiple product niches for fast & perfect apps development processes
-          </TypographyH2>
+            <InputLabel htmlFor="outlined-adornment-email-login">
+              Usuario
+            </InputLabel>
+            <OutlinedInput
+              id="outlined-adornment-email-login"
+              type="email"
+              value={formik.values.usuario}
+              name="usuario"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              label="Usuario"
+              autoComplete="off"
+              inputProps={{}}
+            />
+            {formik.touched.usuario && formik.errors.usuario && (
+              <FormHelperText
+                error
+                id="standard-weight-helper-text-email-login"
+              >
+                {formik.errors.usuario}
+              </FormHelperText>
+            )}
+          </FormControl>
+        </Grid>
+        <Grid item xs={12} md={12}>
+          <FormControl
+            fullWidth
+            error={Boolean(
+              formik.touched.contraseña && formik.errors.contraseña
+            )}
+          >
+            <InputLabel htmlFor="outlined-adornment-password-login">
+              Contraseña
+            </InputLabel>
+            <OutlinedInput
+              id="outlined-adornment-password-login"
+              type={showPassword ? 'text' : 'password'}
+              value={formik.values.contraseña}
+              name="contraseña"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              autoComplete="off"
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                    size="large"
+                  >
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              }
+              label="Password"
+              inputProps={{}}
+            />
+            {formik.touched.contraseña && formik.errors.contraseña && (
+              <FormHelperText
+                error
+                id="standard-weight-helper-text-password-login"
+              >
+                {formik.errors.contraseña}
+              </FormHelperText>
+            )}
+          </FormControl>
+        </Grid>
+        <Grid item xs={12} md={12}>
           <Button
-            component={RouterLink}
-            to="/dashboards/crypto"
-            size="large"
             variant="contained"
-          >
-            Browse Live Preview
-          </Button>
-          <Button
-            sx={{ ml: 2 }}
-            component="a"
-            target="_blank"
-            rel="noopener"
-            href="https://bloomui.com/product/tokyo-free-white-react-javascript-material-ui-admin-dashboard"
+            color="primary"
+            type="submit"
+            fullWidth
+            onClick={formik.handleSubmit}
             size="large"
-            variant="text"
           >
-            Key Features
+            Ingresar
           </Button>
-          <Grid container spacing={3} mt={5}>
-            <Grid item md={6}>
-              <MuiAvatar>
-                <img src="/static/images/logo/material-ui.svg" alt="Material-UI" />
-              </MuiAvatar>
-              <Typography variant="h4">
-                <Box sx={{ pb: 2 }}><b>Powered by Material-UI</b></Box><Typography component="span" variant="subtitle2"> - A simple and customizable component library to build faster, beautiful, andaccessible React apps.</Typography>
-              </Typography>
-            </Grid>
-            <Grid item md={6}>
-              <JsAvatar>
-                <img src="/static/images/logo/javascript.svg" alt="javascript" />
-              </JsAvatar>
-              <Typography variant="h4">
-                <Box sx={{ pb: 2 }}><b>Built with Javascript</b></Box><Typography component="span" variant="subtitle2"> - Tokyo Free React Admin Dashboard features a modern technology stack and is built with React + Javascript.</Typography>
-              </Typography>
-            </Grid>
-          </Grid>
         </Grid>
       </Grid>
-    </Container>
+    </>
   );
-}
+};
 
 export default Hero;

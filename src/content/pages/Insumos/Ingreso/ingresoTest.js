@@ -83,7 +83,8 @@ const IngresoTest = () => {
                     errors,
                     isSubmitting,
                     handleChange,
-                    touched
+                    touched,
+                    setFieldValue
                   }) => (
                     <Form autoComplete="off">
                       <Grid container spacing={2}>
@@ -345,7 +346,15 @@ const IngresoTest = () => {
                                         label="Precio Compra"
                                         fullWidth
                                         name={`articles.${index}.prec_compr`}
-                                        onChange={handleChange}
+                                        // onChange={(event) => {
+                                        //   const precio =
+                                        //     event.target.value *
+                                        //     values.articles[index].cant_art;
+                                        //   setFieldValue(
+                                        //     `articles.${index}.prec_compr`,
+                                        //     precio
+                                        //   );
+                                        // }}
                                       />
                                     </Grid>
 

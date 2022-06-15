@@ -15,17 +15,16 @@ const OverviewWrapper = styled(Box)(
 );
 
 function Overview() {
-
   return (
     <OverviewWrapper>
       <Helmet>
-        <title>Tokyo Free White React Javascript Admin Dashboard</title>
+        <title>Login</title>
       </Helmet>
-      <Container maxWidth="lg">
+      <Container maxWidth="sm">
         <Box display="flex" justifyContent="center" py={5} alignItems="center">
           <Logo />
         </Box>
-        <Card sx={{ p: 10, mb: 10, borderRadius: 12 }}>
+        <Card sx={{ p: 5, mb: 10, borderRadius: 5 }}>
           <Hero />
         </Card>
       </Container>
