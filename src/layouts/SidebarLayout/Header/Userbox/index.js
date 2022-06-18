@@ -16,12 +16,12 @@ import {
   Typography
 } from '@mui/material';
 
-import InboxTwoToneIcon from '@mui/icons-material/InboxTwoTone';
 import { styled } from '@mui/material/styles';
 import ExpandMoreTwoToneIcon from '@mui/icons-material/ExpandMoreTwoTone';
 import AccountBoxTwoToneIcon from '@mui/icons-material/AccountBoxTwoTone';
 import LockOpenTwoToneIcon from '@mui/icons-material/LockOpenTwoTone';
-import AccountTreeTwoToneIcon from '@mui/icons-material/AccountTreeTwoTone';
+import { useSelector, useDispatch } from 'react-redux';
+import { authLogout } from 'src/redux/slices/auth/authSlice';
 
 const UserBoxButton = styled(Button)(
   ({ theme }) => `
@@ -59,13 +59,14 @@ const UserBoxDescription = styled(Typography)(
 );
 
 function HeaderUserbox() {
-
-  const user =
-  {
+  const userProfile = {
     name: 'Catherine Pike',
     avatar: '/static/images/avatars/1.jpg',
     jobtitle: 'Project Manager'
   };
+  const dispatch = useDispatch();
+
+  const { user } = useSelector((state) => state.auth);
 
   const ref = useRef(null);
   const [isOpen, setOpen] = useState(false);
@@ -78,15 +79,25 @@ function HeaderUserbox() {
     setOpen(false);
   };
 
+  const handleLogout = () => {
+    dispatch(authLogout(user.access_token)).then(() => {
+      window.location.href = '/';
+    });
+  };
+
   return (
     <>
       <UserBoxButton color="secondary" ref={ref} onClick={handleOpen}>
-        <Avatar variant="rounded" alt={user.name} src={user.avatar} />
+        <Avatar
+          variant="rounded"
+          alt={userProfile.name}
+          src={userProfile.avatar}
+        />
         <Hidden mdDown>
           <UserBoxText>
-            <UserBoxLabel variant="body1">{user.name}</UserBoxLabel>
+            <UserBoxLabel variant="body1">{userProfile.name}</UserBoxLabel>
             <UserBoxDescription variant="body2">
-              {user.jobtitle}
+              {userProfile.jobtitle}
             </UserBoxDescription>
           </UserBoxText>
         </Hidden>
@@ -108,11 +119,15 @@ function HeaderUserbox() {
         }}
       >
         <MenuUserBox sx={{ minWidth: 210 }} display="flex">
-          <Avatar variant="rounded" alt={user.name} src={user.avatar} />
+          <Avatar
+            variant="rounded"
+            alt={userProfile.name}
+            src={userProfile.avatar}
+          />
           <UserBoxText>
-            <UserBoxLabel variant="body1">{user.name}</UserBoxLabel>
+            <UserBoxLabel variant="body1">{userProfile.name}</UserBoxLabel>
             <UserBoxDescription variant="body2">
-              {user.jobtitle}
+              {userProfile.jobtitle}
             </UserBoxDescription>
           </UserBoxText>
         </MenuUserBox>
@@ -122,26 +137,10 @@ function HeaderUserbox() {
             <AccountBoxTwoToneIcon fontSize="small" />
             <ListItemText primary="My Profile" />
           </ListItem>
-          <ListItem
-            button
-            to="/dashboards/messenger"
-            component={NavLink}
-          >
-            <InboxTwoToneIcon fontSize="small" />
-            <ListItemText primary="Messenger" />
-          </ListItem>
-          <ListItem
-            button
-            to="/management/profile/settings"
-            component={NavLink}
-          >
-            <AccountTreeTwoToneIcon fontSize="small" />
-            <ListItemText primary="Account Settings" />
-          </ListItem>
         </List>
         <Divider />
         <Box sx={{ m: 1 }}>
-          <Button color="primary" fullWidth>
+          <Button color="primary" fullWidth onClick={handleLogout}>
             <LockOpenTwoToneIcon sx={{ mr: 1 }} />
             Sign out
           </Button>

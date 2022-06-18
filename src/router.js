@@ -8,7 +8,6 @@ import SuspenseLoader from 'src/components/SuspenseLoader';
 import Kardex from './content/pages/Reports/Kardex';
 import Proveedor from './content/pages/Proveedor';
 
-
 const Loader = (Component) => (props) =>
   (
     <Suspense fallback={<SuspenseLoader />}>
@@ -16,7 +15,9 @@ const Loader = (Component) => (props) =>
     </Suspense>
   );
 //Reportes
-const InventarioReporte = Loader (lazy(() => import ('src/content/pages/Reports/Inventario')));
+const InventarioReporte = Loader(
+  lazy(() => import('src/content/pages/Reports/Inventario'))
+);
 // Pages
 
 const Overview = Loader(lazy(() => import('src/content/overview')));
@@ -93,10 +94,7 @@ const routes = [
         path: '/',
         element: <Overview />
       },
-      {
-        path: 'overview',
-        element: <Navigate to="/" replace />
-      },
+
       {
         path: 'status',
         children: [
