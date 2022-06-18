@@ -14,6 +14,21 @@ export const authLogin = createAsyncThunk('authLogin', async (user) => {
   return response;
 });
 
+export const authLogout = createAsyncThunk('authLogout', async (token) => {
+  const response = await authServices.logout(token);
+  return response;
+});
+
+const authMiddleware = (store) => (next) => (action) => {
+  if (authActions.login.match(action)) {
+    // Note: localStorage expects a string
+    localStorage.setItem('isAuthenticated', 'true');
+  } else if (authActions.logout.match(action)) {
+    localStorage.setItem('isAuthenticated', 'false');
+  }
+  return next(action);
+};
+
 const authSlice = createSlice({
   name: 'auth',
   initialState,
