@@ -25,6 +25,10 @@ const Overview = Loader(lazy(() => import('src/content/overview')));
 //Productos
 
 const Ingreso = Loader(
+  lazy(() => import('src/content/pages/Products/TableProducts'))
+);
+
+const RegistroProducto = Loader(
   lazy(() => import('src/content/pages/Products/Ingreso'))
 );
 
@@ -139,8 +143,8 @@ const routes = (isLoggedIn) => [
         element: <Ingreso />
       },
       {
-        path: 'salida',
-        element: <h1>Ingreso de Salida</h1>
+        path: 'ingreso-insumos',
+        element: <RegistroProducto />
       }
     ]
   },
