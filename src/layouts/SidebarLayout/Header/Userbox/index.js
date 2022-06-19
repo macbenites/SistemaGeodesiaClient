@@ -82,6 +82,9 @@ function HeaderUserbox() {
   const handleLogout = () => {
     dispatch(authLogout(user.access_token)).then(() => {
       window.location.href = '/';
+      localStorage.setItem('isLoggedIn', false);
+      localStorage.removeItem('user');
+      localStorage.removeItem('token');
     });
   };
 

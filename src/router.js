@@ -85,7 +85,7 @@ const StatusMaintenance = Loader(
   lazy(() => import('src/content/pages/Status/Maintenance'))
 );
 
-const routes = [
+const routes = (isLoggedIn) => [
   {
     path: '*',
     element: <BaseLayout />,
@@ -128,7 +128,7 @@ const routes = [
   },
   {
     path: '/productos',
-    element: <SidebarLayout />,
+    element: isLoggedIn ? <SidebarLayout /> : <Navigate to="/" />,
     children: [
       {
         path: '/',
@@ -146,7 +146,7 @@ const routes = [
   },
   {
     path: '/insumos',
-    element: <SidebarLayout />,
+    element: isLoggedIn ? <SidebarLayout /> : <Navigate to="/" />,
     children: [
       {
         path: '/',
@@ -164,7 +164,7 @@ const routes = [
   },
   {
     path: '/config',
-    element: <SidebarLayout />,
+    element: isLoggedIn ? <SidebarLayout /> : <Navigate to="/" />,
     children: [
       {
         path: '/',
@@ -194,7 +194,7 @@ const routes = [
   },
   {
     path: 'dashboards',
-    element: <SidebarLayout />,
+    element: isLoggedIn ? <SidebarLayout /> : <Navigate to="/" />,
     children: [
       {
         path: '/',
@@ -212,7 +212,7 @@ const routes = [
   },
   {
     path: 'reportes',
-    element: <SidebarLayout />,
+    element: isLoggedIn ? <SidebarLayout /> : <Navigate to="/" />,
     children: [
       {
         path: '/',
@@ -230,7 +230,7 @@ const routes = [
   },
   {
     path: 'proveedor',
-    element: <SidebarLayout />,
+    element: isLoggedIn ? <SidebarLayout /> : <Navigate to="/" />,
     children: [
       {
         path: '/',
