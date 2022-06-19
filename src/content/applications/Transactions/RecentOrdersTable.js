@@ -68,7 +68,6 @@ const applyPagination = (cryptoOrders, page, limit) => {
 };
 
 const RecentOrdersTable = ({ cryptoOrders }) => {
-
   const [selectedCryptoOrders, setSelectedCryptoOrders] = useState([]);
   const selectedBulkActions = selectedCryptoOrders.length > 0;
   const [page, setPage] = useState(0);

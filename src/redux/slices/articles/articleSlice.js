@@ -2,12 +2,15 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import articleServices from '../../../services/articles/index';
 const initialState = {
-  articles: [],
+  articlesIndex: {},
   categories: [],
   presentations: [],
   units: [],
   status: null,
-  created: null
+  created: null,
+  destroy: null,
+  update: null,
+  showArticle: {}
 };
 
 export const saveArticle = createAsyncThunk('saveArticle', async (article) => {
@@ -15,10 +18,30 @@ export const saveArticle = createAsyncThunk('saveArticle', async (article) => {
   return status;
 });
 
+export const destroyArticle = createAsyncThunk('destroyArticle', async (id) => {
+  const { data } = await articleServices.deleteById(id);
+  return data;
+});
 export const fetchArticles = createAsyncThunk('getArticleAll', async () => {
   const { data } = await articleServices.getAll();
   return data;
 });
+
+export const fetchShowArticle = createAsyncThunk(
+  'fetchShowArticle',
+  async (id) => {
+    const { data } = await articleServices.showArticle(id);
+    return data;
+  }
+);
+
+export const updateArticle = createAsyncThunk(
+  'updateArticle',
+  async (article) => {
+    const { data } = await articleServices.updateArticle(article);
+    return data;
+  }
+);
 
 export const fetchArticlesCreate = createAsyncThunk(
   'getArticleCreate',
@@ -37,7 +60,7 @@ const articleSlice = createSlice({
       state.status = 'loading';
     });
     builder.addCase(fetchArticles.fulfilled, (state, { payload }) => {
-      state.articles = payload;
+      state.articlesIndex = payload.articulos;
       state.status = 'success';
     });
     builder.addCase(fetchArticles.rejected, (state, action) => {
@@ -59,6 +82,24 @@ const articleSlice = createSlice({
 
     builder.addCase(saveArticle.rejected, (state, { payload }) => {
       state.created = 'Error al crear el articulo';
+    });
+
+    builder.addCase(destroyArticle.fulfilled, (state, { payload }) => {
+      state.destroy = 'Articulo eliminado satisfactoriamente';
+    });
+    builder.addCase(destroyArticle.rejected, (state, { payload }) => {
+      state.destroy = 'Error al eliminar el articulo';
+    });
+
+    builder.addCase(fetchShowArticle.fulfilled, (state, { payload }) => {
+      state.showArticle = payload;
+    });
+
+    builder.addCase(updateArticle.fulfilled, (state, { payload }) => {
+      state.updated = 'Articulo actualizado satisfactoriamente';
+    });
+    builder.addCase(updateArticle.rejected, (state, { payload }) => {
+      state.updated = 'Error al actualizar el articulo';
     });
   }
 });
