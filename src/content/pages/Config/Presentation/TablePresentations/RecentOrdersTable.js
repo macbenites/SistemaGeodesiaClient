@@ -21,30 +21,44 @@ import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  fetchPresentaciones
+  fetchPresentaciones,
+  destroyPresentacion,
+  fetchShowPresentacion
 } from 'src/redux/slices/config/configSlice';
-// import ModalCrud from 'src/components/common/Modals/modalCrud';
-// import EditArticle from '../Edit';
+import ModalCrud from 'src/components/common/Modals/modalCrud';
+import EditPresentacion from '../Edit';
 import { useEffect, useState } from 'react';
 
 const RecentOrdersTable = () => {
   const dispatch = useDispatch();
   const [modal,setModal] = useState(false);
+  const [deleted, setDeleted] = useState();
   const presentations = useSelector((state) => state.config.presentationIndex);
   const { data } = presentations;
 
   useEffect(() => {
     dispatch(fetchPresentaciones({}));
-  },[dispatch]);
+  },[dispatch, modal, deleted]);
+
 
   const theme = useTheme();
+  const handleDestroy = (id) => {
+    dispatch(destroyPresentacion(id));
+    setDeleted(id);
+  };
+  const handleUpdate = (id) => {
+    dispatch(fetchShowPresentacion(id)).then(() => {
+      setModal(id);
+    });
+  };
+
   return (
     <>
-      {/* {modal && (
+      {modal && (
         <ModalCrud modal={modal} setModal={setModal}>
-          <EditArticle setModal={setModal} />
+          <EditPresentacion setModal={setModal} />
         </ModalCrud>
-      )} */}
+      )}
 
       <Card>
         <Divider />
@@ -58,7 +72,7 @@ const RecentOrdersTable = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {data?.map((cryptoOrder) => {
+              {data?.map((cryptoOrder,index) => {
                 return (
                   <TableRow hover key={cryptoOrder.cod_pres}>
                     <TableCell>
@@ -69,10 +83,7 @@ const RecentOrdersTable = () => {
                         gutterBottom
                         noWrap
                       >
-                        {/* if(i=0;i<count(cod_pres);i++){
-                          {cryptoOrder,i}
-                        } */}
-                        {cryptoOrder.cod_pres}
+                        {index+1}
                       </Typography>
                     </TableCell>
                     <TableCell>
@@ -87,7 +98,7 @@ const RecentOrdersTable = () => {
                       </Typography>
                     </TableCell>
                     <TableCell align="right">
-                      <Tooltip title="Edit Order" arrow>
+                      <Tooltip title="Edit" arrow>
                         <IconButton
                           sx={{
                             '&:hover': {
@@ -97,12 +108,12 @@ const RecentOrdersTable = () => {
                           }}
                           color="inherit"
                           size="small"
-                          //onClick={() => handleUpdate(cryptoOrder.cod_pres)}
+                          onClick={() => handleUpdate(cryptoOrder.cod_pres)}
                         >
                           <EditTwoToneIcon fontSize="small" />
                         </IconButton>
                       </Tooltip>
-                      <Tooltip title="Delete Order" arrow>
+                      <Tooltip title="Delete" arrow>
                         <IconButton
                           sx={{
                             '&:hover': {
@@ -112,7 +123,7 @@ const RecentOrdersTable = () => {
                           }}
                           color="inherit"
                           size="small"
-                          //onClick={() => handleDestroy(cryptoOrder.cod_art)}
+                          onClick={() => handleDestroy(cryptoOrder.cod_pres)}
                         >
                           <DeleteTwoToneIcon fontSize="small" />
                         </IconButton>

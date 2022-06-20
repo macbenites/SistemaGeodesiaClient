@@ -4,9 +4,11 @@ import configServices from '../../../services/config/index';
 const initialState = {
   status: null,
   updated: null,
+  destroy: null,
   createdCategory: null,
   createdUnit: null,
   presentationIndex:{},
+  showPresentacion:{},
   createdPresentation: null,
   createdTransferencia: null,
   createdDocumento:null
@@ -41,6 +43,14 @@ export const fetchPresentaciones = createAsyncThunk('getAllPresentacion', async 
   const { data } = await configServices.getAllPresentacion();
   return data;
 });
+//show
+export const fetchShowPresentacion = createAsyncThunk(
+  'fetchShowArticle',
+  async (id) => {
+    const { data } = await configServices.showPresentacion(id);
+    return data;
+  }
+);
 //update
 export const updatePresentacion = createAsyncThunk(
   'updatePresentacion',
@@ -49,6 +59,11 @@ export const updatePresentacion = createAsyncThunk(
     return data;
   }
 );
+//delete
+export const destroyPresentacion = createAsyncThunk('destroyPresentacion', async (id) => {
+  const { data } = await configServices.deletePresentacion(id);
+  return data;
+});
 //******************* tipo documento ***********************
 export const saveDocumento = createAsyncThunk(
   'saveDocumento',
@@ -102,8 +117,9 @@ const configSlice = createSlice({
     builder.addCase(savePresentacion.rejected, (state, { payload }) => {
       state.createdPresentation = 'No se pudo crear la presentacion';
     });
-    builder.addCase(saveTransferencia.fulfilled, (state, { payload }) => {
-      state.createdTransferencia = 'Tranferencia realizada satisfactoriamente';
+    //show
+    builder.addCase(fetchShowPresentacion.fulfilled, (state, { payload }) => {
+      state.showPresentacion = payload;
     });
     //update
     builder.addCase(updatePresentacion.fulfilled, (state, { payload }) => {
@@ -112,7 +128,17 @@ const configSlice = createSlice({
     builder.addCase(updatePresentacion.rejected, (state, { payload }) => {
       state.updated = 'Error al actualizar la presentacion';
     });
+    //delete
+    builder.addCase(destroyPresentacion.fulfilled, (state, { payload }) => {
+      state.destroy = 'Presentacion eliminado satisfactoriamente';
+    });
+    builder.addCase(destroyPresentacion.rejected, (state, { payload }) => {
+      state.destroy = 'Error al eliminar la presentacion';
+    });
 //******************* tipo de transferencia ***********************
+    builder.addCase(saveTransferencia.fulfilled, (state, { payload }) => {
+      state.createdTransferencia = 'Tranferencia realizada satisfactoriamente';
+    });
     builder.addCase(saveTransferencia.rejected, (state, { payload }) => {
       state.createdTransferencia = 'No se pudo hacer la transferencia';
     });
