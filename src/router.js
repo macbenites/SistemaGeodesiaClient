@@ -48,17 +48,29 @@ const TablaPresentacion = Loader(
 const RegistroPresentacion = Loader(
   lazy(() => import('src/content/pages/Config/Presentation/Registrar'))   //archivo registrar presentacion
 );
-const TipoTransferencia = Loader(
-  lazy(() => import('src/content/pages/Config/Transf'))
+const TablaTipoTransferencia = Loader(
+  lazy(() => import('src/content/pages/Config/Transf/TableTransferencias'))
 );
-const Categoria = Loader(
-  lazy(() => import('src/content/pages/Config/Category'))
+const RegistroTipoTransferencia = Loader(
+  lazy(() => import('src/content/pages/Config/Transf/Registrar'))
 );
-const UnidadMedida = Loader(
-  lazy(() => import('src/content/pages/Config/Unit'))
+const TablaCategoria = Loader(
+  lazy(() => import('src/content/pages/Config/Category/TableCategorias'))
 );
-const DocIdentidad = Loader(
-  lazy(() => import('src/content/pages/Config/DocumentIden'))
+const RegistroCategoria = Loader(
+  lazy(() => import('src/content/pages/Config/Category/Registrar'))
+);
+const TablaUnidadMedida = Loader(
+  lazy(() => import('src/content/pages/Config/Unit/TableUnidades'))
+);
+const RegistroUnidadMedida = Loader(
+  lazy(() => import('src/content/pages/Config/Unit/Registrar'))
+);
+const TablaTipoDoc = Loader(
+  lazy(() => import('src/content/pages/Config/DocumentIden/TableDocumentos'))
+);
+const RegistroTipoDoc = Loader(
+  lazy(() => import('src/content/pages/Config/DocumentIden/Registrar'))
 );
 
 // Dashboards
@@ -187,19 +199,35 @@ const routes = (isLoggedIn) => [
       },
       {
         path: 'tipotransferencia',
-        element: <TipoTransferencia />
+        element: <TablaTipoTransferencia/>
+      },
+      {
+        path: 'tipotransferencia-registrar', 
+        element: <RegistroTipoTransferencia/>
       },
       {
         path: 'categoria',
-        element: <Categoria />
+        element: <TablaCategoria/>
+      },
+      {
+        path: 'categoria-registrar',
+        element: <RegistroCategoria/>
       },
       {
         path: 'unidadmedida',
-        element: <UnidadMedida />
+        element: <TablaUnidadMedida />
       },
       {
-        path: 'docidentidad',
-        element: <DocIdentidad />
+        path: 'unidadmedida-registrar',
+        element: <RegistroUnidadMedida />
+      },
+      {
+        path: 'tipodocumento',
+        element: <TablaTipoDoc/>
+      },
+      {
+        path: 'tipodocumento-registrar',
+        element: <RegistroTipoDoc/>
       }
     ]
   },
