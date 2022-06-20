@@ -67,7 +67,7 @@ const menuItems = [
       },
       {
         name: 'Tipo de documento',
-        link: '/config/docidentidad',
+        link: '/config/tipodocumento',
         icon: Inventory2TwoToneIcon
       }
     ]

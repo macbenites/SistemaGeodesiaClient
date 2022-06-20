@@ -1,23 +1,20 @@
 //proveedor
 import axios from 'axios';
+import { tokenConfig } from 'src/config';
 
 const providerServices = {
   //Create supplier
   create: (provider) => {
-    return axios.post(`${process.env.REACT_APP_API_URL}proveedor`, provider, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`
-      }
-    });
+    return axios.post(
+      `${process.env.REACT_APP_API_URL}proveedor`,
+      provider,
+      tokenConfig
+    );
   },
   getProviderProvince: (id) => {
     return axios.get(
       `${process.env.REACT_APP_API_URL}proveedor/provincias/${id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`
-        }
-      }
+      tokenConfig
     );
   },
   getProviderDistrict: (id) => {
@@ -27,18 +24,16 @@ const providerServices = {
     );
   },
   getAll: () => {
-    return axios.get(`${process.env.REACT_APP_API_URL}proveedores`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`
-      }
-    });
+    return axios.get(
+      `${process.env.REACT_APP_API_URL}proveedores`,
+      tokenConfig
+    );
   },
   getProveedoresCreate: () => {
-    return axios.get(`${process.env.REACT_APP_API_URL}proveedores/create`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`
-      }
-    });
+    return axios.get(
+      `${process.env.REACT_APP_API_URL}proveedores/create`,
+      tokenConfig
+    );
   }
 };
 

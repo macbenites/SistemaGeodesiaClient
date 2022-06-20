@@ -19,24 +19,7 @@ import { useState, useEffect } from 'react';
   import { useFormik } from 'formik';
   import { validationPresentacion} from 'src/utils/validation';
   import BasicModal from 'src/components/common/Modals';
-  
-//   const FormPresentation = () => {
-//     const [modal, setModal] = useState(false);
-//     const { createdPresentacion } = useSelector((state) => state.config);
-//     const dispatch = useDispatch();
-  
-//     const formik = useFormik({
-//       initialValues: {
-//         des_pres: ''
-//       },
-//       validationSchema: validationPresentacion,
-//       onSubmit: (values, { resetForm }) => {
-//         dispatch(savePresentacion(values)).then(() => {
-//           resetForm();
-//           setModal(true);
-//         });
-//       }
-//     });
+
 const EditPresentacion = ({ setModal }) => {
     const dispatch = useDispatch();
     const { showPresentacion } = useSelector(

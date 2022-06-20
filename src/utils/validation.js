@@ -106,7 +106,7 @@ export const validationSupplies = yup.object().shape({
     })
   )
     .min(1, 'Debe ingresar al menos un articulo')
-    .max(8, 'Debe ingresar maximo 3 articulos')
+    // .max(8, 'Debe ingresar maximo 3 articulos')
   // .test((donations) => {
   //   const sum = donations?.reduce(
   //     (acc, curr) => acc + (curr.percentage || 0),
