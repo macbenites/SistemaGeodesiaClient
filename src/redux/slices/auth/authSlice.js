@@ -14,13 +14,8 @@ const initialState = {
 };
 
 export const authLogin = createAsyncThunk('authLogin', async (user) => {
-  const response = await authServices.login(user);
-  if (response.status === 201) {
-    localStorage.setItem('isLoggedIn', true);
-    localStorage.setItem('user', JSON.stringify(response.data));
-    localStorage.setItem('token', response.data.access_token);
-    return response.data;
-  }
+  const { data } = await authServices.login(user);
+  return data;
 });
 
 export const authLogout = createAsyncThunk('authLogout', async (token) => {
@@ -36,6 +31,11 @@ const authSlice = createSlice({
     builder.addCase(authLogin.fulfilled, (state, { payload }) => {
       state.isLoggedIn = true;
       state.user = payload;
+      if (payload.access_token) {
+        localStorage.setItem('user', JSON.stringify(payload));
+        localStorage.setItem('token', payload.access_token);
+        localStorage.setItem('isLoggedIn', true);
+      }
     });
     builder.addCase(authLogin.rejected, (state, { payload }) => {
       state.isLoggedIn = false;
