@@ -48,7 +48,7 @@ import { useEffect, useState } from 'react';
 const RecentOrdersTable = () => {
   const dispatch = useDispatch();
   const [modal, setModal] = useState(false);
-  const [deleted, setDeleted] = useState();
+  const [deleted, setDeleted] = useState('');
   const articles = useSelector((state) => state.articles.articlesIndex);
   const { data } = articles;
   useEffect(() => {

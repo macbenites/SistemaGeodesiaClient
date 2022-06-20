@@ -1,75 +1,103 @@
 import axios from 'axios';
-import { tokenConfig } from 'src/config';
 
 const configServices = {
   //categoria
   createCategory: (category) => {
-    return axios.post(
-      `${process.env.REACT_APP_API_URL}categoria`,
-      category,
-      tokenConfig
-    );
+    return axios.post(`${process.env.REACT_APP_API_URL}categoria`, category, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    });
   },
   showCategory: (id) => {
-    return axios.get(
-      `${process.env.REACT_APP_API_URL}categoriaEditar/${id}`,
-      tokenConfig
-    );
+    return axios.get(`${process.env.REACT_APP_API_URL}categoriaEditar/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    });
   },
   deleteCategory: (id) => {
     return axios.put(
       `${process.env.REACT_APP_API_URL}categoriaDestroy/${id}`,
       {},
-      tokenConfig
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
     );
   },
   updateCategory: (category) => {
     return axios.put(
       `${process.env.REACT_APP_API_URL}categoriaUpdate/${category.cod_cat}`,
       category,
-      tokenConfig
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
     );
   },
   getAllCategory: (searchText) => {
     return axios.post(
       `${process.env.REACT_APP_API_URL}categorias`,
       searchText,
-      tokenConfig
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
     );
   },
   //unidad de medida
   createUnit: (unit) => {
-    return axios.post(
-      `${process.env.REACT_APP_API_URL}unidadMedida`,
-      unit,
-      tokenConfig
-    );
+    return axios.post(`${process.env.REACT_APP_API_URL}unidadMedida`, unit, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    });
   },
   showUnit: (id) => {
     return axios.get(
       `${process.env.REACT_APP_API_URL}unidadMedidaEditar/${id}`,
-      tokenConfig
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
     );
   },
   deleteUnit: (id) => {
     return axios.put(
       `${process.env.REACT_APP_API_URL}unidadMedidaDestroy/${id}`,
       {},
-      tokenConfig
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
     );
   },
   updateUnit: (unit) => {
     return axios.put(
       `${process.env.REACT_APP_API_URL}unidadMedidaUpdate/${unit.cod_unid_med}`,
       unit,
-      tokenConfig
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
     );
   },
   getAllUnit: (searchText) => {
     return axios.post(
       `${process.env.REACT_APP_API_URL}unidadesMedida`,
       searchText,
-      tokenConfig
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
     );
   },
   //presentacion
@@ -77,34 +105,54 @@ const configServices = {
     return axios.post(
       `${process.env.REACT_APP_API_URL}presentacion`,
       presentation,
-      tokenConfig
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
     );
   },
   showPresentacion: (id) => {
     return axios.get(
       `${process.env.REACT_APP_API_URL}presentacionEditar/${id}`,
-      tokenConfig
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
     );
   },
   deletePresentacion: (id) => {
     return axios.put(
       `${process.env.REACT_APP_API_URL}presentacionDestroy/${id}`,
       {},
-      tokenConfig
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
     );
   },
   updatePresentacion: (presentation) => {
     return axios.put(
       `${process.env.REACT_APP_API_URL}presentacionUpdate/${presentation.cod_pres}`,
       presentation,
-      tokenConfig
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
     );
   },
   getAllPresentacion: (searchText) => {
     return axios.post(
       `${process.env.REACT_APP_API_URL}presentaciones`,
       searchText,
-      tokenConfig
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
     );
   },
   //tipo transferencia
@@ -112,34 +160,54 @@ const configServices = {
     return axios.post(
       `${process.env.REACT_APP_API_URL}tipoTransferencia`,
       transferencia,
-      tokenConfig
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
     );
   },
   showTransferencia: (id) => {
     return axios.get(
       `${process.env.REACT_APP_API_URL}tipoTransferenciaEditar/${id}`,
-      tokenConfig
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
     );
   },
   deleteTransferencia: (id) => {
     return axios.put(
       `${process.env.REACT_APP_API_URL}tipoTransferenciaDestroy/${id}`,
       {},
-      tokenConfig
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
     );
   },
   updateTransferencia: (transferencia) => {
     return axios.put(
       `${process.env.REACT_APP_API_URL}tipoTransferenciaUpdate/${transferencia.cod_t_transf}`,
       transferencia,
-      tokenConfig
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
     );
   },
   getAllTransferencia: (searchText) => {
     return axios.post(
       `${process.env.REACT_APP_API_URL}tiposTransferencias`,
       searchText,
-      tokenConfig
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
     );
   },
   //tipo documento
@@ -147,37 +215,56 @@ const configServices = {
     return axios.post(
       `${process.env.REACT_APP_API_URL}tipoDocumentoRegistro`,
       documento,
-      tokenConfig
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
     );
   },
   showDocumento: (id) => {
     return axios.get(
       `${process.env.REACT_APP_API_URL}tipoDocumentoRegistroEditar/${id}`,
-      tokenConfig
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
     );
   },
   deleteDocumento: (id) => {
     return axios.put(
       `${process.env.REACT_APP_API_URL}tipoDocumentoDestroy/${id}`,
       {},
-      tokenConfig
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
     );
   },
   updateDocumento: (documento) => {
     return axios.put(
       `${process.env.REACT_APP_API_URL}tipoDocumentoRegistroUpdate/${documento.cod_pres}`,
       documento,
-      tokenConfig
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
     );
   },
   getAllDocumento: (searchText) => {
     return axios.post(
       `${process.env.REACT_APP_API_URL}tiposDocumentosRegistros`,
       searchText,
-      tokenConfig
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
     );
-  },
-
+  }
 };
 
 export default configServices;
