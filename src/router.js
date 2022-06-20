@@ -42,8 +42,11 @@ const SalidaInsumos = Loader(
 );
 
 // Config
-const Presentacion = Loader(
-  lazy(() => import('src/content/pages/Config/Presentation'))
+const TablaPresentacion = Loader(
+  lazy(() => import('src/content/pages/Config/Presentation/TablePresentations'))  //archivo index de presentaciomes
+);
+const RegistroPresentacion = Loader(
+  lazy(() => import('src/content/pages/Config/Presentation/Registrar'))   //archivo registrar presentacion
 );
 const TipoTransferencia = Loader(
   lazy(() => import('src/content/pages/Config/Transf'))
@@ -175,8 +178,12 @@ const routes = (isLoggedIn) => [
         element: <Navigate to="config" replace />
       },
       {
-        path: 'presentacion',
-        element: <Presentacion />
+        path: 'presentacion', //index de presentaciomes
+        element: <TablaPresentacion/>
+      },
+      {
+        path: 'presentacion-registrar', //registrar presentacion
+        element: <RegistroPresentacion/>
       },
       {
         path: 'tipotransferencia',

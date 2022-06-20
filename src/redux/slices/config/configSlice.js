@@ -3,8 +3,10 @@ import { createSlice } from '@reduxjs/toolkit';
 import configServices from '../../../services/config/index';
 const initialState = {
   status: null,
+  updated: null,
   createdCategory: null,
   createdUnit: null,
+  presentationIndex:{},
   createdPresentation: null,
   createdTransferencia: null,
   createdDocumento:null
@@ -25,7 +27,8 @@ export const saveUnit = createAsyncThunk(
     return status;
   }
 );
-
+//******************* presentacion ***********************
+//guardar
 export const savePresentacion = createAsyncThunk(
   'savePresentacion',
   async (presentation) => {
@@ -33,7 +36,20 @@ export const savePresentacion = createAsyncThunk(
     return status;
   }
 );
-
+//index
+export const fetchPresentaciones = createAsyncThunk('getAllPresentacion', async () => {
+  const { data } = await configServices.getAllPresentacion();
+  return data;
+});
+//update
+export const updatePresentacion = createAsyncThunk(
+  'updatePresentacion',
+  async (presentation) => {
+    const { data } = await configServices.updatePresentacion(presentation);
+    return data;
+  }
+);
+//******************* tipo documento ***********************
 export const saveDocumento = createAsyncThunk(
   'saveDocumento',
   async (documento) => {
@@ -67,6 +83,19 @@ const configSlice = createSlice({
     builder.addCase(saveUnit.rejected, (state, { payload }) => {
       state.createdUnit = 'No se pudo crear la unidad de medida';
     });
+    //******************* presentacion ***********************
+    //index
+    builder.addCase(fetchPresentaciones.pending, (state, action) => {
+      state.status = 'loading';
+    });
+    builder.addCase(fetchPresentaciones.fulfilled, (state, { payload }) => {
+      state.presentationIndex = payload.presentaciones;
+      state.status = 'success';
+    });
+    builder.addCase(fetchPresentaciones.rejected, (state, action) => {
+      state.status = 'error';
+    });
+    //guardar 
     builder.addCase(savePresentacion.fulfilled, (state, { payload }) => {
       state.createdPresentation = 'Presentacion creado satisfactoriamente';
     });
@@ -76,6 +105,14 @@ const configSlice = createSlice({
     builder.addCase(saveTransferencia.fulfilled, (state, { payload }) => {
       state.createdTransferencia = 'Tranferencia realizada satisfactoriamente';
     });
+    //update
+    builder.addCase(updatePresentacion.fulfilled, (state, { payload }) => {
+      state.updated = 'Presentacion actualizado satisfactoriamente';
+    });
+    builder.addCase(updatePresentacion.rejected, (state, { payload }) => {
+      state.updated = 'Error al actualizar la presentacion';
+    });
+//******************* tipo de transferencia ***********************
     builder.addCase(saveTransferencia.rejected, (state, { payload }) => {
       state.createdTransferencia = 'No se pudo hacer la transferencia';
     });
