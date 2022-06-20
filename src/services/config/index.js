@@ -1,34 +1,41 @@
 import axios from 'axios';
-import { tokenConfig } from 'src/config';
 
 const configServices = {
   //Create article
   createCategory: (category) => {
-    return axios.post(
-      `${process.env.REACT_APP_API_URL}categoria`,
-      category,
-      tokenConfig
-    );
+    return axios.post(`${process.env.REACT_APP_API_URL}categoria`, category, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    });
   },
   createUnit: (unit) => {
-    return axios.post(
-      `${process.env.REACT_APP_API_URL}unidadMedida`,
-      unit,
-      tokenConfig
-    );
+    return axios.post(`${process.env.REACT_APP_API_URL}unidadMedida`, unit, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    });
   },
   createPresentacion: (presentation) => {
     return axios.post(
       `${process.env.REACT_APP_API_URL}presentacion`,
       presentation,
-      tokenConfig
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
     );
   },
   createTransferencia: (transferencia) => {
     return axios.post(
       `${process.env.REACT_APP_API_URL}tipoTransferencia`,
       transferencia,
-      tokenConfig
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
     );
   },
   createDocumento: (documento) => {
@@ -36,7 +43,11 @@ const configServices = {
     return axios.post(
       `${process.env.REACT_APP_API_URL}tipoDocumentoRegistro`,
       documento,
-      tokenConfig
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
     ); //
   } //
 };
