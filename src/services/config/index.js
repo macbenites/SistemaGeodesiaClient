@@ -2,7 +2,6 @@ import axios from 'axios';
 import { tokenConfig } from 'src/config';
 
 const configServices = {
-  //Create article
   createCategory: (category) => {
     return axios.post(
       `${process.env.REACT_APP_API_URL}categoria`,
@@ -17,6 +16,7 @@ const configServices = {
       tokenConfig
     );
   },
+  //presentacion
   createPresentacion: (presentation) => {
     return axios.post(
       `${process.env.REACT_APP_API_URL}presentacion`,
@@ -24,6 +24,21 @@ const configServices = {
       tokenConfig
     );
   },
+  updatePresentacion: (presentation) => {
+    return axios.put(
+      `${process.env.REACT_APP_API_URL}presentacionUpdate/${presentation.cod_pres}`,
+      presentation,
+      tokenConfig
+    );
+  },
+  getAllPresentacion: (searchText) => {
+    return axios.post(
+      `${process.env.REACT_APP_API_URL}presentaciones`,
+      searchText,
+      tokenConfig
+    );
+  },
+  //transferencia
   createTransferencia: (transferencia) => {
     return axios.post(
       `${process.env.REACT_APP_API_URL}tipoTransferencia`,

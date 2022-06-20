@@ -28,10 +28,10 @@ const menuItems = [
     ]
   },
   {
-    heading: 'Productos',
+    heading: 'Articulos',
     items: [
       {
-        name: 'Registro de Articulo',
+        name: 'Articulo',
         link: '/productos/ingreso',
         icon: Inventory2TwoToneIcon
       }
