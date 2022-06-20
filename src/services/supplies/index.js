@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { tokenConfig } from 'src/config';
 
 const suppliesServices = {
   //supplies
@@ -7,7 +6,11 @@ const suppliesServices = {
     return axios.post(
       `${process.env.REACT_APP_API_URL}registroIngreso`,
       supplier,
-      tokenConfig
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
     );
   },
 
@@ -15,29 +18,39 @@ const suppliesServices = {
     return axios.post(
       `${process.env.REACT_APP_API_URL}registroSalida`,
       supplier,
-      tokenConfig
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
     );
   },
 
   getAllSupplies: () => {
-    return axios.get(
-      `${process.env.REACT_APP_API_URL}registroIngreso`,
-      tokenConfig
-    );
+    return axios.get(`${process.env.REACT_APP_API_URL}registroIngreso`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    });
   },
 
   getSuppliesById: (id) => {
-    return axios.get(
-      `${process.env.REACT_APP_API_URL}registroIngreso/${id}`,
-      tokenConfig
-    );
+    return axios.get(`${process.env.REACT_APP_API_URL}registroIngreso/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    });
   },
 
   // Selects Form Ingreso
   getSuppliesCreate: () => {
     return axios.get(
       `${process.env.REACT_APP_API_URL}registrosIngresos/create`,
-      tokenConfig
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
     );
   },
 
@@ -46,7 +59,11 @@ const suppliesServices = {
   getSuppliesCreateOut: () => {
     return axios.get(
       `${process.env.REACT_APP_API_URL}registrosSalidas/create`,
-      tokenConfig
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
     );
   },
 
@@ -54,7 +71,11 @@ const suppliesServices = {
   getArticlesSupplies: (id) => {
     return axios.get(
       `${process.env.REACT_APP_API_URL}registroSalida/articulos/${id}`,
-      tokenConfig
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
     );
   }
 };

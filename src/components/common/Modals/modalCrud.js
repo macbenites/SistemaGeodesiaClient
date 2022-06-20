@@ -3,7 +3,7 @@ import { Dialog, DialogContent, Grid, Container } from '@mui/material';
 export default function ModalCrud({ modal, setModal, children }) {
   const handleClose = () => setModal(false);
   return (
-    <Dialog onClose={handleClose} open={!modal ? false : modal} maxWidth="md">
+    <Dialog onClose={handleClose} open={modal} maxWidth="md">
       <Grid
         container
         direction="row"

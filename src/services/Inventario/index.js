@@ -1,14 +1,21 @@
 import axios from 'axios';
-import { tokenConfig } from 'src/config';
 
 const inventarioServices = {
   getInventario: () => {
-    return axios.get(`${process.env.REACT_APP_API_URL}inventario`, tokenConfig);
+    return axios.get(`${process.env.REACT_APP_API_URL}inventario`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    });
   },
   getInventarioReporte: (id) => {
     return axios.get(
       `${process.env.REACT_APP_API_URL}inventarioReporte/${id}`,
-      tokenConfig
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
     );
   }
 };
