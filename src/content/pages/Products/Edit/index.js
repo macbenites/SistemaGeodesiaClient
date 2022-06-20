@@ -50,7 +50,7 @@ const EditArticle = ({ setModal }) => {
           <CardContent>
             <form onSubmit={formik.handleSubmit}>
               <Grid container spacing={2}>
-                <Grid item xs={12} md={3}>
+                {/* <Grid item xs={12} md={3}>
                   <TextField
                     id="cod_art"
                     name="cod_art"
@@ -65,8 +65,8 @@ const EditArticle = ({ setModal }) => {
                     }
                     helperText={formik.errors.cod_art && formik.errors.cod_art}
                   />
-                </Grid>
-                <Grid item xs={12} md={9}>
+                </Grid> */}
+                <Grid item xs={12} md={12}>
                   <TextField
                     id="des_art"
                     name="des_art"

@@ -24,6 +24,19 @@ const configServices = {
       tokenConfig
     );
   },
+  showPresentacion: (id) => {
+    return axios.get(
+      `${process.env.REACT_APP_API_URL}presentacionEditar/${id}`,
+      tokenConfig
+    );
+  },
+  deletePresentacion: (id) => {
+    return axios.put(
+      `${process.env.REACT_APP_API_URL}presentacionDestroy/${id}`,
+      {},
+      tokenConfig
+    );
+  },
   updatePresentacion: (presentation) => {
     return axios.put(
       `${process.env.REACT_APP_API_URL}presentacionUpdate/${presentation.cod_pres}`,
