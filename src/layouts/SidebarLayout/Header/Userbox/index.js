@@ -59,11 +59,6 @@ const UserBoxDescription = styled(Typography)(
 );
 
 function HeaderUserbox() {
-  const userProfile = {
-    name: 'Catherine Pike',
-    avatar: '/static/images/avatars/1.jpg',
-    jobtitle: 'Project Manager'
-  };
   const dispatch = useDispatch();
 
   const { user } = useSelector((state) => state.auth);
@@ -93,15 +88,12 @@ function HeaderUserbox() {
       <UserBoxButton color="secondary" ref={ref} onClick={handleOpen}>
         <Avatar
           variant="rounded"
-          alt={userProfile.name}
-          src={userProfile.avatar}
+          alt={user.msg}
+          src="/static/images/avatars/1.jpg"
         />
         <Hidden mdDown>
           <UserBoxText>
-            <UserBoxLabel variant="body1">{userProfile.name}</UserBoxLabel>
-            <UserBoxDescription variant="body2">
-              {userProfile.jobtitle}
-            </UserBoxDescription>
+            <UserBoxLabel variant="body1">{user.msg}</UserBoxLabel>
           </UserBoxText>
         </Hidden>
         <Hidden smDown>
@@ -124,14 +116,14 @@ function HeaderUserbox() {
         <MenuUserBox sx={{ minWidth: 210 }} display="flex">
           <Avatar
             variant="rounded"
-            alt={userProfile.name}
-            src={userProfile.avatar}
+            alt={user.msg}
+            src="/static/images/avatars/1.jpg"
           />
           <UserBoxText>
-            <UserBoxLabel variant="body1">{userProfile.name}</UserBoxLabel>
-            <UserBoxDescription variant="body2">
+            <UserBoxLabel variant="body1">{user.msg}</UserBoxLabel>
+            {/* <UserBoxDescription variant="body2">
               {userProfile.jobtitle}
-            </UserBoxDescription>
+            </UserBoxDescription> */}
           </UserBoxText>
         </MenuUserBox>
         <Divider sx={{ mb: 0 }} />

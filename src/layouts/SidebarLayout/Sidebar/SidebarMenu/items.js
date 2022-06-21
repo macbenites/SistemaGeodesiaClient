@@ -17,16 +17,16 @@ import Inventory2TwoToneIcon from '@mui/icons-material/Inventory2TwoTone';
 import InventoryTwoToneIcon from '@mui/icons-material/InventoryTwoTone';
 
 const menuItems = [
-  {
-    heading: '',
-    items: [
-      {
-        name: 'Overview',
-        link: '/overview',
-        icon: DesignServicesTwoToneIcon
-      }
-    ]
-  },
+  // {
+  //   heading: '',
+  //   items: [
+  //     {
+  //       name: 'Overview',
+  //       link: '/overview',
+  //       icon: DesignServicesTwoToneIcon
+  //     }
+  //   ]
+  // },
   {
     heading: 'Articulos',
     items: [
