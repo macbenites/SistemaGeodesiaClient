@@ -326,7 +326,7 @@ const IngresoTest = () => {
                                         onChange={handleChange}
                                       />
                                     </Grid>
-                                    <Grid item xs={12} md={1}>
+                                    <Grid item xs={12} md={2}>
                                       <TextField
                                         type="number"
                                         value={values.articles[index].cant_art}
@@ -336,7 +336,7 @@ const IngresoTest = () => {
                                         onChange={handleChange}
                                       />
                                     </Grid>
-                                    <Grid item xs={12} md={1}>
+                                    {/* <Grid item xs={12} md={1}>
                                       <TextField
                                         type="number"
                                         id="prec_compr"
@@ -356,7 +356,7 @@ const IngresoTest = () => {
                                         //   );
                                         // }}
                                       />
-                                    </Grid>
+                                    </Grid> */}
 
                                     <Grid item xs={12} md={2}>
                                       <Button

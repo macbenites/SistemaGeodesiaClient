@@ -93,7 +93,7 @@ function HeaderUserbox() {
         />
         <Hidden mdDown>
           <UserBoxText>
-            <UserBoxLabel variant="body1">{user.msg}</UserBoxLabel>
+            <UserBoxLabel variant="body1">{user.role}</UserBoxLabel>
           </UserBoxText>
         </Hidden>
         <Hidden smDown>
