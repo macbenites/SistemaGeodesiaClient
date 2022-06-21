@@ -44,7 +44,6 @@ function Header() {
         </Hidden> */}
       </Box>
       <Box display="flex" alignItems="center">
-        <HeaderButtons />
         <HeaderUserbox />
         <Hidden lgUp>
           <Tooltip arrow title="Toggle Menu">
