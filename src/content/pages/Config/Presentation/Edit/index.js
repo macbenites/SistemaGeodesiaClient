@@ -64,7 +64,7 @@ const EditPresentacion = ({ setModal }) => {
                       }
                     />
                   </Grid>
-                  <Grid item xs={12} md={3} justifyContent={'right'}>
+                  <Grid item xs={12} md={9} justifyContent={'right'}>
                     <Button
                       variant="contained"
                       fullWidth

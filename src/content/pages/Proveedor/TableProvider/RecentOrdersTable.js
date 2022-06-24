@@ -19,35 +19,36 @@ import {
 import Label from 'src/components/Label';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-    fetchDocumentos,
-    destroyDocumento,
-    fetchShowDocumento
-} from 'src/redux/slices/config/configSlice';
+  destroyProvider,
+  fetchShowProvider,
+  fetchProviders
+} from 'src/redux/slices/providers/providerSlice';
 import ModalCrud from 'src/components/common/Modals/modalCrud';
-import EditDocumento from '../Edit';
+import EditProvider from '../Edit';
 import { useEffect, useState } from 'react';
 
 const RecentOrdersTable = () => {
   const dispatch = useDispatch();
-  const [modal,setModal] = useState(false);
-  const [deleted, setDeleted] = useState();
-  const documents = useSelector((state) => state.config.documentoIndex);
-  const { data } = documents;
-
+  const [modal, setModal] = useState(false);
+  const [deleted, setDeleted] = useState('');
+  const providers = useSelector((state) => state.provider.providersIndex);
+  const { data } = providers;
   useEffect(() => {
-    dispatch(fetchDocumentos({}));
-  },[dispatch, modal, deleted]);
+    dispatch(fetchProviders({}));
+  }, [dispatch, modal, deleted]);
 
 
   const theme = useTheme();
   const handleDestroy = (id) => {
-    dispatch(destroyDocumento(id));
-    setDeleted(id);
+  dispatch(destroyProvider(id));
+  setDeleted(id);
   };
+
   const handleUpdate = (id) => {
-    dispatch(fetchShowDocumento(id)).then(() => {
+    dispatch(fetchShowProvider(id)).then(() => {
       setModal(id);
     });
   };
@@ -56,7 +57,7 @@ const RecentOrdersTable = () => {
     <>
       {modal && (
         <ModalCrud modal={modal} setModal={setModal}>
-          <EditDocumento setModal={setModal} />
+          <EditProvider setModal={setModal} />
         </ModalCrud>
       )}
 
@@ -67,15 +68,15 @@ const RecentOrdersTable = () => {
             <TableHead>
               <TableRow>
                 <TableCell>Id</TableCell>
-                <TableCell>Tipo movimiento</TableCell>
-                <TableCell>Descripción</TableCell>
+                <TableCell>Razon social</TableCell>
+                <TableCell align="right">Nro. documento</TableCell>
                 <TableCell align="right">Acciones</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {data?.map((cryptoOrder,index) => {
                 return (
-                  <TableRow hover key={cryptoOrder.cod_t_doc}>
+                  <TableRow hover key={cryptoOrder.cod_prov}>
                     <TableCell>
                       <Typography
                         variant="body1"
@@ -95,10 +96,10 @@ const RecentOrdersTable = () => {
                         gutterBottom
                         noWrap
                       >
-                        {cryptoOrder.tipo_reg_doc}
+                        {cryptoOrder.proveedor}
                       </Typography>
                     </TableCell>
-                    <TableCell>
+                    <TableCell align="right">
                       <Typography
                         variant="body1"
                         fontWeight="bold"
@@ -106,10 +107,26 @@ const RecentOrdersTable = () => {
                         gutterBottom
                         noWrap
                       >
-                        {cryptoOrder.des_t_doc}
+                        {cryptoOrder.ruc}
                       </Typography>
                     </TableCell>
+                    
                     <TableCell align="right">
+                      <Tooltip title="Ver" arrow>
+                        <IconButton
+                          sx={{
+                            '&:hover': {
+                              background: theme.colors.primary.lighter
+                            },
+                            color: theme.palette.primary.main
+                          }}
+                          color="inherit"
+                          size="small"
+                          // onClick={() => handleUpdate(cryptoOrder.cod_prov)}
+                        >
+                          <VisibilityIcon fontSize="small" />
+                        </IconButton>
+                      </Tooltip>
                       <Tooltip title="Editar" arrow>
                         <IconButton
                           sx={{
@@ -120,7 +137,7 @@ const RecentOrdersTable = () => {
                           }}
                           color="inherit"
                           size="small"
-                          onClick={() => handleUpdate(cryptoOrder.cod_t_doc)}
+                          onClick={() => handleUpdate(cryptoOrder.cod_prov)}
                         >
                           <EditTwoToneIcon fontSize="small" />
                         </IconButton>
@@ -135,7 +152,7 @@ const RecentOrdersTable = () => {
                           }}
                           color="inherit"
                           size="small"
-                          onClick={() => handleDestroy(cryptoOrder.cod_t_doc)}
+                          onClick={() => handleDestroy(cryptoOrder.cod_prov)}
                         >
                           <DeleteTwoToneIcon fontSize="small" />
                         </IconButton>
@@ -147,6 +164,17 @@ const RecentOrdersTable = () => {
             </TableBody>
           </Table>
         </TableContainer>
+        {/* <Box p={2}>
+        <TablePagination
+          component="div"
+          count={filteredCryptoOrders.length}
+          onPageChange={handlePageChange}
+          onRowsPerPageChange={handleLimitChange}
+          page={page}
+          rowsPerPage={limit}
+          rowsPerPageOptions={[5, 10, 25, 30]}
+        />
+      </Box> */}
       </Card>
     </>
   );

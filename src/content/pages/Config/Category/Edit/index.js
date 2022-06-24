@@ -46,7 +46,7 @@ const EditCategoria = ({ setModal }) => {
               <CardContent>
                 <form onSubmit={formik.handleSubmit}>
                   <Grid container spacing={2}>
-                    <Grid item xs={12} md={9}>
+                    <Grid item xs={12} md={12}>
                       <TextField
                         id="des_cat"
                         name="des_cat"
@@ -65,7 +65,7 @@ const EditCategoria = ({ setModal }) => {
                         }
                       />
                     </Grid>
-                    <Grid item xs={12} md={3} justifyContent={'right'}>
+                    <Grid item xs={12} md={9}>
                       <Button
                         variant="contained"
                         fullWidth

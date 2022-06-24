@@ -98,7 +98,7 @@ const RecentOrdersTable = () => {
                       </Typography>
                     </TableCell>
                     <TableCell align="right">
-                      <Tooltip title="Edit" arrow>
+                      <Tooltip title="Editar" arrow>
                         <IconButton
                           sx={{
                             '&:hover': {
@@ -113,7 +113,7 @@ const RecentOrdersTable = () => {
                           <EditTwoToneIcon fontSize="small" />
                         </IconButton>
                       </Tooltip>
-                      <Tooltip title="Delete" arrow>
+                      <Tooltip title="Eliminar" arrow>
                         <IconButton
                           sx={{
                             '&:hover': {

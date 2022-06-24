@@ -225,8 +225,8 @@ const IngresoTest = () => {
                         </Grid>
                         <Grid item xs={12} md={4}>
                           <TextField
-                            id="fecha_ingreso"
-                            label="Fecha Ingreso"
+                            id="fec_doc"
+                            label="Fecha Documento"
                             fullWidth
                             type="date"
                             name="fec_doc"
@@ -367,7 +367,7 @@ const IngresoTest = () => {
                                         color="error"
                                         fullWidth
                                       >
-                                        Delete
+                                        Eliminar
                                       </Button>
                                     </Grid>
                                   </Grid>
