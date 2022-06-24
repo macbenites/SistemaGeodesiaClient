@@ -43,7 +43,7 @@ import {
         });
       }
     });
-  
+    
     return (
       <>
         <BasicModal modal={modal} setModal={setModal} message={createdAlmacen} />
