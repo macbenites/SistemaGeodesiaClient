@@ -19,35 +19,36 @@ import {
 import Label from 'src/components/Label';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
+
 import { useDispatch, useSelector } from 'react-redux';
 import {
-    fetchDocumentos,
-    destroyDocumento,
-    fetchShowDocumento
-} from 'src/redux/slices/config/configSlice';
+    fetchAlmacenes,
+    destroyAlmacen,
+    fetchShowAlmacen
+} from 'src/redux/slices/almacenes/almacenSlice';
 import ModalCrud from 'src/components/common/Modals/modalCrud';
-import EditDocumento from '../Edit';
+import EditAlmacen from '../Edit';
 import { useEffect, useState } from 'react';
 
 const RecentOrdersTable = () => {
   const dispatch = useDispatch();
   const [modal,setModal] = useState(false);
   const [deleted, setDeleted] = useState();
-  const documents = useSelector((state) => state.config.documentoIndex);
-  const { data } = documents;
+  const warehouses = useSelector((state) => state.almacen.almacenIndex);
+  const { data } = warehouses;
 
   useEffect(() => {
-    dispatch(fetchDocumentos({}));
+    dispatch(fetchAlmacenes({}));
   },[dispatch, modal, deleted]);
 
 
   const theme = useTheme();
   const handleDestroy = (id) => {
-    dispatch(destroyDocumento(id));
+    dispatch(destroyAlmacen(id));
     setDeleted(id);
   };
   const handleUpdate = (id) => {
-    dispatch(fetchShowDocumento(id)).then(() => {
+    dispatch(fetchShowAlmacen(id)).then(() => {
       setModal(id);
     });
   };
@@ -56,7 +57,7 @@ const RecentOrdersTable = () => {
     <>
       {modal && (
         <ModalCrud modal={modal} setModal={setModal}>
-          <EditDocumento setModal={setModal} />
+            <EditAlmacen setModal={setModal} />
         </ModalCrud>
       )}
 
@@ -66,16 +67,16 @@ const RecentOrdersTable = () => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>Id</TableCell>
-                <TableCell>Tipo movimiento</TableCell>
+                <TableCell>ID</TableCell>
                 <TableCell>Descripción</TableCell>
+                <TableCell>Ubicación</TableCell>
                 <TableCell align="right">Acciones</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {data?.map((cryptoOrder,index) => {
                 return (
-                  <TableRow hover key={cryptoOrder.cod_t_doc}>
+                  <TableRow hover key={cryptoOrder.cod_almacen}>
                     <TableCell>
                       <Typography
                         variant="body1"
@@ -95,7 +96,7 @@ const RecentOrdersTable = () => {
                         gutterBottom
                         noWrap
                       >
-                        {cryptoOrder.tipo_reg_doc}
+                        {cryptoOrder.des_almacen}
                       </Typography>
                     </TableCell>
                     <TableCell>
@@ -106,7 +107,7 @@ const RecentOrdersTable = () => {
                         gutterBottom
                         noWrap
                       >
-                        {cryptoOrder.des_t_doc}
+                        {cryptoOrder.ubic_almacen}
                       </Typography>
                     </TableCell>
                     <TableCell align="right">
@@ -120,7 +121,7 @@ const RecentOrdersTable = () => {
                           }}
                           color="inherit"
                           size="small"
-                          onClick={() => handleUpdate(cryptoOrder.cod_t_doc)}
+                          onClick={() => handleUpdate(cryptoOrder.cod_almacen)}
                         >
                           <EditTwoToneIcon fontSize="small" />
                         </IconButton>
@@ -135,7 +136,7 @@ const RecentOrdersTable = () => {
                           }}
                           color="inherit"
                           size="small"
-                          onClick={() => handleDestroy(cryptoOrder.cod_t_doc)}
+                          onClick={() => handleDestroy(cryptoOrder.cod_almacen)}
                         >
                           <DeleteTwoToneIcon fontSize="small" />
                         </IconButton>

@@ -28,6 +28,16 @@ const menuItems = [
   //   ]
   // },
   {
+    heading: 'Almacenes',
+    items: [
+      {
+        name: 'Almacen',
+        link: '/almacenes/registro',
+        icon: Inventory2TwoToneIcon
+      }
+    ]
+  },
+  {
     heading: 'Articulos',
     items: [
       {
@@ -104,15 +114,25 @@ const menuItems = [
     ]
   },
   {
-    heading: 'Proveedor',
+    heading: 'Proveedores',
     items: [
       {
-        name: 'Registro de Proveedor',
+        name: 'Proveedor',
         link: '/proveedor/registro',
         icon: Inventory2TwoToneIcon
       }
     ]
-  }
+  },
+  // {
+  //   heading: 'Empresa',
+  //   items: [
+  //     {
+  //       name: 'Datos de la empresa',
+  //       link: '/empresa/registro',
+  //       icon: Inventory2TwoToneIcon
+  //     }
+  //   ]
+  // }
   // {
   //   heading: 'Dashboards',
   //   items: [

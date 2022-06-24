@@ -2,7 +2,6 @@
 import axios from 'axios';
 
 const providerServices = {
-  //Create supplier
   create: (provider) => {
     return axios.post(`${process.env.REACT_APP_API_URL}proveedor`, provider, {
       headers: {
@@ -30,15 +29,48 @@ const providerServices = {
       }
     );
   },
-  getAll: () => {
-    return axios.get(`${process.env.REACT_APP_API_URL}proveedores`, {
+  getAll: (searchText) => {
+    return axios.post(`${process.env.REACT_APP_API_URL}proveedores`, searchText, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
     });
   },
+
+  updateProvider: (provider) => {
+    return axios.put(
+      `${process.env.REACT_APP_API_URL}articuloUpdate/${provider.cod_persona}`,
+      provider,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
+    );
+  },
+  showProvider: (id) => {
+    return axios.get(`${process.env.REACT_APP_API_URL}proveedorEditar/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+  },
+
+  deleteById: (id) => {
+    return axios.put(
+      `${process.env.REACT_APP_API_URL}proveedorDestroy/${id}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
+    );
+  },
+
+  //precargados
   getProveedoresCreate: () => {
-    return axios.get(`${process.env.REACT_APP_API_URL}proveedores/create`, {
+    return axios.get(`${process.env.REACT_APP_API_URL}proveedor/create`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
