@@ -20,10 +20,10 @@ import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import VisibilityTwoToneIcon from '@mui/icons-material/VisibilityTwoTone';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchUsers } from 'src/redux/slices/users/userSlice';
+import { fetchUpdateUser, fetchUsers } from 'src/redux/slices/users/userSlice';
 import ModalCrud from 'src/components/common/Modals/modalCrud';
 
-import EditArticle from '../Edit';
+import EditEmployee from '../Edit';
 import { useEffect, useState } from 'react';
 
 // const applyFilters = (cryptoOrders, filters) => {
@@ -79,7 +79,7 @@ const TableEmployee = () => {
   };
 
   const handleUpdate = (id) => {
-    dispatch(fetchShowArticle(id)).then(() => {
+    dispatch(fetchUpdateUser(id)).then(() => {
       setModal(id);
     });
   };
@@ -88,7 +88,7 @@ const TableEmployee = () => {
     <>
       {modal && (
         <ModalCrud modal={modal} setModal={setModal}>
-          <EditArticle setModal={setModal} />
+          <EditEmployee setModal={setModal} />
         </ModalCrud>
       )}
       <Card>

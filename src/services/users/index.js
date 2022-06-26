@@ -30,6 +30,13 @@ const UsersServices = {
     });
   },
 
+  getUpdateEmployee: (id) => {
+    return axios.get(`${process.env.REACT_APP_API_URL}trabajadorEditar/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+  },
   getProvince: (id) => {
     return axios.get(
       `${process.env.REACT_APP_API_URL}trabajador/provincias/${id}`,
