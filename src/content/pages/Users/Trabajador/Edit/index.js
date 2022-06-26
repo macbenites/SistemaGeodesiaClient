@@ -30,17 +30,17 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FieldArray, Form, Field, Formik } from 'formik';
 import {
-  saveEmployee,
   fetchProvince,
-  fetchDistrict
+  fetchDistrict,
+  updateEmployee
 } from 'src/redux/slices/users/userSlice';
 import { validationProvider } from 'src/utils/validation';
 import BasicModal from 'src/components/common/Modals/index';
 import AddIcCallIcon from '@mui/icons-material/AddIcCall';
 
-const EmployeeFormUpdate = () => {
-  const [modal, setModal] = useState(false);
-  const { updateUser, province, district } = useSelector(
+const EmployeeFormUpdate = ({ setModal }) => {
+  const [update, setUpdate] = useState(false);
+  const { updateUser, province, district, message } = useSelector(
     (state) => state.users
   );
   const dispatch = useDispatch();
@@ -52,7 +52,6 @@ const EmployeeFormUpdate = () => {
 
   return (
     <>
-      {/* <BasicModal modal={modal} setModal={setModal} message={message} /> */}
       <Container maxWidth="md">
         <Grid
           container
@@ -70,6 +69,7 @@ const EmployeeFormUpdate = () => {
               <CardContent>
                 <Formik
                   initialValues={{
+                    cod_persona: updateUser.trabajador.cod_persona,
                     cod_t_per: updateUser.trabajador.cod_t_per,
                     nom_per: updateUser.trabajador.nom_per,
                     ape_pat_per: updateUser.trabajador.ape_pat_per,
@@ -85,8 +85,8 @@ const EmployeeFormUpdate = () => {
                     nro_telf: updateUser?.telefono.map((item) => item.nro_telf)
                   }}
                   onSubmit={async (values, { resetForm }) => {
-                    dispatch(saveEmployee(values)).then(() => {
-                      setModal(true);
+                    dispatch(updateEmployee(values)).then(() => {
+                      setModal(false);
                       resetForm();
                     });
                   }}

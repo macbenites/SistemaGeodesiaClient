@@ -58,6 +58,14 @@ export const saveEmployee = createAsyncThunk(
   }
 );
 
+export const updateEmployee = createAsyncThunk(
+  'users/updateEmployee',
+  async (employee) => {
+    const { data } = await UsersServices.updateEmployee(employee);
+    return data;
+  }
+);
+
 const UserSlice = createSlice({
   name: 'users',
   initialState,
@@ -74,7 +82,6 @@ const UserSlice = createSlice({
     });
     builder.addCase(fetchDistrict.fulfilled, (state, { payload }) => {
       state.district = payload.distritos;
-      alert(JSON.stringify(payload.distritos));
     });
     builder.addCase(saveEmployee.fulfilled, (state, { payload }) => {
       state.message = payload.msg;
@@ -82,6 +89,10 @@ const UserSlice = createSlice({
 
     builder.addCase(fetchUpdateUser.fulfilled, (state, { payload }) => {
       state.updateUser = payload;
+    });
+
+    builder.addCase(updateEmployee.fulfilled, (state, { payload }) => {
+      state.message = payload.msg;
     });
   }
 });
