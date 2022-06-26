@@ -1,32 +1,20 @@
-import DesignServicesTwoToneIcon from '@mui/icons-material/DesignServicesTwoTone';
-import BrightnessLowTwoToneIcon from '@mui/icons-material/BrightnessLowTwoTone';
-import MmsTwoToneIcon from '@mui/icons-material/MmsTwoTone';
-import TableChartTwoToneIcon from '@mui/icons-material/TableChartTwoTone';
-import AccountCircleTwoToneIcon from '@mui/icons-material/AccountCircleTwoTone';
-import BallotTwoToneIcon from '@mui/icons-material/BallotTwoTone';
-import BeachAccessTwoToneIcon from '@mui/icons-material/BeachAccessTwoTone';
-import EmojiEventsTwoToneIcon from '@mui/icons-material/EmojiEventsTwoTone';
-import FilterVintageTwoToneIcon from '@mui/icons-material/FilterVintageTwoTone';
-import HowToVoteTwoToneIcon from '@mui/icons-material/HowToVoteTwoTone';
-import LocalPharmacyTwoToneIcon from '@mui/icons-material/LocalPharmacyTwoTone';
-import RedeemTwoToneIcon from '@mui/icons-material/RedeemTwoTone';
-import SettingsTwoToneIcon from '@mui/icons-material/SettingsTwoTone';
-import TrafficTwoToneIcon from '@mui/icons-material/TrafficTwoTone';
-import VerifiedUserTwoToneIcon from '@mui/icons-material/VerifiedUserTwoTone';
+import BadgeTwoToneIcon from '@mui/icons-material/BadgeTwoTone';
+import AddBusinessTwoToneIcon from '@mui/icons-material/AddBusinessTwoTone';
+import SummarizeTwoToneIcon from '@mui/icons-material/SummarizeTwoTone';
+import AssessmentTwoToneIcon from '@mui/icons-material/AssessmentTwoTone';
+import AddCircleOutlineTwoToneIcon from '@mui/icons-material/AddCircleOutlineTwoTone';
+import RemoveCircleOutlineTwoToneIcon from '@mui/icons-material/RemoveCircleOutlineTwoTone';
+import CategoryTwoToneIcon from '@mui/icons-material/CategoryTwoTone';
+import ShoppingBagTwoToneIcon from '@mui/icons-material/ShoppingBagTwoTone';
+import ReceiptLongTwoToneIcon from '@mui/icons-material/ReceiptLongTwoTone';
+import CheckTwoToneIcon from '@mui/icons-material/CheckTwoTone';
+import StraightenTwoToneIcon from '@mui/icons-material/StraightenTwoTone';
 import Inventory2TwoToneIcon from '@mui/icons-material/Inventory2TwoTone';
 import InventoryTwoToneIcon from '@mui/icons-material/InventoryTwoTone';
+import BusinessIcon from '@mui/icons-material/Business';
+import PrecisionManufacturingIcon from '@mui/icons-material/PrecisionManufacturing';
 
 const menuItems = [
-  // {
-  //   heading: '',
-  //   items: [
-  //     {
-  //       name: 'Overview',
-  //       link: '/overview',
-  //       icon: DesignServicesTwoToneIcon
-  //     }
-  //   ]
-  // },
   {
     heading: 'Almacenes',
     items: [
@@ -43,13 +31,8 @@ const menuItems = [
       {
         name: 'Articulo',
         link: '/productos/ingreso',
-        icon: Inventory2TwoToneIcon
+        icon: PrecisionManufacturingIcon
       }
-      // {
-      //   name: 'Salida de Insumos',
-      //   icon: InventoryTwoToneIcon,
-      //   link: '/productos/salida'
-      // }
     ]
   },
   {
@@ -58,27 +41,27 @@ const menuItems = [
       {
         name: 'Presentación',
         link: '/config/presentacion',
-        icon: Inventory2TwoToneIcon
+        icon: ShoppingBagTwoToneIcon
       },
       {
         name: 'Tipo de Transferencia',
         link: '/config/tipotransferencia',
-        icon: Inventory2TwoToneIcon
+        icon: CheckTwoToneIcon
       },
       {
         name: 'Categoria',
         link: '/config/categoria',
-        icon: Inventory2TwoToneIcon
+        icon: CategoryTwoToneIcon
       },
       {
         name: 'Unidad de Medida',
         link: '/config/unidadmedida',
-        icon: Inventory2TwoToneIcon
+        icon: StraightenTwoToneIcon
       },
       {
         name: 'Tipo de documento',
         link: '/config/tipodocumento',
-        icon: Inventory2TwoToneIcon
+        icon: ReceiptLongTwoToneIcon
       }
     ]
   },
@@ -88,11 +71,11 @@ const menuItems = [
       {
         name: 'Ingreso de Insumos',
         link: '/insumos/ingreso',
-        icon: Inventory2TwoToneIcon
+        icon: AddCircleOutlineTwoToneIcon
       },
       {
         name: 'Salida de Insumos',
-        icon: InventoryTwoToneIcon,
+        icon: RemoveCircleOutlineTwoToneIcon,
         link: '/insumos/salida'
       }
     ]
@@ -104,7 +87,7 @@ const menuItems = [
       {
         name: 'Kardex',
         link: '/reportes/kardex',
-        icon: Inventory2TwoToneIcon
+        icon: SummarizeTwoToneIcon
       },
       {
         name: 'Inventario',
@@ -119,7 +102,7 @@ const menuItems = [
       {
         name: 'Proveedor',
         link: '/proveedor/registro',
-        icon: Inventory2TwoToneIcon
+        icon: AddBusinessTwoToneIcon
       }
     ]
   },
@@ -129,7 +112,7 @@ const menuItems = [
       {
         name: 'Datos de la empresa',
         link: '/empresa/registro',
-        icon: Inventory2TwoToneIcon
+        icon: BusinessIcon
       }
     ]
   },
@@ -251,6 +234,16 @@ const menuItems = [
   //     }
   //   ]
   // }
+  {
+    heading: 'Usuarios',
+    items: [
+      {
+        name: 'Trabajador',
+        link: '/usuarios/mantenimiento',
+        icon: BadgeTwoToneIcon
+      }
+    ]
+  },
 ];
 
 export default menuItems;

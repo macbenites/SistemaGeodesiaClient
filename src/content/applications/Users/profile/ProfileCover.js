@@ -7,9 +7,9 @@ import {
   Avatar,
   CardMedia,
   Button,
-  IconButton
+  IconButton,
+  styled
 } from '@mui/material';
-import { styled } from '@mui/material/styles';
 
 import ArrowBackTwoToneIcon from '@mui/icons-material/ArrowBackTwoTone';
 import ArrowForwardTwoToneIcon from '@mui/icons-material/ArrowForwardTwoTone';
@@ -78,9 +78,7 @@ const CardCoverAction = styled(Box)(
 `
 );
 
-
 const ProfileCover = ({ user }) => {
-
   return (
     <>
       <Box display="flex" mb={3}>
@@ -98,74 +96,7 @@ const ProfileCover = ({ user }) => {
           </Typography>
         </Box>
       </Box>
-      <CardCover>
-        <CardMedia image={user.coverImg} />
-        <CardCoverAction>
-          <Input accept="image/*" id="change-cover" multiple type="file" />
-          <label htmlFor="change-cover">
-            <Button
-              startIcon={<UploadTwoToneIcon />}
-              variant="contained"
-              component="span"
-            >
-              Change cover
-            </Button>
-          </label>
-        </CardCoverAction>
-      </CardCover>
-      <AvatarWrapper>
-        <Avatar variant="rounded" alt={user.name} src={user.avatar} />
-        <ButtonUploadWrapper>
-          <Input
-            accept="image/*"
-            id="icon-button-file"
-            name="icon-button-file"
-            type="file"
-          />
-          <label htmlFor="icon-button-file">
-            <IconButton component="span" color="primary">
-              <UploadTwoToneIcon />
-            </IconButton>
-          </label>
-        </ButtonUploadWrapper>
-      </AvatarWrapper>
-      <Box py={2} pl={2} mb={3}>
-        <Typography gutterBottom variant="h4">
-          {user.name}
-        </Typography>
-        <Typography variant="subtitle2">{user.description}</Typography>
-        <Typography sx={{ py: 2 }} variant="subtitle2" color="text.primary">
-          {user.jobtitle} | {user.location} | {user.followers} followers
-        </Typography>
-        <Box
-          display={{ xs: 'block', md: 'flex' }}
-          alignItems="center"
-          justifyContent="space-between"
-        >
-          <Box>
-            <Button size="small" variant="contained">
-              Follow
-            </Button>
-            <Button size="small" sx={{ mx: 1 }} variant="outlined">
-              View website
-            </Button>
-            <IconButton color="primary" sx={{ p: 0.5 }}>
-              <MoreHorizTwoToneIcon />
-            </IconButton>
-          </Box>
-          <Button
-            sx={{ mt: { xs: 2, md: 0 } }}
-            size="small"
-            variant="text"
-            endIcon={<ArrowForwardTwoToneIcon />}
-          >
-            See all {' '}
-            {user.followers}
-            {' '}
-            connections
-          </Button>
-        </Box>
-      </Box>
+
     </>
   );
 };

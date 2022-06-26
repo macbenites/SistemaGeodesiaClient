@@ -52,10 +52,10 @@ const SalidaInsumos = Loader(
 
 // Config
 const TablaPresentacion = Loader(
-  lazy(() => import('src/content/pages/Config/Presentation/TablePresentations'))  //archivo index de presentaciomes
+  lazy(() => import('src/content/pages/Config/Presentation/TablePresentations')) //archivo index de presentaciomes
 );
 const RegistroPresentacion = Loader(
-  lazy(() => import('src/content/pages/Config/Presentation/Registrar'))   //archivo registrar presentacion
+  lazy(() => import('src/content/pages/Config/Presentation/Registrar')) //archivo registrar presentacion
 );
 const TablaTipoTransferencia = Loader(
   lazy(() => import('src/content/pages/Config/Transf/TableTransferencias'))
@@ -107,6 +107,16 @@ const RegistroEmpresa = Loader(
   lazy(() => import('src/content/pages/Empresa/Registro'))
 );
 
+// Usuarios
+
+const Employee = Loader(
+  lazy(() => import('src/content/pages/Users/Trabajador/Ingreso'))
+);
+
+const EmployeeMaintenance = Loader(
+  lazy(() => import('src/content/pages/Users/Trabajador/TableTrabajador'))
+);
+
 // Status
 
 const Status404 = Loader(
@@ -120,6 +130,12 @@ const StatusComingSoon = Loader(
 );
 const StatusMaintenance = Loader(
   lazy(() => import('src/content/pages/Status/Maintenance'))
+);
+
+//Perfil
+
+const Perfil = Loader(
+  lazy(() => import('src/content/applications/Users/profile'))
 );
 
 const routes = (isLoggedIn) => [
@@ -227,27 +243,27 @@ const routes = (isLoggedIn) => [
       },
       {
         path: 'presentacion', //index de presentaciomes
-        element: <TablaPresentacion/>
+        element: <TablaPresentacion />
       },
       {
         path: 'presentacion-registrar', //registrar presentacion
-        element: <RegistroPresentacion/>
+        element: <RegistroPresentacion />
       },
       {
         path: 'tipotransferencia',
-        element: <TablaTipoTransferencia/>
+        element: <TablaTipoTransferencia />
       },
       {
-        path: 'tipotransferencia-registrar', 
-        element: <RegistroTipoTransferencia/>
+        path: 'tipotransferencia-registrar',
+        element: <RegistroTipoTransferencia />
       },
       {
         path: 'categoria',
-        element: <TablaCategoria/>
+        element: <TablaCategoria />
       },
       {
         path: 'categoria-registrar',
-        element: <RegistroCategoria/>
+        element: <RegistroCategoria />
       },
       {
         path: 'unidadmedida',
@@ -259,11 +275,11 @@ const routes = (isLoggedIn) => [
       },
       {
         path: 'tipodocumento',
-        element: <TablaTipoDoc/>
+        element: <TablaTipoDoc />
       },
       {
         path: 'tipodocumento-registrar',
-        element: <RegistroTipoDoc/>
+        element: <RegistroTipoDoc />
       }
     ]
   },
@@ -278,10 +294,6 @@ const routes = (isLoggedIn) => [
       {
         path: 'crypto',
         element: <Crypto />
-      },
-      {
-        path: 'messenger',
-        element: <Messenger />
       }
     ]
   },
@@ -332,6 +344,38 @@ const routes = (isLoggedIn) => [
       {
         path: 'registro',
         element: <RegistroEmpresa/>
+      }
+    ]
+  },
+  {
+    path: 'usuarios',
+    element: isLoggedIn ? <SidebarLayout /> : <Navigate to="/" />,
+    children: [
+      {
+        path: '/',
+        element: <Navigate to="usuarios" replace />
+      },
+      {
+        path: 'trabajador',
+        element: <Employee />
+      },
+      {
+        path: 'mantenimiento',
+        element: <EmployeeMaintenance />
+      }
+    ]
+  },
+  {
+    path: 'perfil',
+    element: isLoggedIn ? <SidebarLayout /> : <Navigate to="/" />,
+    children: [
+      {
+        path: '/',
+        element: <Navigate to="perfil" replace />
+      },
+      {
+        path: 'user',
+        element: <Perfil />
       }
     ]
   }
