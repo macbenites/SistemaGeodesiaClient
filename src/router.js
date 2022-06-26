@@ -101,6 +101,12 @@ const TablaProveedor = Loader(
   lazy(() => import('src/content/pages/Proveedor/TableProvider'))
 );
 
+// Empresa
+
+const RegistroEmpresa = Loader(
+  lazy(() => import('src/content/pages/Empresa/Registro'))
+);
+
 // Status
 
 const Status404 = Loader(
@@ -312,6 +318,20 @@ const routes = (isLoggedIn) => [
       {
         path: 'registro-nuevo',
         element: <RegistroProveedor/>
+      }
+    ]
+  },
+  {
+    path: 'empresa',
+    element: isLoggedIn ? <SidebarLayout /> : <Navigate to="/" />,
+    children: [
+      {
+        path: '/',
+        element: <Navigate to="empresa" replace />
+      },
+      {
+        path: 'registro',
+        element: <RegistroEmpresa/>
       }
     ]
   }

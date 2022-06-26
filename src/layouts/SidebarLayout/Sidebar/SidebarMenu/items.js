@@ -123,16 +123,16 @@ const menuItems = [
       }
     ]
   },
-  // {
-  //   heading: 'Empresa',
-  //   items: [
-  //     {
-  //       name: 'Datos de la empresa',
-  //       link: '/empresa/registro',
-  //       icon: Inventory2TwoToneIcon
-  //     }
-  //   ]
-  // }
+  {
+    heading: 'Empresa',
+    items: [
+      {
+        name: 'Datos de la empresa',
+        link: '/empresa/registro',
+        icon: Inventory2TwoToneIcon
+      }
+    ]
+  },
   // {
   //   heading: 'Dashboards',
   //   items: [
