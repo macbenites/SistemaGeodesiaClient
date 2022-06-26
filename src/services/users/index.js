@@ -37,7 +37,7 @@ const UsersServices = {
       }
     });
   },
-
+  //Update Trabajador
   updateEmployee: (employee) => {
     return axios.put(
       `${process.env.REACT_APP_API_URL}trabajadorUpdate/${employee.cod_persona}`,
