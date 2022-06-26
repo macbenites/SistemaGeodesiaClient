@@ -14,6 +14,16 @@ import InventoryTwoToneIcon from '@mui/icons-material/InventoryTwoTone';
 
 const menuItems = [
   {
+    heading: 'Almacenes',
+    items: [
+      {
+        name: 'Almacen',
+        link: '/almacenes/registro',
+        icon: Inventory2TwoToneIcon
+      }
+    ]
+  },
+  {
     heading: 'Articulos',
     items: [
       {
@@ -85,10 +95,10 @@ const menuItems = [
     ]
   },
   {
-    heading: 'Proveedor',
+    heading: 'Proveedores',
     items: [
       {
-        name: 'Registro de Proveedor',
+        name: 'Proveedor',
         link: '/proveedor/registro',
         icon: AddBusinessTwoToneIcon
       }

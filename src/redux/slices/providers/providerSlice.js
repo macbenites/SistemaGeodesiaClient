@@ -6,20 +6,35 @@ const initialState = {
     telephonesContainer:[],
     telephonesContainerOut:[],
     providersCreate:{},
-    providers:[],
+    // providers:[],
+    providersIndex:{},
+    showProvider:{},
     tdoc_ide: [],
     departamento: [],
     provincia: [],
     distrito: [],
     tipo_persona: [],
     status: null,
-    created: null
+    created: null,
+    destroy: null,
+    update: null,
   };
 
   export const saveProvider = createAsyncThunk(
     'saveProvider',
     async (provider) => {
-      const { status } = await providerServices.create(provider);
+      const postProvider={
+        cod_persona: provider.cod_persona,
+        cod_t_per:provider.cod_t_per,
+        razon_social:provider.razon_social,
+        cod_t_doc:provider.cod_t_doc,
+        nro_doc:provider.nro_doc,
+        correo_per:provider.correo_per,
+        cod_dist:provider.cod_dist,
+        dir_per:provider.dir_per,
+        nro_telf:provider.telephones.map((telephone)=>telephone.nro_telf)
+      };
+      const { status } = await providerServices.create(postProvider);
       return status;
   });
 
@@ -53,6 +68,27 @@ const initialState = {
     }
   );
 
+  export const fetchShowProvider = createAsyncThunk(
+    'fetchShowProvider',
+    async (id) => {
+      const { data } = await providerServices.showProvider(id);
+      return data;
+    }
+  );
+  
+  export const updateProvider = createAsyncThunk(
+    'updateProvider',
+    async (provider) => {
+      const { data } = await providerServices.updateProvider(provider);
+      return data;
+    }
+  );
+  
+  export const destroyProvider = createAsyncThunk('destroyProvider', async (id) => {
+    const { data } = await articleServices.deleteById(id);
+    return data;
+  });
+
   const providerSlice = createSlice({
     name: 'providers',
     initialState,
@@ -70,17 +106,22 @@ const initialState = {
       }
     },
     extraReducers: (builder) => {
+      //index
       builder.addCase(fetchProviders.pending, (state, action) => {
         state.status = 'loading';
       });
       builder.addCase(fetchProviders.fulfilled, (state, { payload }) => {
-        state.providers = payload;//providers
+        state.providersIndex = payload.proveedor;//nombre de la tabla
         state.status = 'success';
       });
       builder.addCase(fetchProviders.rejected, (state, action) => {
         state.status = 'error';
       });
-
+      //show
+      builder.addCase(fetchShowProvider.fulfilled, (state, { payload }) => {
+        state.showProvider = payload;
+      });
+      //precargados
       builder.addCase(fetchProvidersCreate.fulfilled, (state, { payload }) => {
         state.providersCreate = payload;
       });
@@ -92,7 +133,7 @@ const initialState = {
       builder.addCase(fetchProviderDistrict.fulfilled, (state, { payload }) => {
         state.distrito = payload.distritos;//distrito
       });
-  
+      //guardar
       builder.addCase(saveProvider.pending, (state, action) => {
         state.created = 'loading';
       });
@@ -101,6 +142,13 @@ const initialState = {
       });
       builder.addCase(saveProvider.rejected, (state, { payload }) => {
         state.created = 'Error al crear el proveedor';
+      });
+      //eliminar
+      builder.addCase(destroyProvider.fulfilled, (state, { payload }) => {
+        state.destroy = 'Proveedor eliminado satisfactoriamente';
+      });
+      builder.addCase(destroyProvider.rejected, (state, { payload }) => {
+        state.destroy = 'Error al eliminar el proveedor';
       });
     }
   });

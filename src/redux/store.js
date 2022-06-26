@@ -5,6 +5,7 @@ import kardexReducer from './slices/kardex/kardexSlice';
 import InventarioReducer from './slices/Inventario/InventarioSlice';
 import configReducer from './slices/config/configSlice';
 import providerReducer from './slices/providers/providerSlice'; //proveedor
+import almacenReducer from './slices/almacenes/almacenSlice'; //almacen
 import { getDefaultMiddleware } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import authReducer from './slices/auth/authSlice';
@@ -18,7 +19,8 @@ export const store = configureStore({
     Inventario: InventarioReducer,
     provider: providerReducer,
     auth: authReducer,
-    users: userReducer
+    users: userReducer,
+    almacen: almacenReducer
   },
   middleware: getDefaultMiddleware({
     serializableCheck: false

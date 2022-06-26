@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import { array, boolean, number, object, string, ValidationError } from 'yup';
+import { array, boolean, number, object, string} from 'yup';
 
 export const validationArticle = yup.object().shape({
   cod_art: yup.string().required('El codigo del articulo es requerido'),
@@ -14,6 +14,54 @@ export const validationArticle = yup.object().shape({
     .required('La presentacion es requerida'),
   cod_unid_med: yup.string().required('La unidad de medida es requerida'),
   imagen_art: yup.string('Ingrese url').required('La imagen es requerida')
+});
+
+export const validationProvider = yup.object().shape({
+  cod_t_per:yup
+  .string('Ingrese tipo de persona')
+  .required('El tipo persona es requerido'),
+  razon_social: yup
+  .string('Ingrese razon social')
+  .required('La razon social es requerida'),
+  cod_t_doc: yup
+  .string()
+  .required('El tipo de documento es requerido'),
+  nro_doc: yup
+  .string('Ingrese número del documento')
+  .required('El número de documento es requerido')
+  .matches(/\b\d{11}\b/, {message: 'Ingrese solo 11 digitos', excludeEmptyString: true}),
+  // .test('len', 'Ingrese solo 11 digitos', val => val.toString().length === 11)
+  // .matches(/^[0-9]+$/,'Ingrese solo números'),
+  // .trim(),
+  correo_per: yup
+  .string('Ingrese email')
+  .email('El email no tiene un formato válido')
+  .max(90, 'El email no puede superar los 90 caracteres')
+  .required('El email es requerido'),
+  dir_per: yup
+  .string('Ingrese dirección')
+  .max(100, 'La direccion no puede superar los 100 caracteres')
+  .required('La dirección es requerida'),
+  telephones: array(
+    object({
+      nro_telf:
+      string('Ingrese número de telefono')
+      .min(7,'Ingrese minimo 7 digitos')
+      .max(9,'Ingrese máximo 9 digitos')
+      .matches(/^[0-9]+$/, 'Ingrese solo números')
+      .required('El numero de telefono es requerido'),
+    })
+  )
+});
+// const linkgooglemap=/^https?\:\/\/?goo.gl(\.[a-z]+){1,2}\/maps\/?\?([^&]+&)*(ll=-?[0-9]{1,2}\.[0-9]+,-?[0-9]{1,2}\.[0-9]+|q=[^&]+)+($|&)/
+export const validationWarehouse = yup.object().shape({
+  des_almacen: yup
+    .string('Ingrese la descripción')
+    .required('El nombre del almacen es requerido'),
+  ubic_almacen: yup
+    .string('Ingrese direccin URL de google map')
+    // .matches(/^https?\:\/\/?goo.gl(\.[a-z]+){1,2}\/maps\/?\?([^&]+&)*(ll=-?[0-9]{1,2}\.[0-9]+,-?[0-9]{1,2}\.[0-9]+|q=[^&]+)+($|&)/,'URL invalida')
+    .required('La ubicacion del almacen es requerido')
 });
 
 export const validationCategory = yup.object().shape({
@@ -101,7 +149,7 @@ export const validationSupplies = yup.object().shape({
         .min(3, 'La observacion del articulo debe tener minimo 3 caracteres')
         .max(
           255,
-          '  La observacion del articulo debe tener maximo 255 caracteres'
+          'La observacion del articulo debe tener maximo 255 caracteres'
         )
     })
   )

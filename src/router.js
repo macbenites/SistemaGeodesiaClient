@@ -6,7 +6,7 @@ import BaseLayout from 'src/layouts/BaseLayout';
 
 import SuspenseLoader from 'src/components/SuspenseLoader';
 import Kardex from './content/pages/Reports/Kardex';
-import Proveedor from './content/pages/Proveedor';
+import Proveedor from './content/pages/Proveedor/Registrar';
 
 const Loader = (Component) => (props) =>
   (
@@ -21,6 +21,15 @@ const InventarioReporte = Loader(
 // Pages
 
 const Overview = Loader(lazy(() => import('src/content/overview')));
+
+// Almacen
+
+const RegistroAlmacen = Loader(
+  lazy(() => import('src/content/pages/Almacen/Registrar'))
+);
+const TablaAlmacen = Loader(
+  lazy(() => import('src/content/pages/Almacen/TableAlmacen'))
+);
 
 //Productos
 
@@ -85,8 +94,11 @@ const Messenger = Loader(
 
 // Proveedor
 
-const ProveedorRegistro = Loader(
-  lazy(() => import('src/content/pages/Proveedor'))
+const RegistroProveedor = Loader(
+  lazy(() => import('src/content/pages/Proveedor/Registrar'))
+);
+const TablaProveedor = Loader(
+  lazy(() => import('src/content/pages/Proveedor/TableProvider'))
 );
 
 // Usuarios
@@ -156,6 +168,24 @@ const routes = (isLoggedIn) => [
       {
         path: '*',
         element: <Status404 />
+      }
+    ]
+  },
+  {
+    path: '/almacenes',
+    element: isLoggedIn ? <SidebarLayout /> : <Navigate to="/" />,
+    children: [
+      {
+        path: '/',
+        element: <Navigate to="almacenes" replace />
+      },
+      {
+        path: 'registro',
+        element: <TablaAlmacen />
+      },
+      {
+        path: 'registro-nuevo',
+        element: <RegistroAlmacen />
       }
     ]
   },
@@ -287,7 +317,11 @@ const routes = (isLoggedIn) => [
       },
       {
         path: 'registro',
-        element: <ProveedorRegistro />
+        element: <TablaProveedor/>
+      },
+      {
+        path: 'registro-nuevo',
+        element: <RegistroProveedor/>
       }
     ]
   },
