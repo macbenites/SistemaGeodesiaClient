@@ -6,13 +6,22 @@ const initialState = {
   create: {},
   province: [],
   district: [],
-  message: ''
+  message: '',
+  updateUser: {}
 };
 
 export const fetchUsers = createAsyncThunk(
   'users/fetchUsers',
   async (searchText) => {
     const { data } = await UsersServices.indexEmployee(searchText);
+    return data;
+  }
+);
+
+export const fetchUpdateUser = createAsyncThunk(
+  'users/fetchUpdateUser',
+  async (id) => {
+    const { data } = await UsersServices.getUpdateEmployee(id);
     return data;
   }
 );
@@ -65,9 +74,14 @@ const UserSlice = createSlice({
     });
     builder.addCase(fetchDistrict.fulfilled, (state, { payload }) => {
       state.district = payload.distritos;
+      alert(JSON.stringify(payload.distritos));
     });
     builder.addCase(saveEmployee.fulfilled, (state, { payload }) => {
       state.message = payload.msg;
+    });
+
+    builder.addCase(fetchUpdateUser.fulfilled, (state, { payload }) => {
+      state.updateUser = payload;
     });
   }
 });
