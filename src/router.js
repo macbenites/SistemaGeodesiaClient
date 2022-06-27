@@ -108,7 +108,7 @@ const TablaProveedor = Loader(
 // Empresa
 
 const RegistroEmpresa = Loader(
-  lazy(() => import('src/content/pages/Empresa/Registro'))
+  lazy(() => import('src/content/pages/Empresa/Ver'))
 );
 
 // Usuarios

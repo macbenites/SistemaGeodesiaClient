@@ -8,6 +8,7 @@ const initialState = {
   district: [],
   message: '',
   updateUser: {},
+  profile: {},
   showUser: {}
 };
 
@@ -67,6 +68,11 @@ export const updateEmployee = createAsyncThunk(
   }
 );
 
+export const getProfile = createAsyncThunk('users/getProfile', async () => {
+  const { data } = await UsersServices.showProfile();
+  return data;
+});
+
 export const fetchShowEmployee = createAsyncThunk(
   'users/fetchShowEmployee',
   async (id) => {
@@ -102,6 +108,10 @@ const UserSlice = createSlice({
 
     builder.addCase(updateEmployee.fulfilled, (state, { payload }) => {
       state.message = payload.msg;
+    });
+
+    builder.addCase(getProfile.fulfilled, (state, { payload }) => {
+      state.profile = payload;
     });
 
     builder.addCase(fetchShowEmployee.fulfilled, (state, { payload }) => {
