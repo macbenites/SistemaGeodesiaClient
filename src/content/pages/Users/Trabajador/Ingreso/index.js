@@ -35,7 +35,7 @@ import {
   fetchDistrict,
   saveEmployee
 } from 'src/redux/slices/users/userSlice';
-import { validationProvider } from 'src/utils/validation';
+import { validationEmployee } from 'src/utils/validation';
 import BasicModal from 'src/components/common/Modals/index';
 import AddIcCallIcon from '@mui/icons-material/AddIcCall';
 
@@ -84,6 +84,7 @@ const EmployeeForm = () => {
                     dir_per: '',
                     nro_telf: ['']
                   }}
+                  validationSchema={validationEmployee}
                   onSubmit={async (values, { resetForm }) => {
                     dispatch(saveEmployee(values)).then(() => {
                       setModal(true);
@@ -243,6 +244,8 @@ const EmployeeForm = () => {
                               setFieldValue('cod_provi', '');
                               setFieldValue('cod_provi', province);
                             }}
+                            error={touched.cod_dpt && Boolean(errors.cod_dpt)}
+                            helperText={errors.cod_dpt}
                           >
                             {create.departamento?.map((provider) => (
                               <MenuItem
@@ -269,6 +272,10 @@ const EmployeeForm = () => {
                               setFieldValue('cod_dist', '');
                               setFieldValue('cod_dist', district);
                             }}
+                            error={
+                              touched.cod_provi && Boolean(errors.cod_provi)
+                            }
+                            helperText={errors.cod_provi}
                           >
                             {province?.map((provider) => (
                               <MenuItem
@@ -289,6 +296,8 @@ const EmployeeForm = () => {
                             name="cod_dist"
                             value={values.cod_dist}
                             onChange={handleChange}
+                            error={touched.cod_dist && Boolean(errors.cod_dist)}
+                            helperText={errors.cod_dist}
                           >
                             {district?.map((provider) => (
                               <MenuItem
@@ -349,34 +358,49 @@ const EmployeeForm = () => {
                                   </Grid>
                                 </Grid>
                               </Grid>
-                              {values.nro_telf.map((_, index) => (
-                                <Grid container item key={index} spacing={2}>
-                                  <Grid item container spacing={2} xs={12}>
-                                    <Grid item xs={12} md={3}>
-                                      <TextField
-                                        type="search"
-                                        label="Telefono o celular"
-                                        fullWidth
-                                        value={values.nro_telf[index]}
-                                        name={`nro_telf.${index}`}
-                                        onChange={handleChange}
-                                      />
+                              {values.nro_telf.map(
+                                (_, index) => (
+                                  console.log(values.nro_telf.length),
+                                  (
+                                    <Grid
+                                      container
+                                      item
+                                      key={index}
+                                      spacing={2}
+                                    >
+                                      <Grid item container spacing={2} xs={12}>
+                                        <Grid item xs={12} md={3}>
+                                          <TextField
+                                            type="search"
+                                            label="Telefono o celular"
+                                            fullWidth
+                                            value={values.nro_telf[index]}
+                                            name={`nro_telf.${index}`}
+                                            onChange={handleChange}
+                                          />
+                                        </Grid>
+
+                                        <Grid item xs={12} md={1}>
+                                          <Button
+                                            disabled={
+                                              values.nro_telf.length === 1
+                                                ? true
+                                                : false
+                                            }
+                                            onClick={() => remove(index)}
+                                            variant="outlined"
+                                            size="large"
+                                            color="error"
+                                            fullWidth
+                                          >
+                                            Quitar
+                                          </Button>
+                                        </Grid>
+                                      </Grid>
                                     </Grid>
-                                    <Grid item xs={12} md={1}>
-                                      <Button
-                                        disabled={isSubmitting}
-                                        onClick={() => remove(index)}
-                                        variant="outlined"
-                                        size="large"
-                                        color="error"
-                                        fullWidth
-                                      >
-                                        Quitar
-                                      </Button>
-                                    </Grid>
-                                  </Grid>
-                                </Grid>
-                              ))}
+                                  )
+                                )
+                              )}
                               <Grid item xs={12} md={12}>
                                 {errors?.nro_telf?.length > 0 ? (
                                   <Typography color="error">
