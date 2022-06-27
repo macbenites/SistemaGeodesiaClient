@@ -65,7 +65,6 @@ return (
                     </FormLabel>
                     <img src={ showCompanyState?.empresa?.logo} height="50hv"></img>
                 </Grid>
-
                 <Grid item xs={12} md={5}>
                     <Button
                       variant="contained"   
