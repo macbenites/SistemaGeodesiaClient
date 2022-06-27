@@ -49,7 +49,14 @@ const UsersServices = {
       }
     );
   },
-
+  //Ver Trabajador
+  showEmployee: (id) => {
+    return axios.get(`${process.env.REACT_APP_API_URL}trabajador/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+  },
   getProvince: (id) => {
     return axios.get(
       `${process.env.REACT_APP_API_URL}trabajador/provincias/${id}`,
