@@ -10,7 +10,7 @@ function ApplicationsTransactions() {
   return (
     <>
       <Helmet>
-        <title>Registros de ingreso</title>
+        <title>Registros de salida</title>
       </Helmet>
       <PageTitleWrapper>
         <PageHeader />
