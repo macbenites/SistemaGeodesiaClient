@@ -8,7 +8,9 @@ const initialState = {
   district: [],
   message: '',
   updateUser: {},
-  profile: {}
+  profile: {},
+  showUser: {}
+
 };
 
 export const fetchUsers = createAsyncThunk(
@@ -75,6 +77,14 @@ export const getProfile = createAsyncThunk(
   }
 );
 
+export const fetchShowEmployee = createAsyncThunk(
+  'users/fetchShowEmployee',
+  async (id) => {
+    const { data } = await UsersServices.showEmployee(id);
+    return data;
+  }
+);
+
 const UserSlice = createSlice({
   name: 'users',
   initialState,
@@ -103,9 +113,13 @@ const UserSlice = createSlice({
     builder.addCase(updateEmployee.fulfilled, (state, { payload }) => {
       state.message = payload.msg;
     });
-
+    
     builder.addCase(getProfile.fulfilled, (state, { payload }) => {
       state.profile = payload;
+      
+    builder.addCase(fetchShowEmployee.fulfilled, (state, { payload }) => {
+      state.showUser = payload;
+
     });
   }
 });

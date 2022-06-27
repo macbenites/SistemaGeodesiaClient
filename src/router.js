@@ -117,6 +117,10 @@ const EmployeeMaintenance = Loader(
   lazy(() => import('src/content/pages/Users/Trabajador/TableTrabajador'))
 );
 
+const ShowEmployee = Loader(
+  lazy(() => import('src/content/pages/Users/Trabajador/Show'))
+);
+
 // Status
 
 const Status404 = Loader(
@@ -325,11 +329,11 @@ const routes = (isLoggedIn) => [
       },
       {
         path: 'registro',
-        element: <TablaProveedor/>
+        element: <TablaProveedor />
       },
       {
         path: 'registro-nuevo',
-        element: <RegistroProveedor/>
+        element: <RegistroProveedor />
       }
     ]
   },
@@ -343,7 +347,7 @@ const routes = (isLoggedIn) => [
       },
       {
         path: 'registro',
-        element: <RegistroEmpresa/>
+        element: <RegistroEmpresa />
       }
     ]
   },
@@ -362,6 +366,10 @@ const routes = (isLoggedIn) => [
       {
         path: 'mantenimiento',
         element: <EmployeeMaintenance />
+      },
+      {
+        path: 'ver-trabajador',
+        element: <ShowEmployee />
       }
     ]
   },
