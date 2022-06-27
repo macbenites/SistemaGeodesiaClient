@@ -34,6 +34,14 @@ const suppliesServices = {
     });
   },
 
+  getAllOutputs: (searchText) => {
+    return axios.post(`${process.env.REACT_APP_API_URL}registrosSalidas`, searchText, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+  },
+
   getSuppliesById: (id) => {
     return axios.get(`${process.env.REACT_APP_API_URL}registroIngreso/${id}`, {
       headers: {

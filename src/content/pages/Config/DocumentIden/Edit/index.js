@@ -27,7 +27,7 @@ const EditDocumento = ({ setModal }) => {
     );
   
     const formik = useFormik({
-      initialValues: showDocumento.documento,
+      initialValues: showDocumento.tipo_doc_reg,
       validationSchema: validationDocumento,
       onSubmit: (values, { resetForm }) => {
         dispatch(updateDocumento(values)).then(() => {
@@ -62,10 +62,10 @@ const EditDocumento = ({ setModal }) => {
                           formik.errors.tipo_reg_doc && formik.errors.tipo_reg_doc
                         }
                       >
-                          <MenuItem key="Ingreso" value="Ingreso" >
+                          <MenuItem key="tipo_reg_doc" value="Ingreso" >
                             Ingreso
                           </MenuItem>
-                          <MenuItem key="Salida"  value="Salida" >
+                          <MenuItem key="tipo_reg_doc"  value="Salida" >
                             Salida
                           </MenuItem>
                       </TextField>
@@ -76,6 +76,7 @@ const EditDocumento = ({ setModal }) => {
                         name="des_t_doc"
                         label="Descripción"
                         value={formik.values.des_t_doc}
+                          // showDocumento?.tipo_doc_reg?.des_t_doc}
                         type="search"
                         autoComplete="off"
                         fullWidth

@@ -42,7 +42,7 @@ const RegistroProducto = Loader(
 );
 
 //Insumos
-const TablaInsumos = Loader(
+const TablaIngresos = Loader(
   lazy(() => import('src/content/pages/Insumos/Ingreso/TablaIngreso'))
 );
 const IngresoInsumos = Loader(
@@ -50,8 +50,11 @@ const IngresoInsumos = Loader(
 );
 
 
+const TablaSalidas = Loader(
+  lazy(() => import('src/content/pages/Insumos/Salida/TablaSalida'))
+);
 const SalidaInsumos = Loader(
-  lazy(() => import('src/content/pages/Insumos/Salida'))
+  lazy(() => import('src/content/pages/Insumos/Salida/Registrar'))
 );
 
 // Config
@@ -233,7 +236,7 @@ const routes = (isLoggedIn) => [
       },
       {
         path: 'ingreso',
-        element: <TablaInsumos />
+        element: <TablaIngresos />
       },
       {
         path: 'ingreso-nuevo',
@@ -241,8 +244,13 @@ const routes = (isLoggedIn) => [
       },
       {
         path: 'salida',
+        element: <TablaSalidas />
+      },
+      {
+        path: 'salida-nueva',
         element: <SalidaInsumos />
       }
+      
     ]
   },
   {
