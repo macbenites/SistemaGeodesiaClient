@@ -34,7 +34,7 @@ import {
   fetchDistrict,
   updateEmployee
 } from 'src/redux/slices/users/userSlice';
-import { validationProvider } from 'src/utils/validation';
+import { validationEmployee, validationProvider } from 'src/utils/validation';
 import BasicModal from 'src/components/common/Modals/index';
 import AddIcCallIcon from '@mui/icons-material/AddIcCall';
 
@@ -84,6 +84,7 @@ const EmployeeFormUpdate = ({ setModal }) => {
                     dir_per: updateUser.trabajador.dir_per,
                     nro_telf: updateUser?.telefono.map((item) => item.nro_telf)
                   }}
+                  validationSchema={validationEmployee}
                   onSubmit={async (values, { resetForm }) => {
                     dispatch(updateEmployee(values)).then(() => {
                       setModal(false);
@@ -364,7 +365,11 @@ const EmployeeFormUpdate = ({ setModal }) => {
                                     </Grid>
                                     <Grid item xs={12} md={1}>
                                       <Button
-                                        disabled={isSubmitting}
+                                        disabled={
+                                          values.nro_telf.length === 1
+                                            ? true
+                                            : false
+                                        }
                                         onClick={() => remove(index)}
                                         variant="outlined"
                                         size="large"
