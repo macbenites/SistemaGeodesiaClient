@@ -7,6 +7,7 @@ const initialState = {
   selectedSupply: {},
   selectedSupplyOut: {},
   articlesSupplies: [],
+  suppliesIndex:{},
   status: null,
   created: null
 };
@@ -65,6 +66,14 @@ export const fetchArticlesSupplies = createAsyncThunk(
   }
 );
 
+//index
+export const fetchAllSupplies = createAsyncThunk(
+  'getSupliesAll', 
+  async () => {
+    const { data } = await suppliesServices.getAllSupplies();
+    return data;
+});
+
 const suppliesSlice = createSlice({
   name: 'supplies',
   initialState,
@@ -83,6 +92,18 @@ const suppliesSlice = createSlice({
     }
   },
   extraReducers: (builder) => {
+    //index
+    builder.addCase(fetchAllSupplies.pending, (state, action) => {
+      state.status = 'loading';
+    });
+    builder.addCase(fetchAllSupplies.fulfilled, (state, { payload }) => {
+      state.suppliesIndex = payload.registros;//nombre de la tabla registros
+      state.status = 'success';
+    });
+    builder.addCase(fetchAllSupplies.rejected, (state, action) => {
+      state.status = 'error';
+    });
+    
     builder.addCase(fetchSuppliesCreate.fulfilled, (state, { payload }) => {
       state.selectedSupply = payload;
     });

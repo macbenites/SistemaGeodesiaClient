@@ -96,10 +96,10 @@ const articleSlice = createSlice({
     });
 
     builder.addCase(updateArticle.fulfilled, (state, { payload }) => {
-      state.updated = 'Articulo actualizado satisfactoriamente';
+      state.update = 'Articulo actualizado satisfactoriamente';
     });
     builder.addCase(updateArticle.rejected, (state, { payload }) => {
-      state.updated = 'Error al actualizar el articulo';
+      state.update = 'Error al actualizar el articulo';
     });
   }
 });
