@@ -3,9 +3,10 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import companyServices from '../../../services/company/index';
 const initialState = {
-    editProvider:{},
+    editCompanyState:{},
     status: null,
     update: null,
+    showCompanyState: {}
   };
 
   export const fetchShowCompany = createAsyncThunk(
@@ -39,7 +40,7 @@ const initialState = {
       extraReducers: (builder) => {
       //edit
       builder.addCase(fetchEditCompany.fulfilled, (state, { payload }) => {
-        state.editProvider = payload;
+        state.editCompanyState = payload;
       });
       //update
       builder.addCase(updateCompany.fulfilled, (state, { payload }) => {
@@ -50,7 +51,7 @@ const initialState = {
       });
     //show
     builder.addCase(fetchShowCompany.fulfilled, (state, { payload }) => {
-        state.showProvider = payload;
+        state.showCompanyState = payload;
     });
   }
   });

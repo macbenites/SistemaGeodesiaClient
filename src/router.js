@@ -42,12 +42,19 @@ const RegistroProducto = Loader(
 );
 
 //Insumos
+const TablaIngresos = Loader(
+  lazy(() => import('src/content/pages/Insumos/Ingreso/TablaIngreso'))
+);
 const IngresoInsumos = Loader(
-  lazy(() => import('src/content/pages/Insumos/Ingreso/ingresoTest'))
+  lazy(() => import('src/content/pages/Insumos/Ingreso/Registrar/ingresoTest'))
 );
 
+
+const TablaSalidas = Loader(
+  lazy(() => import('src/content/pages/Insumos/Salida/TablaSalida'))
+);
 const SalidaInsumos = Loader(
-  lazy(() => import('src/content/pages/Insumos/Salida'))
+  lazy(() => import('src/content/pages/Insumos/Salida/Registrar'))
 );
 
 // Config
@@ -104,7 +111,7 @@ const TablaProveedor = Loader(
 // Empresa
 
 const RegistroEmpresa = Loader(
-  lazy(() => import('src/content/pages/Empresa/Registro'))
+  lazy(() => import('src/content/pages/Empresa/Ver'))
 );
 
 // Usuarios
@@ -229,12 +236,21 @@ const routes = (isLoggedIn) => [
       },
       {
         path: 'ingreso',
+        element: <TablaIngresos />
+      },
+      {
+        path: 'ingreso-nuevo',
         element: <IngresoInsumos />
       },
       {
         path: 'salida',
+        element: <TablaSalidas />
+      },
+      {
+        path: 'salida-nueva',
         element: <SalidaInsumos />
       }
+      
     ]
   },
   {

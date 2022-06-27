@@ -176,7 +176,7 @@ const TableEmployee = () => {
                       </Typography>
                     </TableCell>
                     <TableCell align="right">
-                      <Tooltip title="Edit Order" arrow>
+                      <Tooltip title="Ver" arrow>
                         <IconButton
                           sx={{
                             '&:hover': {
@@ -191,7 +191,7 @@ const TableEmployee = () => {
                           <VisibilityTwoToneIcon fontSize="small" />
                         </IconButton>
                       </Tooltip>
-                      <Tooltip title="Edit Order" arrow>
+                      <Tooltip title="Editar" arrow>
                         <IconButton
                           sx={{
                             '&:hover': {
@@ -206,7 +206,7 @@ const TableEmployee = () => {
                           <EditTwoToneIcon fontSize="small" />
                         </IconButton>
                       </Tooltip>
-                      <Tooltip title="Delete Order" arrow>
+                      <Tooltip title="Eliminar" arrow>
                         <IconButton
                           sx={{
                             '&:hover': {

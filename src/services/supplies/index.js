@@ -26,16 +26,33 @@ const suppliesServices = {
     );
   },
 
-  getAllSupplies: () => {
-    return axios.get(`${process.env.REACT_APP_API_URL}registroIngreso`, {
+  getAllSupplies: (searchText) => {
+    return axios.post(`${process.env.REACT_APP_API_URL}registrosIngresos`, searchText, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
     });
   },
 
+  getAllOutputs: (searchText) => {
+    return axios.post(`${process.env.REACT_APP_API_URL}registrosSalidas`, searchText, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+  },
+
+  //SHOW INGRESO - SALIDA
   getSuppliesById: (id) => {
     return axios.get(`${process.env.REACT_APP_API_URL}registroIngreso/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+  },
+
+  getSuppliesOutById: (id) => {
+    return axios.get(`${process.env.REACT_APP_API_URL}registroSalida/${id}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }

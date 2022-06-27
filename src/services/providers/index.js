@@ -39,7 +39,7 @@ const providerServices = {
 
   updateProvider: (provider) => {
     return axios.put(
-      `${process.env.REACT_APP_API_URL}articuloUpdate/${provider.cod_persona}`,
+      `${process.env.REACT_APP_API_URL}proveedorUpdate/${provider.cod_prov}`,
       provider,
       {
         headers: {
@@ -48,6 +48,7 @@ const providerServices = {
       }
     );
   },
+  //carga vista editar proveedor
   showProvider: (id) => {
     return axios.get(`${process.env.REACT_APP_API_URL}proveedorEditar/${id}`, {
       headers: {
@@ -71,6 +72,15 @@ const providerServices = {
   //precargados
   getProveedoresCreate: () => {
     return axios.get(`${process.env.REACT_APP_API_URL}proveedor/create`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+  },
+
+  //VER SHOW proveedor
+  getProveedor: (id) => {
+    return axios.get(`${process.env.REACT_APP_API_URL}proveedor/${id}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
