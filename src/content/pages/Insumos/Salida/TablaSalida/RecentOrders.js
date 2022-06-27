@@ -19,26 +19,30 @@ import {
 import Label from 'src/components/Label';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
+import VisibilityTwoToneIcon from '@mui/icons-material/VisibilityTwoTone';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { useDispatch, useSelector } from 'react-redux';
 import {
 //   destroyProvider,
 //   fetchShowProvider,
-    fetchAllOutputs
+    fetchAllOutputs,
+    fetchSupplyOut
 } from 'src/redux/slices/supplies/suppliesSlice';
 import ModalCrud from 'src/components/common/Modals/modalCrud';
     // import EditIngreso from '../Edit';
 import { useEffect, useState } from 'react';
+import ShowSupplyOut from '../Show';
 
 const RecentOrdersTable = () => {
   const dispatch = useDispatch();
   const [modal, setModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [deleted, setDeleted] = useState('');
   const salidas = useSelector((state) => state.supplies.outputsIndex);
   const { data } = salidas;
   useEffect(() => {
     dispatch(fetchAllOutputs({}));
-  }, [dispatch, modal, deleted]);
+  }, [dispatch, modal, deleted,showModal]);
 
 
   const theme = useTheme();
@@ -52,12 +56,22 @@ const RecentOrdersTable = () => {
 //       setModal(id);
 //     });
 //   };
+const handleShow = (id) => {
+  dispatch(fetchSupplyOut (id)).then(() => {
+    setShowModal(id);
+  });
+};
 
   return (
     <>
       {modal && (
         <ModalCrud modal={modal} setModal={setModal}>
           {/* <EditProvider setModal={setModal} /> */}
+        </ModalCrud>
+      )}
+      {showModal && (
+        <ModalCrud modal={showModal} setModal={setShowModal}>
+          <ShowSupplyOut setModal={setShowModal} />
         </ModalCrud>
       )}
 
@@ -147,19 +161,19 @@ const RecentOrdersTable = () => {
                       </Typography>
                     </TableCell>
                     <TableCell align="right">
-                      <Tooltip title="Ver" arrow>
+                    <Tooltip title="Ver" arrow>
                         <IconButton
                           sx={{
                             '&:hover': {
                               background: theme.colors.primary.lighter
                             },
-                            color: theme.palette.primary.main
+                            color: theme.palette.secondary.main
                           }}
                           color="inherit"
                           size="small"
-                          // onClick={() => handleUpdate(cryptoOrder.cod_prov)}
+                          onClick={() => handleShow(cryptoOrder.cod_reg_sal)}
                         >
-                          <VisibilityIcon fontSize="small" />
+                          <VisibilityTwoToneIcon fontSize="small" />
                         </IconButton>
                       </Tooltip>
                       <Tooltip title="Editar" arrow>

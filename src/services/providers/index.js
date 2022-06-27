@@ -48,6 +48,7 @@ const providerServices = {
       }
     );
   },
+  //carga vista editar proveedor
   showProvider: (id) => {
     return axios.get(`${process.env.REACT_APP_API_URL}proveedorEditar/${id}`, {
       headers: {
@@ -71,6 +72,15 @@ const providerServices = {
   //precargados
   getProveedoresCreate: () => {
     return axios.get(`${process.env.REACT_APP_API_URL}proveedor/create`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+  },
+
+  //VER SHOW proveedor
+  getProveedor: (id) => {
+    return axios.get(`${process.env.REACT_APP_API_URL}proveedor/${id}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
