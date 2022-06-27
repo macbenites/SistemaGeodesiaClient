@@ -20,11 +20,16 @@ import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import VisibilityTwoToneIcon from '@mui/icons-material/VisibilityTwoTone';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchUpdateUser, fetchUsers } from 'src/redux/slices/users/userSlice';
+import {
+  fetchUpdateUser,
+  fetchUsers,
+  fetchShowEmployee
+} from 'src/redux/slices/users/userSlice';
 import ModalCrud from 'src/components/common/Modals/modalCrud';
 
 import EditEmployee from '../Edit';
 import { useEffect, useState } from 'react';
+import ShowEmployee from '../Show';
 
 // const applyFilters = (cryptoOrders, filters) => {
 //   return cryptoOrders.filter((cryptoOrder) => {
@@ -44,13 +49,14 @@ import { useEffect, useState } from 'react';
 
 const TableEmployee = () => {
   const dispatch = useDispatch();
-  const [modal, setModal] = useState(false);
+  const [editModal, setEditModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [deleted, setDeleted] = useState('');
   const { index } = useSelector((state) => state.users);
 
   useEffect(() => {
     dispatch(fetchUsers());
-  }, [dispatch, modal, deleted]);
+  }, [dispatch, editModal, showModal, deleted]);
 
   const statusOptions = [
     {
@@ -80,17 +86,29 @@ const TableEmployee = () => {
 
   const handleUpdate = (id) => {
     dispatch(fetchUpdateUser(id)).then(() => {
-      setModal(id);
+      setEditModal(id);
+    });
+  };
+
+  const handleShow = (id) => {
+    dispatch(fetchShowEmployee(id)).then(() => {
+      setShowModal(id);
     });
   };
 
   return (
     <>
-      {modal && (
-        <ModalCrud modal={modal} setModal={setModal}>
-          <EditEmployee setModal={setModal} />
+      {editModal && (
+        <ModalCrud modal={editModal} setModal={setEditModal}>
+          <EditEmployee setModal={setEditModal} />
         </ModalCrud>
       )}
+      {showModal && (
+        <ModalCrud modal={showModal} setModal={setShowModal}>
+          <ShowEmployee setModal={setShowModal} />
+        </ModalCrud>
+      )}
+
       <Card>
         <Divider />
         <TableContainer>
@@ -143,7 +161,7 @@ const TableEmployee = () => {
                         gutterBottom
                         noWrap
                       >
-                        71423551
+                        {cryptoOrder.nro_doc}
                       </Typography>
                     </TableCell>
                     <TableCell align="center">
@@ -168,7 +186,7 @@ const TableEmployee = () => {
                           }}
                           color="inherit"
                           size="small"
-                          onClick={() => handleUpdate(cryptoOrder.idTrabajador)}
+                          onClick={() => handleShow(cryptoOrder.idTrabajador)}
                         >
                           <VisibilityTwoToneIcon fontSize="small" />
                         </IconButton>
