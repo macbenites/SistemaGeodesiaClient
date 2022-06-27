@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import { array, boolean, number, object, string} from 'yup';
+import { array, boolean, number, object, string } from 'yup';
 
 export const validationArticle = yup.object().shape({
   cod_art: yup.string().required('El codigo del articulo es requerido'),
@@ -17,39 +17,39 @@ export const validationArticle = yup.object().shape({
 });
 
 export const validationProvider = yup.object().shape({
-  cod_t_per:yup
-  .string('Ingrese tipo de persona')
-  .required('El tipo persona es requerido'),
+  cod_t_per: yup
+    .string('Ingrese tipo de persona')
+    .required('El tipo persona es requerido'),
   razon_social: yup
-  .string('Ingrese razon social')
-  .required('La razon social es requerida'),
-  cod_t_doc: yup
-  .string()
-  .required('El tipo de documento es requerido'),
+    .string('Ingrese razon social')
+    .required('La razon social es requerida'),
+  cod_t_doc: yup.string().required('El tipo de documento es requerido'),
   nro_doc: yup
-  .string('Ingrese número del documento')
-  .required('El número de documento es requerido')
-  .matches(/\b\d{11}\b/, {message: 'Ingrese solo 11 digitos', excludeEmptyString: true}),
+    .string('Ingrese número del documento')
+    .required('El número de documento es requerido')
+    .matches(/\b\d{11}\b/, {
+      message: 'Ingrese solo 11 digitos',
+      excludeEmptyString: true
+    }),
   // .test('len', 'Ingrese solo 11 digitos', val => val.toString().length === 11)
   // .matches(/^[0-9]+$/,'Ingrese solo números'),
   // .trim(),
   correo_per: yup
-  .string('Ingrese email')
-  .email('El email no tiene un formato válido')
-  .max(90, 'El email no puede superar los 90 caracteres')
-  .required('El email es requerido'),
+    .string('Ingrese email')
+    .email('El email no tiene un formato válido')
+    .max(90, 'El email no puede superar los 90 caracteres')
+    .required('El email es requerido'),
   dir_per: yup
-  .string('Ingrese dirección')
-  .max(100, 'La direccion no puede superar los 100 caracteres')
-  .required('La dirección es requerida'),
+    .string('Ingrese dirección')
+    .max(100, 'La direccion no puede superar los 100 caracteres')
+    .required('La dirección es requerida'),
   telephones: array(
     object({
-      nro_telf:
-      string('Ingrese número de telefono')
-      .min(7,'Ingrese minimo 7 digitos')
-      .max(9,'Ingrese máximo 9 digitos')
-      .matches(/^[0-9]+$/, 'Ingrese solo números')
-      .required('El numero de telefono es requerido'),
+      nro_telf: string('Ingrese número de telefono')
+        .min(7, 'Ingrese minimo 7 digitos')
+        .max(9, 'Ingrese máximo 9 digitos')
+        .matches(/^[0-9]+$/, 'Ingrese solo números')
+        .required('El numero de telefono es requerido')
     })
   )
 });
@@ -152,9 +152,8 @@ export const validationSupplies = yup.object().shape({
           'La observacion del articulo debe tener maximo 255 caracteres'
         )
     })
-  )
-    .min(1, 'Debe ingresar al menos un articulo')
-    // .max(8, 'Debe ingresar maximo 3 articulos')
+  ).min(1, 'Debe ingresar al menos un articulo')
+  // .max(8, 'Debe ingresar maximo 3 articulos')
   // .test((donations) => {
   //   const sum = donations?.reduce(
   //     (acc, curr) => acc + (curr.percentage || 0),
@@ -179,4 +178,32 @@ export const validationLogin = yup.object().shape({
     .string('Ingrese la contraseña')
     .required('La contraseña es requerida')
     .min(6, 'La contraseña debe tener minimo 6 caracteres')
+});
+
+export const validationEmployee = yup.object().shape({
+  cod_t_per: yup.string().required('El tipo de persona es requerido'),
+  nom_per: yup.string().required('El nombre es requerido'),
+  ape_pat_per: yup.string().required('El apellido paterno es requerido'),
+  ape_mat_per: yup.string().required('El apellido materno es requerido'),
+  cod_t_doc: yup.string().required('El tipo de documento es requerido'),
+  nro_doc: yup.string().required('El numero de documento es requerido'),
+  correo_per: yup
+    .string()
+    .email('El correo electronico no es valido')
+    .required('El correo electronico es requerido'),
+  dir_per: yup.string().required('La direccion es requerida'),
+  cod_dpt: yup.string().required('El departamento es requerido'),
+  cod_provi: yup.string().required('La provincia es requerida'),
+  cod_dist: yup.string().required('El distrito es requerido'),
+  dir_per: yup.string().required('La direccion es requerida'),
+  nro_telf: array(
+    object({
+      nro_telf: yup
+        .string()
+        .required('El numero de telefono es requerido')
+        .max(9, 'El numero de telefono debe tener 9 caracteres')
+    })
+  )
+    .min(1, 'Debe ingresar al menos un telefono')
+    .max(3, 'Debe ingresar maximo 2 telefonos')
 });
