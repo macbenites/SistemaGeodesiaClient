@@ -70,6 +70,14 @@ const UsersServices = {
         }
       }
     );
+  },
+
+  showProfile: () => {
+    return axios.get(`${process.env.REACT_APP_API_URL}perfil`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    });
   }
 };
 
