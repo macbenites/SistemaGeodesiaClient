@@ -16,7 +16,8 @@ const initialState = {
     created: null,
     destroy: null,
     msgUpdate:'',
-    updateProv:{}
+    updateProv:{},
+    verProveedor: {}
   };
 
   export const saveProvider = createAsyncThunk(
@@ -88,6 +89,13 @@ const initialState = {
     return data;
   });
 
+  export const fetchProviderShow = createAsyncThunk(
+    'getProviderShow', 
+    async (id) => {
+      const { data } = await providerServices.getProveedor(id);
+      return data;
+  });
+
   const providerSlice = createSlice({
     name: 'providers',
     initialState,
@@ -153,6 +161,11 @@ const initialState = {
       builder.addCase(saveUpdateProvider.fulfilled, (state, { payload }) => {
         state.msgUpdate = 'Proveedor actualizado satisfactoriamente';
       });
+      // VER SHOW
+      builder.addCase(fetchProviderShow.fulfilled, (state, { payload }) => {
+        state.verProveedor = payload;
+      });
+
     }
   });
   export const { addTelephone, addTelephoneOut, resetTelephone } = providerSlice.actions;
