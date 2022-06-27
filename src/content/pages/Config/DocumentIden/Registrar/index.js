@@ -72,10 +72,10 @@ const FormDocumento = () => {
                           formik.errors.tipo_reg_doc && formik.errors.tipo_reg_doc
                         }
                       >
-                          <MenuItem key="Ingreso" value="Ingreso" >
+                          <MenuItem key="tipo_reg_doc" value="Ingreso" >
                             Ingreso
                           </MenuItem>
-                          <MenuItem key="Salida"  value="Salida" >
+                          <MenuItem key="tipo_reg_doc"  value="Salida" >
                             Salida
                           </MenuItem>
                       </TextField>
