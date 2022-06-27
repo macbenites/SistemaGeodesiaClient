@@ -3,7 +3,7 @@ import axios from 'axios';
 const articleServices = {
   //Create article
   create: (article) => {
-    return axios.post(`${process.env.REACT_APP_API_URL}articles`, article, {
+    return axios.post(`${process.env.REACT_APP_API_URL}articulo`, article, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }

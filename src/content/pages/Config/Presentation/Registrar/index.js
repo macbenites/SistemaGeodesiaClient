@@ -19,7 +19,7 @@ import BasicModal from 'src/components/common/Modals';
 
 const FormPresentation = () => {
   const [modal, setModal] = useState(false);
-  const { createdPresentacion } = useSelector((state) => state.config);
+  const { createdPresentation } = useSelector((state) => state.config);
   const dispatch = useDispatch();
 
   const formik = useFormik({
@@ -37,7 +37,7 @@ const FormPresentation = () => {
 
   return (
     <>
-      <BasicModal modal={modal} setModal={setModal} message={createdPresentacion} />
+      <BasicModal modal={modal} setModal={setModal} message={createdPresentation} />
       <Container maxWidth="md">
         <Grid
           container
