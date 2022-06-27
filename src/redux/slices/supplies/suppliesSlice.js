@@ -7,7 +7,8 @@ const initialState = {
   selectedSupply: {},
   selectedSupplyOut: {},
   articlesSupplies: [],
-  suppliesIndex:{},
+  suppliesIndex:{},//ingresos
+  outputsIndex:{},//salidas
   status: null,
   created: null,
   supplyIn:{}
@@ -67,11 +68,18 @@ export const fetchArticlesSupplies = createAsyncThunk(
   }
 );
 
-//index
+//index ingreso
 export const fetchAllSupplies = createAsyncThunk(
   'getSupliesAll', 
   async () => {
     const { data } = await suppliesServices.getAllSupplies();
+    return data;
+});
+//index salida
+export const fetchAllOutputs = createAsyncThunk(
+  'getOutputsAll', 
+  async () => {
+    const { data } = await suppliesServices.getAllOutputs();
     return data;
 });
 
@@ -100,7 +108,7 @@ const suppliesSlice = createSlice({
     }
   },
   extraReducers: (builder) => {
-    //index
+    //index ingreso
     builder.addCase(fetchAllSupplies.pending, (state, action) => {
       state.status = 'loading';
     });
@@ -144,8 +152,21 @@ const suppliesSlice = createSlice({
       alert('Error al crear salida');
     });
 
+
     builder.addCase(fetchSupplyIn.fulfilled, (state, { payload }) => {
       state.supplyIn = payload;
+    });
+    //index salida
+    builder.addCase(fetchAllOutputs.pending, (state, action) => {
+      state.status = 'loading';
+    });
+    builder.addCase(fetchAllOutputs.fulfilled, (state, { payload }) => {
+      state.outputsIndex = payload.registros;//nombre de la tabla registros
+      state.status = 'success';
+    });
+    builder.addCase(fetchAllOutputs.rejected, (state, action) => {
+      state.status = 'error';
+
     });
   }
 });
