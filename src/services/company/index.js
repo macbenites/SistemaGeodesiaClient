@@ -25,7 +25,7 @@ const companyServices = {
         return axios.get(`${process.env.REACT_APP_API_URL}empresa`, {
         headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`
-        }
+        } 
         });
     }
 };
