@@ -6,6 +6,7 @@ import InventarioReducer from './slices/Inventario/InventarioSlice';
 import configReducer from './slices/config/configSlice';
 import providerReducer from './slices/providers/providerSlice'; //proveedor
 import almacenReducer from './slices/almacenes/almacenSlice'; //almacen
+import companyReducer from './slices/company/companySlice'; //empresa
 import { getDefaultMiddleware } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import authReducer from './slices/auth/authSlice';
@@ -20,7 +21,8 @@ export const store = configureStore({
     provider: providerReducer,
     auth: authReducer,
     users: userReducer,
-    almacen: almacenReducer
+    almacen: almacenReducer,
+    company: companyReducer,
   },
   middleware: getDefaultMiddleware({
     serializableCheck: false

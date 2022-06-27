@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { tokenConfig } from 'src/config';
+
 const articleServices = {
   //Create article
   create: (article) => {

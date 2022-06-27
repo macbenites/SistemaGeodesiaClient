@@ -39,7 +39,7 @@ const providerServices = {
 
   updateProvider: (provider) => {
     return axios.put(
-      `${process.env.REACT_APP_API_URL}articuloUpdate/${provider.cod_persona}`,
+      `${process.env.REACT_APP_API_URL}proveedorUpdate/${provider.cod_prov}`,
       provider,
       {
         headers: {

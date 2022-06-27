@@ -6,9 +6,7 @@ const initialState = {
     telephonesContainer:[],
     telephonesContainerOut:[],
     providersCreate:{},
-    // providers:[],
     providersIndex:{},
-    showProvider:{},
     tdoc_ide: [],
     departamento: [],
     provincia: [],
@@ -17,7 +15,8 @@ const initialState = {
     status: null,
     created: null,
     destroy: null,
-    update: null,
+    msgUpdate:'',
+    updateProv:{}
   };
 
   export const saveProvider = createAsyncThunk(
@@ -76,7 +75,7 @@ const initialState = {
     }
   );
   
-  export const updateProvider = createAsyncThunk(
+  export const saveUpdateProvider = createAsyncThunk(
     'updateProvider',
     async (provider) => {
       const { data } = await providerServices.updateProvider(provider);
@@ -85,7 +84,7 @@ const initialState = {
   );
   
   export const destroyProvider = createAsyncThunk('destroyProvider', async (id) => {
-    const { data } = await articleServices.deleteById(id);
+    const { data } = await providerServices.deleteById(id);
     return data;
   });
 
@@ -119,7 +118,7 @@ const initialState = {
       });
       //show
       builder.addCase(fetchShowProvider.fulfilled, (state, { payload }) => {
-        state.showProvider = payload;
+        state.updateProv = payload;
       });
       //precargados
       builder.addCase(fetchProvidersCreate.fulfilled, (state, { payload }) => {
@@ -149,6 +148,10 @@ const initialState = {
       });
       builder.addCase(destroyProvider.rejected, (state, { payload }) => {
         state.destroy = 'Error al eliminar el proveedor';
+      });
+      //update
+      builder.addCase(saveUpdateProvider.fulfilled, (state, { payload }) => {
+        state.msgUpdate = 'Proveedor actualizado satisfactoriamente';
       });
     }
   });

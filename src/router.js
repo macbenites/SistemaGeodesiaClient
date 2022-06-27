@@ -42,9 +42,13 @@ const RegistroProducto = Loader(
 );
 
 //Insumos
-const IngresoInsumos = Loader(
-  lazy(() => import('src/content/pages/Insumos/Ingreso/ingresoTest'))
+const TablaInsumos = Loader(
+  lazy(() => import('src/content/pages/Insumos/Ingreso/TablaIngreso'))
 );
+const IngresoInsumos = Loader(
+  lazy(() => import('src/content/pages/Insumos/Ingreso/Registrar/ingresoTest'))
+);
+
 
 const SalidaInsumos = Loader(
   lazy(() => import('src/content/pages/Insumos/Salida'))
@@ -101,7 +105,14 @@ const TablaProveedor = Loader(
   lazy(() => import('src/content/pages/Proveedor/TableProvider'))
 );
 
+// Empresa
+
+const RegistroEmpresa = Loader(
+  lazy(() => import('src/content/pages/Empresa/Ver'))
+);
+
 // Usuarios
+
 const Employee = Loader(
   lazy(() => import('src/content/pages/Users/Trabajador/Ingreso'))
 );
@@ -109,6 +120,11 @@ const Employee = Loader(
 const EmployeeMaintenance = Loader(
   lazy(() => import('src/content/pages/Users/Trabajador/TableTrabajador'))
 );
+
+const ShowEmployee = Loader(
+  lazy(() => import('src/content/pages/Users/Trabajador/Show'))
+);
+
 // Status
 
 const Status404 = Loader(
@@ -217,6 +233,10 @@ const routes = (isLoggedIn) => [
       },
       {
         path: 'ingreso',
+        element: <TablaInsumos />
+      },
+      {
+        path: 'ingreso-nuevo',
         element: <IngresoInsumos />
       },
       {
@@ -317,11 +337,25 @@ const routes = (isLoggedIn) => [
       },
       {
         path: 'registro',
-        element: <TablaProveedor/>
+        element: <TablaProveedor />
       },
       {
         path: 'registro-nuevo',
-        element: <RegistroProveedor/>
+        element: <RegistroProveedor />
+      }
+    ]
+  },
+  {
+    path: 'empresa',
+    element: isLoggedIn ? <SidebarLayout /> : <Navigate to="/" />,
+    children: [
+      {
+        path: '/',
+        element: <Navigate to="empresa" replace />
+      },
+      {
+        path: 'registro',
+        element: <RegistroEmpresa />
       }
     ]
   },
@@ -340,6 +374,10 @@ const routes = (isLoggedIn) => [
       {
         path: 'mantenimiento',
         element: <EmployeeMaintenance />
+      },
+      {
+        path: 'ver-trabajador',
+        element: <ShowEmployee />
       }
     ]
   },

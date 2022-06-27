@@ -7,7 +7,9 @@ const initialState = {
   province: [],
   district: [],
   message: '',
-  updateUser: {}
+  updateUser: {},
+  profile: {},
+  showUser: {}
 };
 
 export const fetchUsers = createAsyncThunk(
@@ -58,6 +60,27 @@ export const saveEmployee = createAsyncThunk(
   }
 );
 
+export const updateEmployee = createAsyncThunk(
+  'users/updateEmployee',
+  async (employee) => {
+    const { data } = await UsersServices.updateEmployee(employee);
+    return data;
+  }
+);
+
+export const getProfile = createAsyncThunk('users/getProfile', async () => {
+  const { data } = await UsersServices.showProfile();
+  return data;
+});
+
+export const fetchShowEmployee = createAsyncThunk(
+  'users/fetchShowEmployee',
+  async (id) => {
+    const { data } = await UsersServices.showEmployee(id);
+    return data;
+  }
+);
+
 const UserSlice = createSlice({
   name: 'users',
   initialState,
@@ -74,7 +97,6 @@ const UserSlice = createSlice({
     });
     builder.addCase(fetchDistrict.fulfilled, (state, { payload }) => {
       state.district = payload.distritos;
-      alert(JSON.stringify(payload.distritos));
     });
     builder.addCase(saveEmployee.fulfilled, (state, { payload }) => {
       state.message = payload.msg;
@@ -82,6 +104,18 @@ const UserSlice = createSlice({
 
     builder.addCase(fetchUpdateUser.fulfilled, (state, { payload }) => {
       state.updateUser = payload;
+    });
+
+    builder.addCase(updateEmployee.fulfilled, (state, { payload }) => {
+      state.message = payload.msg;
+    });
+
+    builder.addCase(getProfile.fulfilled, (state, { payload }) => {
+      state.profile = payload;
+    });
+
+    builder.addCase(fetchShowEmployee.fulfilled, (state, { payload }) => {
+      state.showUser = payload;
     });
   }
 });
