@@ -9,7 +9,8 @@ const initialState = {
   articlesSupplies: [],
   suppliesIndex:{},
   status: null,
-  created: null
+  created: null,
+  supplyIn:{}
 };
 
 export const saveSupplies = createAsyncThunk('saveSupplie', async (supplie) => {
@@ -74,6 +75,13 @@ export const fetchAllSupplies = createAsyncThunk(
     return data;
 });
 
+export const fetchSupplyIn = createAsyncThunk(
+  'getSupplyIn', 
+  async (id) => {
+    const { data } = await suppliesServices.getSuppliesById(id);
+    return data;
+});
+
 const suppliesSlice = createSlice({
   name: 'supplies',
   initialState,
@@ -134,6 +142,10 @@ const suppliesSlice = createSlice({
     builder.addCase(saveSuppliesOut.rejected, (state, { payload }) => {
       state.created = 'Error al crear Salida';
       alert('Error al crear salida');
+    });
+
+    builder.addCase(fetchSupplyIn.fulfilled, (state, { payload }) => {
+      state.supplyIn = payload;
     });
   }
 });
