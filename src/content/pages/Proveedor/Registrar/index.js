@@ -87,9 +87,9 @@ const Proveedor = () => {
                   
                   validationSchema={validationProvider}
                   onSubmit = {async(values,{resetForm})=>{
-                    dispatch(saveProvider(values)).them(()=>{
-                      setModal(true);
+                    dispatch(saveProvider(values)).then(()=>{
                       resetForm();
+                      setModal(true);
                     });
                   }}
                   
@@ -401,6 +401,7 @@ const Proveedor = () => {
           </Card>
         </Grid>
       </Grid>
+      <BasicModal />
     </Container>
   </>
   );

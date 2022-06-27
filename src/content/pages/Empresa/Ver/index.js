@@ -38,6 +38,10 @@ return (
             <CardContent>
             {/* <form onSubmit={formik.handleSubmit}> */}
                 <Grid container spacing={2}>
+                <Grid item xs={12} md={9} >
+                    
+                    <img src={ showCompanyState?.empresa?.logo} height="100hv"></img>
+                </Grid>
                 <Grid item xs={12} md={9}>
                     <FormLabel component="" sx={{}}>
                         {showCompanyState?.empresa?.razon_social}
@@ -59,12 +63,7 @@ return (
                         {showCompanyState?.empresa?.correo_per}
                     </FormLabel>
                 </Grid>
-                <Grid item xs={12} md={9} >
-                    <FormLabel component="" sx={{ fontWeight: 'bold' }}>
-                    Logo: {'\u00A0'}
-                    </FormLabel>
-                    <img src={ showCompanyState?.empresa?.logo} height="50hv"></img>
-                </Grid>
+                
                 <Grid item xs={12} md={5}>
                     <Button
                       variant="contained"   
