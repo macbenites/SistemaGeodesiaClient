@@ -7,12 +7,13 @@ const initialState = {
   selectedSupply: {},
   selectedSupplyOut: {},
   articlesSupplies: [],
-  suppliesIndex:{},//ingresos
-  outputsIndex:{},//salidas
+  suppliesIndex: {}, //ingresos
+  outputsIndex: {}, //salidas
   status: null,
   created: null,
-  supplyIn:{},
-  supplyOut:{}
+  supplyIn: {},
+  supplyOut: {},
+  employe: {}
 };
 
 export const saveSupplies = createAsyncThunk('saveSupplie', async (supplie) => {
@@ -45,6 +46,11 @@ export const saveSuppliesOut = createAsyncThunk(
   }
 );
 
+export const fetchEmployee = createAsyncThunk('fetchEmployee', async (id) => {
+  const { status, data } = await suppliesServices.getEmployee(id);
+  return { status, data };
+});
+
 export const fetchSuppliesCreate = createAsyncThunk(
   'getSuppliesCreate',
   async () => {
@@ -70,32 +76,24 @@ export const fetchArticlesSupplies = createAsyncThunk(
 );
 
 //index ingreso
-export const fetchAllSupplies = createAsyncThunk(
-  'getSupliesAll', 
-  async () => {
-    const { data } = await suppliesServices.getAllSupplies();
-    return data;
+export const fetchAllSupplies = createAsyncThunk('getSupliesAll', async () => {
+  const { data } = await suppliesServices.getAllSupplies();
+  return data;
 });
 //index salida
-export const fetchAllOutputs = createAsyncThunk(
-  'getOutputsAll', 
-  async () => {
-    const { data } = await suppliesServices.getAllOutputs();
-    return data;
+export const fetchAllOutputs = createAsyncThunk('getOutputsAll', async () => {
+  const { data } = await suppliesServices.getAllOutputs();
+  return data;
 });
 
-export const fetchSupplyIn = createAsyncThunk(
-  'getSupplyIn', 
-  async (id) => {
-    const { data } = await suppliesServices.getSuppliesById(id);
-    return data;
+export const fetchSupplyIn = createAsyncThunk('getSupplyIn', async (id) => {
+  const { data } = await suppliesServices.getSuppliesById(id);
+  return data;
 });
 
-export const fetchSupplyOut = createAsyncThunk(
-  'getSupplyOut', 
-  async (id) => {
-    const { data } = await suppliesServices.getSuppliesOutById(id);
-    return data;
+export const fetchSupplyOut = createAsyncThunk('getSupplyOut', async (id) => {
+  const { data } = await suppliesServices.getSuppliesOutById(id);
+  return data;
 });
 
 const suppliesSlice = createSlice({
@@ -121,13 +119,13 @@ const suppliesSlice = createSlice({
       state.status = 'loading';
     });
     builder.addCase(fetchAllSupplies.fulfilled, (state, { payload }) => {
-      state.suppliesIndex = payload.registros;//nombre de la tabla registros
+      state.suppliesIndex = payload.registros; //nombre de la tabla registros
       state.status = 'success';
     });
     builder.addCase(fetchAllSupplies.rejected, (state, action) => {
       state.status = 'error';
     });
-    
+
     builder.addCase(fetchSuppliesCreate.fulfilled, (state, { payload }) => {
       state.selectedSupply = payload;
     });
@@ -160,7 +158,7 @@ const suppliesSlice = createSlice({
       alert('Error al crear salida');
     });
 
-//show ingreso - salida
+    //show ingreso - salida
     builder.addCase(fetchSupplyIn.fulfilled, (state, { payload }) => {
       state.supplyIn = payload;
     });
@@ -173,12 +171,15 @@ const suppliesSlice = createSlice({
       state.status = 'loading';
     });
     builder.addCase(fetchAllOutputs.fulfilled, (state, { payload }) => {
-      state.outputsIndex = payload.registros;//nombre de la tabla registros
+      state.outputsIndex = payload.registros; //nombre de la tabla registros
       state.status = 'success';
     });
     builder.addCase(fetchAllOutputs.rejected, (state, action) => {
       state.status = 'error';
+    });
 
+    builder.addCase(fetchEmployee.fulfilled, (state, { payload }) => {
+      state.employe = payload.data;
     });
   }
 });

@@ -52,6 +52,7 @@ const SalidaInsumos = () => {
   const handleChange = (event) => {
     event.target.name === 'cod_almacen' &&
       dispatch(fetchArticlesSupplies(event.target.value));
+      
 
     setSupplies({
       ...supplies,
@@ -108,7 +109,6 @@ const SalidaInsumos = () => {
     });
   };
 
-  console.log(supplies);
   return (
     <>
       <Container maxWidth="lg">
