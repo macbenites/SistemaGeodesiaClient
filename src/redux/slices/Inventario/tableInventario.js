@@ -13,15 +13,12 @@ import {
   Button
 } from '@mui/material';
 
-import { useSelector } from 'react-redux';
 import jsPDF from 'jspdf';
-import 'jspdf-autotable';
+import autoTable from 'jspdf-autotable';
 import { imgData } from 'src/utils/constant';
 
-const TableInventario = () => {
+const TableInventario = ({ InventarioReport }) => {
   const theme = useTheme();
-
-  const { InventarioReport } = useSelector((state) => state.Inventario);
   const doc = new jsPDF();
 
   doc.addImage(imgData, 'JPEG', 10, 10);
@@ -29,7 +26,20 @@ const TableInventario = () => {
   doc.text(String(InventarioReport?.almacen), 75, 30);
   doc.text('Documento Inventario', 40, 45);
   doc.text(String(InventarioReport?.fec_generado), 120, 45);
-  doc.autoTable({ html: '#my-table', margin: { top: 60 } });
+
+  autoTable(doc, {
+    head: [['Código', 'Descripción', 'Unidad Medida', 'Stock', 'Valor Neto']],
+    body: InventarioReport?.inventario.map((object) => {
+      return [
+        object.cod_art,
+        object.des_art,
+        object.des_unid_med,
+        object.stock_almacen,
+        object.valor_total
+      ];
+    }),
+    margin: { top: 60 }
+  });
 
   return (
     <Grid
@@ -55,14 +65,14 @@ const TableInventario = () => {
         </Grid>
       </Grid>
       <TableContainer>
-        <Table id="my-table">
+        <Table>
           <TableHead>
             <TableRow>
-              <TableCell>cod_art</TableCell>
-              <TableCell>des_art</TableCell>
-              <TableCell>des_unid_med</TableCell>
-              <TableCell>stock_almacen</TableCell>
-              <TableCell>valor_total</TableCell>
+              <TableCell>Cod. Articulo</TableCell>
+              <TableCell align="center">Descripción</TableCell>
+              <TableCell align="center">Unidad Medida</TableCell>
+              <TableCell align="center">Stock</TableCell>
+              <TableCell align="right">Valor Total</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -87,6 +97,7 @@ const TableInventario = () => {
                       color="text.primary"
                       gutterBottom
                       noWrap
+                      align="center"
                     >
                       {cryptoOrder.des_art}
                     </Typography>
@@ -98,6 +109,7 @@ const TableInventario = () => {
                       color="text.primary"
                       gutterBottom
                       noWrap
+                      align="center"
                     >
                       {cryptoOrder.des_unid_med}
                     </Typography>
@@ -109,8 +121,9 @@ const TableInventario = () => {
                       color="text.primary"
                       gutterBottom
                       noWrap
+                      align="center"
                     >
-                      {cryptoOrder.stock_almacen}
+                      {cryptoOrder.stock_almacen + ' '}
                     </Typography>
                   </TableCell>
                   <TableCell>
@@ -119,19 +132,11 @@ const TableInventario = () => {
                       fontWeight="bold"
                       color="text.primary"
                       gutterBottom
+                      align="right"
                       noWrap
                     >
                       {cryptoOrder.valor_total}
                     </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography
-                      variant="body1"
-                      fontWeight="bold"
-                      color="text.primary"
-                      gutterBottom
-                      noWrap
-                    ></Typography>
                   </TableCell>
                 </TableRow>
               );

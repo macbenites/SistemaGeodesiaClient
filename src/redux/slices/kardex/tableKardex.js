@@ -15,7 +15,7 @@ import {
 
 import { useSelector } from 'react-redux';
 import jsPDF from 'jspdf';
-import 'jspdf-autotable';
+import autoTable from 'jspdf-autotable';
 import { imgData } from 'src/utils/constant';
 
 const TableKardex = () => {
@@ -31,7 +31,7 @@ const TableKardex = () => {
   doc.text(String(kardexReport?.articulo), 40, 45);
   doc.text(String(kardexReport?.fec_inicio), 120, 45);
   doc.text(String(kardexReport?.fec_final), 150, 45);
-  doc.autoTable({ html: '#my-table', margin: { top: 60 } });
+  autoTable(doc, { html: '#my-table', margin: { top: 60 } });
 
   let cant =
     kardexReport.cant_ini?.length > 0
@@ -62,6 +62,7 @@ const TableKardex = () => {
     return total;
   };
 
+  console.log(kardexReport);
   return (
     <Grid
       container

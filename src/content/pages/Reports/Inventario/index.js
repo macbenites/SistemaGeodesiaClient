@@ -8,21 +8,20 @@ import {
   TextField,
   MenuItem,
   Button
-}from '@mui/material';
+} from '@mui/material';
 import { useEffect, useState } from 'react';
 import BasicModal from 'src/components/common/Modals';
 import {
   fetchInventario,
-  fetchInventarioReporte  
-
+  fetchInventarioReporte
 } from 'src/redux/slices/Inventario/InventarioSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import TableInventario from 'src/redux/slices/Inventario/tableInventario';
 
-const Inventario = () =>{
-
+const Inventario = () => {
   const dispatch = useDispatch();
-  const[Inventario, setInventario] = useState({
+  const [idAlmacen, setIdAlmacen] = useState('');
+  const [Inventario, setInventario] = useState({
     almacen: ''
   });
   const { almacen, InventarioReport } = useSelector(
@@ -37,15 +36,14 @@ const Inventario = () =>{
 
   useEffect(() => {
     dispatch(fetchInventario());
-   
   }, [dispatch]);
-  const getcomponent = () =>{
-    dispatch(fetchInventarioReporte(Inventario.almacen))
-  }
-  console.log(InventarioReport);
-  return ( 
 
-     <>
+  const getcomponent = () => {
+    dispatch(fetchInventarioReporte(Inventario.almacen));
+  };
+
+  return (
+    <>
       <Container maxWidth="lg">
         <Grid
           container
@@ -55,9 +53,9 @@ const Inventario = () =>{
           spacing={2}
           mt={2}
         >
-           <Grid item xs={12}>
+          <Grid item xs={12}>
             <Card>
-              <CardHeader title="Registrar Inventario" />
+              <CardHeader title="Generar Reporte Inventario" />
               <Divider />
               <CardContent>
                 <Grid container spacing={2}>
@@ -80,8 +78,7 @@ const Inventario = () =>{
                       ))}
                     </TextField>
                   </Grid>
-                  <Grid item xs={12} md={3}>
-                  </Grid>
+                  <Grid item xs={12} md={3}></Grid>
                   <Grid item xs={12} md={2} justifyContent={'right'}>
                     <Button
                       variant="contained"
@@ -109,17 +106,21 @@ const Inventario = () =>{
           spacing={2}
           mt={2}
         >
-          <Grid item xs={12}>
-            <Card>
-              <CardHeader title="Inventario" />
-              <Divider />
-              <TableInventario />
-            </Card>
-          </Grid>
+          {InventarioReport?.inventario?.length > 0 ? (
+            <Grid item xs={12}>
+              <Card>
+                <CardHeader title="Inventario" />
+                <Divider />
+                <TableInventario InventarioReport={InventarioReport} />
+              </Card>
+            </Grid>
+          ) : (
+            <></>
+          )}
         </Grid>
       </Container>
     </>
   );
 };
-  
+
 export default Inventario;
