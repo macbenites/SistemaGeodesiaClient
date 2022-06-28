@@ -15,13 +15,23 @@ import {
 
 import { useSelector } from 'react-redux';
 import jsPDF from 'jspdf';
-import 'jspdf-autotable';
+import autoTable from 'jspdf-autotable';
+import { imgData } from 'src/utils/constant';
 
 const TableKardex = () => {
   const theme = useTheme();
   const { kardexReport } = useSelector((state) => state.kardex);
+
   const doc = new jsPDF();
-  doc.autoTable({ html: '#my-table' });
+
+  doc.addImage(imgData, 'JPEG', 0, 0);
+  doc.text(String(kardexReport?.empresa), 60, 15);
+  doc.text(String(kardexReport?.almacen), 75, 25);
+  doc.text('Inventario Valorizado de Almacén', 70, 35);
+  doc.text(String(kardexReport?.articulo), 40, 45);
+  doc.text(String(kardexReport?.fec_inicio), 120, 45);
+  doc.text(String(kardexReport?.fec_final), 150, 45);
+  autoTable(doc, { html: '#my-table', margin: { top: 60 } });
 
   let cant =
     kardexReport.cant_ini?.length > 0
@@ -52,6 +62,7 @@ const TableKardex = () => {
     return total;
   };
 
+  console.log(kardexReport);
   return (
     <Grid
       container

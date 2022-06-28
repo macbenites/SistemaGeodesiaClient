@@ -54,7 +54,7 @@ const Kardex = () => {
       dispatch(fetchKardexArticle(kardex.almacen));
     }
   }, [dispatch, kardex.almacen]);
-  console.log(kardexReport);
+
   return (
     <>
       <Container maxWidth="lg">
@@ -68,7 +68,7 @@ const Kardex = () => {
         >
           <Grid item xs={12}>
             <Card>
-              <CardHeader title="Registrar Articulo" />
+              <CardHeader title="Generar Reporte Kardex" />
               <Divider />
               <CardContent>
                 <Grid container spacing={2}>
