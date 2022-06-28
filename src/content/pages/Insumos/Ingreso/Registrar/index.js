@@ -22,7 +22,7 @@ import {
 import TableIngreso from './tableIngreso';
 const IngresoInsumos = () => {
   const dispatch = useDispatch();
-  const { selectedSupply } = useSelector((state) => state.supplies);
+  const { selectedSupply, employee } = useSelector((state) => state.supplies);
 
   const [supplies, setSupplies] = useState({
     cod_prov: '',
