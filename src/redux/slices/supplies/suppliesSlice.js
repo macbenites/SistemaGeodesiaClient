@@ -7,8 +7,12 @@ const initialState = {
   selectedSupply: {},
   selectedSupplyOut: {},
   articlesSupplies: [],
+  suppliesIndex:{},//ingresos
+  outputsIndex:{},//salidas
   status: null,
-  created: null
+  created: null,
+  supplyIn:{},
+  supplyOut:{}
 };
 
 export const saveSupplies = createAsyncThunk('saveSupplie', async (supplie) => {
@@ -65,6 +69,35 @@ export const fetchArticlesSupplies = createAsyncThunk(
   }
 );
 
+//index ingreso
+export const fetchAllSupplies = createAsyncThunk(
+  'getSupliesAll', 
+  async () => {
+    const { data } = await suppliesServices.getAllSupplies();
+    return data;
+});
+//index salida
+export const fetchAllOutputs = createAsyncThunk(
+  'getOutputsAll', 
+  async () => {
+    const { data } = await suppliesServices.getAllOutputs();
+    return data;
+});
+
+export const fetchSupplyIn = createAsyncThunk(
+  'getSupplyIn', 
+  async (id) => {
+    const { data } = await suppliesServices.getSuppliesById(id);
+    return data;
+});
+
+export const fetchSupplyOut = createAsyncThunk(
+  'getSupplyOut', 
+  async (id) => {
+    const { data } = await suppliesServices.getSuppliesOutById(id);
+    return data;
+});
+
 const suppliesSlice = createSlice({
   name: 'supplies',
   initialState,
@@ -83,6 +116,18 @@ const suppliesSlice = createSlice({
     }
   },
   extraReducers: (builder) => {
+    //index ingreso
+    builder.addCase(fetchAllSupplies.pending, (state, action) => {
+      state.status = 'loading';
+    });
+    builder.addCase(fetchAllSupplies.fulfilled, (state, { payload }) => {
+      state.suppliesIndex = payload.registros;//nombre de la tabla registros
+      state.status = 'success';
+    });
+    builder.addCase(fetchAllSupplies.rejected, (state, action) => {
+      state.status = 'error';
+    });
+    
     builder.addCase(fetchSuppliesCreate.fulfilled, (state, { payload }) => {
       state.selectedSupply = payload;
     });
@@ -113,6 +158,27 @@ const suppliesSlice = createSlice({
     builder.addCase(saveSuppliesOut.rejected, (state, { payload }) => {
       state.created = 'Error al crear Salida';
       alert('Error al crear salida');
+    });
+
+//show ingreso - salida
+    builder.addCase(fetchSupplyIn.fulfilled, (state, { payload }) => {
+      state.supplyIn = payload;
+    });
+    builder.addCase(fetchSupplyOut.fulfilled, (state, { payload }) => {
+      state.supplyOut = payload;
+    });
+
+    //index salida
+    builder.addCase(fetchAllOutputs.pending, (state, action) => {
+      state.status = 'loading';
+    });
+    builder.addCase(fetchAllOutputs.fulfilled, (state, { payload }) => {
+      state.outputsIndex = payload.registros;//nombre de la tabla registros
+      state.status = 'success';
+    });
+    builder.addCase(fetchAllOutputs.rejected, (state, action) => {
+      state.status = 'error';
+
     });
   }
 });
