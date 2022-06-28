@@ -121,6 +121,10 @@ const ShowEmployee = Loader(
   lazy(() => import('src/content/pages/Users/Trabajador/Show'))
 );
 
+const AssignRole = Loader(
+  lazy(() => import('src/content/pages/Users/Trabajador/Role'))
+);
+
 // Status
 
 const Status404 = Loader(
@@ -370,6 +374,10 @@ const routes = (isLoggedIn) => [
       {
         path: 'ver-trabajador',
         element: <ShowEmployee />
+      },
+      {
+        path: 'roles',
+        element: <AssignRole />
       }
     ]
   },
