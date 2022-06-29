@@ -38,10 +38,12 @@ const configServices = {
       }
     );
   },
-  getAllCategory: (searchText) => {
+  getAllCategory: (value) => {
     return axios.post(
       `${process.env.REACT_APP_API_URL}categorias`,
-      searchText,
+      {
+        searchText: value
+      },
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -89,10 +91,12 @@ const configServices = {
       }
     );
   },
-  getAllUnit: (searchText) => {
+  getAllUnit: (value) => {
     return axios.post(
       `${process.env.REACT_APP_API_URL}unidadesMedida`,
-      searchText,
+      {
+        searchText: value
+      },
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -144,10 +148,12 @@ const configServices = {
       }
     );
   },
-  getAllPresentacion: (searchText) => {
+  getAllPresentacion: (value) => {
     return axios.post(
       `${process.env.REACT_APP_API_URL}presentaciones`,
-      searchText,
+      {
+        searchText: value
+      },
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -199,10 +205,12 @@ const configServices = {
       }
     );
   },
-  getAllTransferencia: (searchText) => {
+  getAllTransferencia: (value) => {
     return axios.post(
       `${process.env.REACT_APP_API_URL}tiposTransferencias`,
-      searchText,
+      {
+        searchText: value
+      },
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -254,10 +262,12 @@ const configServices = {
       }
     );
   },
-  getAllDocumento: (searchText) => {
+  getAllDocumento: (value) => {
     return axios.post(
       `${process.env.REACT_APP_API_URL}tiposDocumentosRegistros`,
-      searchText,
+      {
+        searchText: value
+      },
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`

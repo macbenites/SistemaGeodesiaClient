@@ -52,7 +52,7 @@ const RecentOrdersTable = () => {
   const articles = useSelector((state) => state.articles.articlesIndex);
   const { data } = articles;
   useEffect(() => {
-    dispatch(fetchArticles({}));
+    dispatch(fetchArticles());
   }, [dispatch, modal, deleted]);
 
   const statusOptions = [

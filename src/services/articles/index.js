@@ -31,8 +31,12 @@ const articleServices = {
       }
     );
   },
-  getAll: (searchText) => {
-    return axios.post(`${process.env.REACT_APP_API_URL}articulos`, searchText, {
+  getAll: (value) => {
+    return axios.post(`${process.env.REACT_APP_API_URL}articulos`,
+    {
+      searchText: value
+    },
+    {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }

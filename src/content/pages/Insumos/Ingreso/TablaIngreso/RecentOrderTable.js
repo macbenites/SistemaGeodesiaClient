@@ -42,7 +42,7 @@ const RecentOrdersTable = () => {
   const { data } = ingresos;
 
   useEffect(() => {
-    dispatch(fetchAllSupplies({}));
+    dispatch(fetchAllSupplies());
   }, [dispatch, modal, deleted,showModal]);
 
 

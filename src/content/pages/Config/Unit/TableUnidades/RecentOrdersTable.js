@@ -37,7 +37,7 @@ const RecentOrdersTable = () => {
   const { data } = unidadesmedida;
 
   useEffect(() => {
-    dispatch(fetchUnits({}));
+    dispatch(fetchUnits());
   },[dispatch, modal, deleted]);
 
 

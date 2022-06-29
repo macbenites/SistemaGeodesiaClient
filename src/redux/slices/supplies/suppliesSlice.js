@@ -76,13 +76,13 @@ export const fetchArticlesSupplies = createAsyncThunk(
 );
 
 //index ingreso
-export const fetchAllSupplies = createAsyncThunk('getSupliesAll', async () => {
-  const { data } = await suppliesServices.getAllSupplies();
+export const fetchAllSupplies = createAsyncThunk('getSupliesAll', async (value) => {
+  const { data } = await suppliesServices.getAllSupplies(value);
   return data;
 });
 //index salida
-export const fetchAllOutputs = createAsyncThunk('getOutputsAll', async () => {
-  const { data } = await suppliesServices.getAllOutputs();
+export const fetchAllOutputs = createAsyncThunk('getOutputsAll', async (value) => {
+  const { data } = await suppliesServices.getAllOutputs(value);
   return data;
 });
 
