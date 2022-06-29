@@ -29,12 +29,18 @@ const providerServices = {
       }
     );
   },
-  getAll: (searchText) => {
-    return axios.post(`${process.env.REACT_APP_API_URL}proveedores`, searchText, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`
+  getAll: (value) => {
+    return axios.post(
+      `${process.env.REACT_APP_API_URL}proveedores`,
+      {
+        searchText: value
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
       }
-    });
+    );
   },
 
   updateProvider: (provider) => {

@@ -13,11 +13,13 @@ function EmployeeMaintenance() {
         <title>Trabajador</title>
       </Helmet>
       <PageTitleWrapper>
+        {/* Componente de busqueda */}
         <PageHeader
           title="Trabajador"
           searchDispatch={fetchUsers}
           route={'usuarios/trabajador'}
         />
+        
       </PageTitleWrapper>
       <Container maxWidth="lg">
         <Grid
