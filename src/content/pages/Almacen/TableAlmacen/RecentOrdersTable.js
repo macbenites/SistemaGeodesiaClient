@@ -38,7 +38,7 @@ const RecentOrdersTable = () => {
   const { data } = warehouses;
 
   useEffect(() => {
-    dispatch(fetchAlmacenes({}));
+    dispatch(fetchAlmacenes());
   },[dispatch, modal, deleted]);
 
 

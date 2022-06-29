@@ -37,7 +37,7 @@ const RecentOrdersTable = () => {
   const { data } = documents;
 
   useEffect(() => {
-    dispatch(fetchDocumentos({}));
+    dispatch(fetchDocumentos());
   },[dispatch, modal, deleted]);
 
 

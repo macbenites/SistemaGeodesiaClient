@@ -31,8 +31,8 @@ export const saveCategory = createAsyncThunk(
 );
 //index
 export const fetchCategories = createAsyncThunk(
-  'getAllCategory', async () => {
-  const { data } = await configServices.getAllCategory();
+  'getAllCategory', async (value) => {
+  const { data } = await configServices.getAllCategory(value);
   return data;
 });
 //show
@@ -67,8 +67,8 @@ export const saveUnit = createAsyncThunk(
 );
 //index
 export const fetchUnits = createAsyncThunk(
-  'getAllUnit', async () => {
-  const { data } = await configServices.getAllUnit();
+  'getAllUnit', async (value) => {
+  const { data } = await configServices.getAllUnit(value);
   return data;
 });
 //show
@@ -103,8 +103,10 @@ export const savePresentacion = createAsyncThunk(
   }
 );
 //index
-export const fetchPresentaciones = createAsyncThunk('getAllPresentacion', async () => {
-  const { data } = await configServices.getAllPresentacion();
+export const fetchPresentaciones = createAsyncThunk(
+  'getAllPresentacion',
+  async (value) => {
+  const { data } = await configServices.getAllPresentacion(value);
   return data;
 });
 //show
@@ -137,8 +139,10 @@ export const saveDocumento = createAsyncThunk(
   }
 );
 //index
-export const fetchDocumentos = createAsyncThunk('getAllDocumento', async () => {
-  const { data } = await configServices.getAllDocumento();
+export const fetchDocumentos = createAsyncThunk(
+  'getAllDocumento', 
+  async (value) => {
+  const { data } = await configServices.getAllDocumento(value);
   return data;
 });
 //show
@@ -173,8 +177,8 @@ export const saveTransferencia = createAsyncThunk(
 );
 //index
 export const fetchTransferencias = createAsyncThunk(
-  'getAllTransferencia', async () => {
-  const { data } = await configServices.getAllTransferencia();
+  'getAllTransferencia', async (value) => {
+  const { data } = await configServices.getAllTransferencia(value);
   return data;
 });
 //show

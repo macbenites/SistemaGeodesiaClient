@@ -36,10 +36,12 @@ const suppliesServices = {
       }
     );
   },
-  getAllSupplies: (searchText) => {
+  getAllSupplies: (value) => {
     return axios.post(
       `${process.env.REACT_APP_API_URL}registrosIngresos`,
-      searchText,
+      {
+        searchText: value
+      },
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -48,10 +50,12 @@ const suppliesServices = {
     );
   },
 
-  getAllOutputs: (searchText) => {
+  getAllOutputs: (value) => {
     return axios.post(
       `${process.env.REACT_APP_API_URL}registrosSalidas`,
-      searchText,
+      {
+        searchText: value
+      },
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
