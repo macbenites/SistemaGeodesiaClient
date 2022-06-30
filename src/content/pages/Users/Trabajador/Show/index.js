@@ -144,7 +144,7 @@ const ShowEmployee = () => {
                     label="Dirección"
                     variant="standard"
                     fullWidth
-                    value={showUser.trabajador.direccion_per}
+                    value={showUser.trabajador.dir_per}
                   />
                 </Grid>
                 {showUser?.telefono?.map((telefono, index) => (
