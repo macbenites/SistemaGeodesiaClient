@@ -13,6 +13,7 @@ import Inventory2TwoToneIcon from '@mui/icons-material/Inventory2TwoTone';
 import InventoryTwoToneIcon from '@mui/icons-material/InventoryTwoTone';
 import BusinessIcon from '@mui/icons-material/Business';
 import PrecisionManufacturingIcon from '@mui/icons-material/PrecisionManufacturing';
+import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 
 const menuItems = [
   {
@@ -241,9 +242,15 @@ const menuItems = [
         name: 'Trabajador',
         link: '/usuarios/mantenimiento',
         icon: BadgeTwoToneIcon
+      },
+      {
+        name: 'Rol',
+        link: '/usuarios/rol',
+        icon: AssignmentIndIcon
       }
     ]
   },
+
 ];
 
 export default menuItems;
