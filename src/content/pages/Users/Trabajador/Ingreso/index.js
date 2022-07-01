@@ -87,6 +87,7 @@ const EmployeeForm = () => {
                   validationSchema={validationEmployee}
                   onSubmit={async (values, { resetForm }) => {
                     dispatch(saveEmployee(values)).then(() => {
+                      alert(values);
                       setModal(true);
                       resetForm();
                     });
@@ -437,6 +438,7 @@ const EmployeeForm = () => {
                             {isSubmitting ? 'Registrando' : 'Guardar'}
                           </Button>
                         </Grid>
+                        {JSON.stringify(errors)}
                       </Grid>
                     </Form>
                   )}
