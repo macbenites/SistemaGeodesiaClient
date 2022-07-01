@@ -38,6 +38,9 @@ import { validationEmployee, validationProvider } from 'src/utils/validation';
 import BasicModal from 'src/components/common/Modals/index';
 import AddIcCallIcon from '@mui/icons-material/AddIcCall';
 
+const emptyTelephones = {
+  nro_telf: ''
+};
 const EmployeeFormUpdate = ({ setModal }) => {
   const [update, setUpdate] = useState(false);
   const { updateUser, province, district, message } = useSelector(
@@ -82,7 +85,11 @@ const EmployeeFormUpdate = ({ setModal }) => {
                     cod_provi: updateUser.trabajador.cod_provi,
                     cod_dist: updateUser.trabajador.cod_dist,
                     dir_per: updateUser.trabajador.dir_per,
-                    nro_telf: updateUser?.telefono.map((item) => item.nro_telf)
+                    telephones: updateUser.telefono.map((telephone) => {
+                      return {
+                        nro_telf: telephone.nro_telf
+                      };
+                    })
                   }}
                   validationSchema={validationEmployee}
                   onSubmit={async (values, { resetForm }) => {
@@ -315,42 +322,32 @@ const EmployeeFormUpdate = ({ setModal }) => {
                             helperText={errors.dir_per}
                           />
                         </Grid>
-                        <FieldArray name="nro_telf">
+                        <FieldArray name="telephones">
                           {({ push, remove }) => (
                             <>
                               <Grid item container spacing={2}>
-                                <Grid
-                                  item
-                                  spacing={2}
-                                  xs={12}
-                                  container
-                                  justifyContent="space-between"
-                                  alignItems="center"
-                                >
-                                  <Grid item>
+                                <Grid item container spacing={2} xs={12}>
+                                  <Grid item xs={12} md={3}>
                                     <Typography variant="h4">
                                       Telefonos
                                     </Typography>
                                   </Grid>
-                                  <Grid item>
+
+                                  <Grid item xs={12} md={3}>
                                     <Button
-                                      disabled={
-                                        values.nro_telf.length <= 1
-                                          ? false
-                                          : true
-                                      }
+                                      disabled={isSubmitting}
                                       variant="contained"
                                       endIcon={<AddIcCallIcon />}
                                       color="secondary"
                                       size="large"
-                                      onClick={() => push('')}
+                                      onClick={() => push(emptyTelephones)}
                                     >
                                       Agregar
                                     </Button>
                                   </Grid>
                                 </Grid>
                               </Grid>
-                              {values.nro_telf.map((_, index) => (
+                              {values.telephones.map((_, index) => (
                                 <Grid container item key={index} spacing={2}>
                                   <Grid item container spacing={2} xs={12}>
                                     <Grid item xs={12} md={3}>
@@ -358,18 +355,16 @@ const EmployeeFormUpdate = ({ setModal }) => {
                                         type="search"
                                         label="Telefono o celular"
                                         fullWidth
-                                        value={values.nro_telf[index]}
-                                        name={`nro_telf.${index}`}
+                                        value={
+                                          values.telephones[index].nro_telf
+                                        }
+                                        name={`telephones.${index}.nro_telf`}
                                         onChange={handleChange}
                                       />
                                     </Grid>
                                     <Grid item xs={12} md={1}>
                                       <Button
-                                        disabled={
-                                          values.nro_telf.length === 1
-                                            ? true
-                                            : false
-                                        }
+                                        disabled={isSubmitting}
                                         onClick={() => remove(index)}
                                         variant="outlined"
                                         size="large"
@@ -383,9 +378,9 @@ const EmployeeFormUpdate = ({ setModal }) => {
                                 </Grid>
                               ))}
                               <Grid item xs={12} md={12}>
-                                {errors?.nro_telf?.length > 0 ? (
+                                {errors?.telephones?.length > 0 ? (
                                   <Typography color="error">
-                                    {errors?.nro_telf?.map((error, index) => (
+                                    {errors?.telephones?.map((error, index) => (
                                       <List key={index}>
                                         {error !== null && (
                                           <>

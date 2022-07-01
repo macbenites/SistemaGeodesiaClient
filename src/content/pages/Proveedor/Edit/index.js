@@ -25,22 +25,26 @@ import {
   CircularProgress,
   List,
   CardHeader
-  } from '@mui/material';
-  import {
-    fetchProviderProvince,
-    fetchProviderDistrict,
-    saveUpdateProvider
-  } from 'src/redux/slices/providers/providerSlice';
-  import { useState, useEffect } from 'react';
-  import { useDispatch, useSelector } from 'react-redux';
-  import { FieldArray, Form, Field, Formik } from 'formik';
-  import { validationProvider } from 'src/utils/validation';
-  import BasicModal from 'src/components/common/Modals/index';
-  import AddIcCallIcon from '@mui/icons-material/AddIcCall';
-  
-  const EditProvider = ({modal, setModal}) => {
+} from '@mui/material';
+import {
+  fetchProviderProvince,
+  fetchProviderDistrict,
+  saveUpdateProvider
+} from 'src/redux/slices/providers/providerSlice';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { FieldArray, Form, Field, Formik } from 'formik';
+import { validationProvider } from 'src/utils/validation';
+import BasicModal from 'src/components/common/Modals/index';
+import AddIcCallIcon from '@mui/icons-material/AddIcCall';
+
+const emptyTelephones = {
+  nro_telf: ''
+};
+
+const EditProvider = ({ modal, setModal }) => {
   const [update, setUpdate] = useState(false);
-  const { updateProv, provincia, distrito, msgUpdate} = useSelector(
+  const { updateProv, provincia, distrito, msgUpdate } = useSelector(
     (state) => state.provider
   );
   //const [modal, setModal] = useState(false);
@@ -52,7 +56,7 @@ import {
 
   return (
     <>
-    <BasicModal modal={modal} setModal={setModal} message={msgUpdate} />
+      <BasicModal modal={modal} setModal={setModal} message={msgUpdate} />
       <Container maxWidth="md">
         <Grid
           container
@@ -81,7 +85,11 @@ import {
                     cod_provi: updateProv.proveedor.cod_provi,
                     cod_dist: updateProv.proveedor.cod_dist,
                     dir_per: updateProv.proveedor.dir_per,
-                    nro_telf: updateProv?.telefonos.map((item) => item.nro_telf)
+                    telephones: updateProv.telefonos.map((telephone) => {
+                      return {
+                        nro_telf: telephone.nro_telf
+                      };
+                    })
                   }}
                   validationSchema={validationProvider}
                   onSubmit={async (values, { resetForm }) => {
@@ -130,18 +138,21 @@ import {
                           </TextField>
                         </Grid>
                         <Grid item xs={12} md={6}>
-                        <TextField
-                          id="razon_social"
-                          label="Razón social"
-                          fullWidth
-                          type="search"
-                          name="razon_social"
-                          autoComplete="off"
-                          value={values.razon_social}
-                          onChange={handleChange}
-                          error={touched.razon_social && Boolean(errors.razon_social)}
-                          helperText={errors.razon_social}
-                        />
+                          <TextField
+                            id="razon_social"
+                            label="Razón social"
+                            fullWidth
+                            type="search"
+                            name="razon_social"
+                            autoComplete="off"
+                            value={values.razon_social}
+                            onChange={handleChange}
+                            error={
+                              touched.razon_social &&
+                              Boolean(errors.razon_social)
+                            }
+                            helperText={errors.razon_social}
+                          />
                         </Grid>
                         <Grid item xs={12} md={3}>
                           <TextField
@@ -282,42 +293,32 @@ import {
                             helperText={errors.dir_per}
                           />
                         </Grid>
-                        <FieldArray name="nro_telf">
+                        <FieldArray name="telephones">
                           {({ push, remove }) => (
                             <>
                               <Grid item container spacing={2}>
-                                <Grid
-                                  item
-                                  spacing={2}
-                                  xs={12}
-                                  container
-                                  justifyContent="space-between"
-                                  alignItems="center"
-                                >
-                                  <Grid item>
+                                <Grid item container spacing={2} xs={12}>
+                                  <Grid item xs={12} md={3}>
                                     <Typography variant="h4">
                                       Telefonos
                                     </Typography>
                                   </Grid>
-                                  <Grid item>
+
+                                  <Grid item xs={12} md={3}>
                                     <Button
-                                      disabled={
-                                        values.nro_telf.length <= 1
-                                          ? false
-                                          : true
-                                      }
+                                      disabled={isSubmitting}
                                       variant="contained"
                                       endIcon={<AddIcCallIcon />}
                                       color="secondary"
                                       size="large"
-                                      onClick={() => push('')}
+                                      onClick={() => push(emptyTelephones)}
                                     >
                                       Agregar
                                     </Button>
                                   </Grid>
                                 </Grid>
                               </Grid>
-                              {values.nro_telf.map((_, index) => (
+                              {values.telephones.map((_, index) => (
                                 <Grid container item key={index} spacing={2}>
                                   <Grid item container spacing={2} xs={12}>
                                     <Grid item xs={12} md={3}>
@@ -325,8 +326,10 @@ import {
                                         type="search"
                                         label="Telefono o celular"
                                         fullWidth
-                                        value={values.nro_telf[index]}
-                                        name={`nro_telf.${index}`}
+                                        value={
+                                          values.telephones[index].nro_telf
+                                        }
+                                        name={`telephones.${index}.nro_telf`}
                                         onChange={handleChange}
                                       />
                                     </Grid>
@@ -346,9 +349,9 @@ import {
                                 </Grid>
                               ))}
                               <Grid item xs={12} md={12}>
-                                {errors?.nro_telf?.length > 0 ? (
+                                {errors?.telephones?.length > 0 ? (
                                   <Typography color="error">
-                                    {errors?.nro_telf?.map((error, index) => (
+                                    {errors?.telephones?.map((error, index) => (
                                       <List key={index}>
                                         {error !== null && (
                                           <>
@@ -397,6 +400,6 @@ import {
       </Container>
     </>
   );
-  };
+};
 
 export default EditProvider;
