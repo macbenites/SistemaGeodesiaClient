@@ -87,6 +87,7 @@ const EmployeeForm = () => {
                   validationSchema={validationEmployee}
                   onSubmit={async (values, { resetForm }) => {
                     dispatch(saveEmployee(values)).then(() => {
+                      alert(values);
                       setModal(true);
                       resetForm();
                     });
@@ -241,8 +242,6 @@ const EmployeeForm = () => {
                               const { value } = e.target;
                               dispatch(fetchProvince(value));
                               setFieldValue('cod_dpt', value);
-                              setFieldValue('cod_provi', '');
-                              setFieldValue('cod_provi', province);
                             }}
                             error={touched.cod_dpt && Boolean(errors.cod_dpt)}
                             helperText={errors.cod_dpt}
@@ -269,8 +268,6 @@ const EmployeeForm = () => {
                               const { value } = e.target;
                               dispatch(fetchDistrict(value));
                               setFieldValue('cod_provi', value);
-                              setFieldValue('cod_dist', '');
-                              setFieldValue('cod_dist', district);
                             }}
                             error={
                               touched.cod_provi && Boolean(errors.cod_provi)
@@ -441,6 +438,7 @@ const EmployeeForm = () => {
                             {isSubmitting ? 'Registrando' : 'Guardar'}
                           </Button>
                         </Grid>
+                        {JSON.stringify(errors)}
                       </Grid>
                     </Form>
                   )}
