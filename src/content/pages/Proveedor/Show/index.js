@@ -28,7 +28,7 @@ import {
             >
               <Grid item xs={12}>
                 <Card>
-                  <CardHeader title="Trajador" />
+                  <CardHeader title="Proveedor" />
                   <Divider />
                   <CardContent>
                     <Grid container spacing={2}>

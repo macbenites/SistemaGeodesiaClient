@@ -180,6 +180,17 @@ export const validationLogin = yup.object().shape({
     .min(6, 'La contraseña debe tener minimo 6 caracteres')
 });
 
+export const validationChangePass = yup.object().shape({
+  password: yup.string('Ingrese la nueva contraseña')
+  .required('La nueva contraseña es requerida')
+  .min(6, 'La contraseña debe tener minimo 6 caracteres'),
+  password_confirmation: yup
+    .string('Confirme la nueva contraseña')
+    .required('La confirmacion de contraseña es requerida')
+    .oneOf([yup.ref('password')], 'No coinciden las contraseñas')
+    .min(6, 'La contraseña debe tener minimo 6 caracteres')
+});
+
 export const validationEmployee = yup.object().shape({
   cod_t_per: yup.string().required('El tipo de persona es requerido'),
   nom_per: yup.string().required('El nombre es requerido'),

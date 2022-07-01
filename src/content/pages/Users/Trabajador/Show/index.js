@@ -28,7 +28,7 @@ const ShowEmployee = () => {
           mb={2}
         >
           <Grid item xs={12}>
-            <CardHeader title="Trajador" />
+            <CardHeader title="Trabajador" />
             <Divider />
             <CardContent>
               <Grid container spacing={2}>
@@ -45,7 +45,7 @@ const ShowEmployee = () => {
                     color="primary"
                     href="/usuarios/roles"
                   >
-                    Asiganar Roles
+                    Asignar Roles
                   </Button>
                 </Grid>
                 <Grid item xs={12} md={12}>
