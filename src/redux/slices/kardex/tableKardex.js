@@ -15,7 +15,7 @@ import {
 
 import { useSelector } from 'react-redux';
 import jsPDF from 'jspdf';
-import 'jspdf-autotable';
+import autoTable from 'jspdf-autotable';
 import { imgData } from 'src/utils/constant';
 
 const TableKardex = () => {
@@ -49,13 +49,14 @@ const TableKardex = () => {
   doc.setTextColor(0, 0, 170);
   doc.setFont('courier');
   doc.setFontSize(17);
-  doc.text("Fecha Generada: " +String(kardexReport?.fec_inicio), 120, 45);
+  doc.text('Fecha Generada: ' + String(kardexReport?.fec_inicio), 120, 45);
 
   doc.setTextColor(0, 0, 170);
   doc.setFont('courier');
   doc.setFontSize(17);
-  doc.text("Fecha Generada: " +String(kardexReport?.fec_final), 150, 45);
-  doc.autoTable({ html: '#my-table', margin: { top: 60 } });
+  doc.text('Fecha Generada: ' + String(kardexReport?.fec_final), 150, 45);
+
+  autoTable(doc, { html: '#my-table', margin: { top: 60 } });
 
   let cant =
     kardexReport.cant_ini?.length > 0
@@ -86,6 +87,7 @@ const TableKardex = () => {
     return total;
   };
 
+  console.log(kardexReport);
   return (
     <Grid
       container

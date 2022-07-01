@@ -16,48 +16,62 @@ import {
   CardHeader
 } from '@mui/material';
 
-import Label from 'src/components/Label';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
-
+import VisibilityTwoToneIcon from '@mui/icons-material/VisibilityTwoTone';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-    fetchAlmacenes,
-    destroyAlmacen,
-    fetchShowAlmacen
-} from 'src/redux/slices/almacenes/almacenSlice';
+  fetchUpdateRole,
+  fetchRoles,
+  fetchShowRole,
+  destroyRole
+} from 'src/redux/slices/roles/roleSlice';
 import ModalCrud from 'src/components/common/Modals/modalCrud';
-import EditAlmacen from '../Edit';
-import { useEffect, useState } from 'react';
 
-const RecentOrdersTable = () => {
+// import EditEmployee from '../Edit';
+import { useEffect, useState } from 'react';
+// import ShowEmployee from '../Show';
+
+const TablaRol = () => {
   const dispatch = useDispatch();
-  const [modal,setModal] = useState(false);
-  const [deleted, setDeleted] = useState();
-  const warehouses = useSelector((state) => state.almacen.almacenIndex);
-  const { data } = warehouses;
+  const [editModal, setEditModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [deleted, setDeleted] = useState('');
+  const { rolesIndex } = useSelector((state) => state.role);
 
   useEffect(() => {
-    dispatch(fetchAlmacenes());
-  },[dispatch, modal, deleted]);
-
+    dispatch(fetchRoles());
+  }, [dispatch, editModal, showModal, deleted]);
 
   const theme = useTheme();
+
   const handleDestroy = (id) => {
-    dispatch(destroyAlmacen(id));
+    dispatch(destroyRole(id));
     setDeleted(id);
   };
+
   const handleUpdate = (id) => {
-    dispatch(fetchShowAlmacen(id)).then(() => {
-      setModal(id);
+    dispatch(fetchUpdateRole(id)).then(() => {
+      setEditModal(id);
+    });
+  };
+
+  const handleShow = (id) => {
+    dispatch(fetchShowRole(id)).then(() => {
+      setShowModal(id);
     });
   };
 
   return (
     <>
-      {modal && (
-        <ModalCrud modal={modal} setModal={setModal}>
-            <EditAlmacen setModal={setModal} />
+      {editModal && (
+        <ModalCrud modal={editModal} setModal={setEditModal}>
+          {/* <EditEmployee setModal={setEditModal} /> */}
+        </ModalCrud>
+      )}
+      {showModal && (
+        <ModalCrud modal={showModal} setModal={setShowModal}>
+          {/* <ShowEmployee setModal={setShowModal} /> */}
         </ModalCrud>
       )}
 
@@ -67,16 +81,15 @@ const RecentOrdersTable = () => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>ID</TableCell>
-                <TableCell>Descripción</TableCell>
-                <TableCell>Ubicación</TableCell>
+                <TableCell>Id</TableCell>
+                <TableCell>Rol</TableCell>
                 <TableCell align="right">Acciones</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {data?.map((cryptoOrder,index) => {
+              {rolesIndex?.data?.map((cryptoOrder, index) => {
                 return (
-                  <TableRow hover key={cryptoOrder.cod_almacen}>
+                  <TableRow hover key={cryptoOrder.id}>
                     <TableCell>
                       <Typography
                         variant="body1"
@@ -85,7 +98,7 @@ const RecentOrdersTable = () => {
                         gutterBottom
                         noWrap
                       >
-                        {index+1}
+                        {index + 1}
                       </Typography>
                     </TableCell>
                     <TableCell>
@@ -96,18 +109,7 @@ const RecentOrdersTable = () => {
                         gutterBottom
                         noWrap
                       >
-                        {cryptoOrder.des_almacen}
-                      </Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography
-                        variant="body1"
-                        fontWeight="bold"
-                        color="text.primary"
-                        gutterBottom
-                        noWrap
-                      >
-                        {cryptoOrder.ubic_almacen}
+                        {cryptoOrder.name}
                       </Typography>
                     </TableCell>
                     <TableCell align="right">
@@ -121,7 +123,7 @@ const RecentOrdersTable = () => {
                           }}
                           color="inherit"
                           size="small"
-                          onClick={() => handleUpdate(cryptoOrder.cod_almacen)}
+                        //   onClick={() => handleUpdate(cryptoOrder.id)}
                         >
                           <EditTwoToneIcon fontSize="small" />
                         </IconButton>
@@ -136,7 +138,7 @@ const RecentOrdersTable = () => {
                           }}
                           color="inherit"
                           size="small"
-                          onClick={() => handleDestroy(cryptoOrder.cod_almacen)}
+                        //   onClick={() =>handleDestroy(cryptoOrder.id)}
                         >
                           <DeleteTwoToneIcon fontSize="small" />
                         </IconButton>
@@ -153,12 +155,12 @@ const RecentOrdersTable = () => {
   );
 };
 
-RecentOrdersTable.propTypes = {
+TablaRol.propTypes = {
   cryptoOrders: PropTypes.array.isRequired
 };
 
-RecentOrdersTable.defaultProps = {
+TablaRol.defaultProps = {
   cryptoOrders: []
 };
 
-export default RecentOrdersTable;
+export default TablaRol;

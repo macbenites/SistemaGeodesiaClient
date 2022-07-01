@@ -37,7 +37,7 @@ const RecentOrdersTable = () => {
   const { data } = presentations;
 
   useEffect(() => {
-    dispatch(fetchPresentaciones({}));
+    dispatch(fetchPresentaciones());
   },[dispatch, modal, deleted]);
 
 

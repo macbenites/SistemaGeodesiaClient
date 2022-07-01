@@ -7,6 +7,7 @@ import configReducer from './slices/config/configSlice';
 import providerReducer from './slices/providers/providerSlice'; //proveedor
 import almacenReducer from './slices/almacenes/almacenSlice'; //almacen
 import companyReducer from './slices/company/companySlice'; //empresa
+import roleReducer from './slices/roles/roleSlice'; //rol
 import { getDefaultMiddleware } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import authReducer from './slices/auth/authSlice';
@@ -23,6 +24,7 @@ export const store = configureStore({
     users: userReducer,
     almacen: almacenReducer,
     company: companyReducer,
+    role: roleReducer,
   },
   middleware: getDefaultMiddleware({
     serializableCheck: false

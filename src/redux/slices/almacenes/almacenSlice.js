@@ -18,8 +18,10 @@ export const destroyAlmacen = createAsyncThunk('destroyAlmacen', async (id) => {
   const { data } = await almacenesServices.deleteById(id);
   return data;
 });
-export const fetchAlmacenes = createAsyncThunk('getAlmacenAll', async () => {
-  const { data } = await almacenesServices.getAll();
+export const fetchAlmacenes = createAsyncThunk(
+  'getAlmacenAll', 
+  async (value) => {
+  const { data } = await almacenesServices.getAll(value);
   return data;
 });
 

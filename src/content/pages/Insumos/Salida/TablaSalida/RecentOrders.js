@@ -41,7 +41,7 @@ const RecentOrdersTable = () => {
   const salidas = useSelector((state) => state.supplies.outputsIndex);
   const { data } = salidas;
   useEffect(() => {
-    dispatch(fetchAllOutputs({}));
+    dispatch(fetchAllOutputs());
   }, [dispatch, modal, deleted, showModal]);
 
   const theme = useTheme();
