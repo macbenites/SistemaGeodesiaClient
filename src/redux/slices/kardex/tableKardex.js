@@ -24,13 +24,37 @@ const TableKardex = () => {
 
   const doc = new jsPDF();
 
-  doc.addImage(imgData, 'JPEG', 0, 0);
-  doc.text(String(kardexReport?.empresa), 60, 15);
-  doc.text(String(kardexReport?.almacen), 75, 25);
+  doc.addImage(imgData, 'JPEG', 5, 5, 40, 18);
+
+  doc.setTextColor(0, 0, 170);
+  doc.setFont('courier');
+  doc.setFontSize(20);
+  doc.text(String(kardexReport?.empresa), 80, 15);
+
+  doc.setTextColor(0, 0, 170);
+  doc.setFont('courier');
+  doc.setFontSize(10);
+  doc.text(String(kardexReport?.almacen), 105, 25);
+
+  doc.setTextColor(0, 0, 170);
+  doc.setFont('courier');
+  doc.setFontSize(10);
   doc.text('Inventario Valorizado de Almacén', 70, 35);
+
+  doc.setTextColor(0, 0, 170);
+  doc.setFont('courier');
+  doc.setFontSize(17);
   doc.text(String(kardexReport?.articulo), 40, 45);
-  doc.text(String(kardexReport?.fec_inicio), 120, 45);
-  doc.text(String(kardexReport?.fec_final), 150, 45);
+
+  doc.setTextColor(0, 0, 170);
+  doc.setFont('courier');
+  doc.setFontSize(17);
+  doc.text("Fecha Generada: " +String(kardexReport?.fec_inicio), 120, 45);
+
+  doc.setTextColor(0, 0, 170);
+  doc.setFont('courier');
+  doc.setFontSize(17);
+  doc.text("Fecha Generada: " +String(kardexReport?.fec_final), 150, 45);
   doc.autoTable({ html: '#my-table', margin: { top: 60 } });
 
   let cant =
