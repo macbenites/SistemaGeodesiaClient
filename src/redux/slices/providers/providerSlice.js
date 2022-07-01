@@ -81,7 +81,20 @@ export const fetchShowProvider = createAsyncThunk(
 export const saveUpdateProvider = createAsyncThunk(
   'updateProvider',
   async (provider) => {
-    const { data } = await providerServices.updateProvider(provider);
+    const putProvider = {
+      cod_prov: provider.cod_prov,
+      cod_t_per: provider.cod_t_per,
+      razon_social: provider.razon_social,
+      cod_t_doc: provider.cod_t_doc,
+      nro_doc: provider.nro_doc,
+      correo_per: provider.correo_per,
+      cod_dist: provider.cod_dist,
+      cod_dpt: provider.cod_dpt,
+      cod_provi: provider.cod_provi,
+      dir_per: provider.dir_per,
+      nro_telf: provider.telephones.map((telephone) => telephone.nro_telf)
+    };
+    const { data } = await providerServices.updateProvider(putProvider);
     return data;
   }
 );
