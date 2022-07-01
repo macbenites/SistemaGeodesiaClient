@@ -22,10 +22,34 @@ const TableInventario = ({ InventarioReport }) => {
   const doc = new jsPDF();
 
   doc.addImage(imgData, 'JPEG', 10, 10);
+  doc.setTextColor(0, 0, 170);
+  doc.setFont('courier');
+  doc.setFontSize(20);
   doc.text(String(InventarioReport?.empresa), 75, 20);
+
+  doc.setTextColor(0, 0, 170);
+  doc.setFont('courier');
+  doc.setFontSize(15);
   doc.text(String(InventarioReport?.almacen), 75, 30);
+
+  doc.setTextColor(0, 0, 170);
+  doc.setFont('courier');
+  doc.setFontSize(15);
+  doc.text(String(InventarioReport?.nom_trabajador), 40, 55);
+
+  doc.setTextColor(0, 0, 170);
+  doc.setFont('courier');
+  doc.setFontSize(15);
   doc.text('Documento Inventario', 40, 45);
-  doc.text(String(InventarioReport?.fec_generado), 120, 45);
+
+  doc.setTextColor(0, 0, 170);
+  doc.setFont('courier');
+  doc.setFontSize(15);
+  doc.text(
+    'Fecha Generada: ' + String(InventarioReport?.fec_generado),
+    105,
+    45
+  );
 
   autoTable(doc, {
     head: [['Código', 'Descripción', 'Unidad Medida', 'Stock', 'Valor Neto']],
