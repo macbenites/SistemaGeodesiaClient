@@ -64,7 +64,7 @@ const EmployeeFormUpdate = ({ setModal }) => {
         >
           <Grid item xs={12}>
             <Card>
-              <CardHeader title="Actualizar Trajador" />
+              <CardHeader title="Actualizar Trabajador" />
               <Divider />
               <CardContent>
                 <Formik

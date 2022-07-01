@@ -6,31 +6,50 @@ import {
   Divider,
   CardContent,
   Box,
-  Button
+  Button,
+  useTheme,
 } from '@mui/material';
 import {
-  getProfile
+  getProfile,
+  fetchEditPassword
 } from 'src/redux/slices/users/userSlice';
 import TextField from '@mui/material/TextField';
 import FormLabel from '@mui/material/FormLabel';
 import MenuItem from '@mui/material/MenuItem';
+import Tooltip from '@mui/material/Tooltip';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import BasicModal from 'src/components/common/Modals';
+import ModalCrud from 'src/components/common/Modals/modalCrud';
+
+import EditPassword from '../Edit';
 
 const ShowPerfil = () => {
   const dispatch = useDispatch();
+  const [modal, setModal] = useState(false);
   const { profile } = useSelector(
     (state) => state.users
   );
 
   useEffect(() => {
     dispatch(getProfile());
-  }, [dispatch]); 
+  }, [dispatch,modal]); 
+
+  const theme = useTheme();
+  const handleChangePassword = (id) => {
+    dispatch(fetchEditPassword(id)).then(() => {
+      setModal(id);
+    });
+  };
 
   return (
     <>
+      {modal && (
+        <ModalCrud modal={modal} setModal={setModal}>
+          <EditPassword setModal={setModal} />
+        </ModalCrud>
+      )}
       <Grid item xs={12}>
           <Card>
             <CardHeader title="Mi perfil" />
@@ -70,7 +89,7 @@ const ShowPerfil = () => {
                       {profile?.perfil?.correo_per}
                     </FormLabel>
                   </Grid>
-                  <Grid item xs={12} md={9}>
+                  <Grid item xs={12} md={12}>
                     <FormLabel component="" sx={{ fontWeight: 'bold' }}>
                       Direccion: {'\u00A0'}
                     </FormLabel>
@@ -78,14 +97,26 @@ const ShowPerfil = () => {
                       {profile?.perfil?.des_dpt}, {profile?.perfil?.des_provi}, {profile?.perfil?.des_distrito}, {profile?.perfil?.dir_per} 
                     </FormLabel>
                   </Grid>
-
-                  <Grid item xs={12} md={3}>
-                    <Button
+                  <Grid item xs={12} md={12}>
+                    <FormLabel component="" sx={{ fontWeight: 'bold' }}>
+                      Telefono(s): {'\u00A0'}
+                    </FormLabel>
+                        {profile?.telefono?.map((telefono, index) => (
+                          <FormLabel component="" sx={{}}>
+                            {telefono?.nro_telf} {'\u00A0'}
+                            </FormLabel>
+                      ))}
+                  </Grid>
+                  <Grid 
+                  container  
+                  direction="row"
+                  justifyContent="flex-end" >
+                    <Button 
                       variant="contained"
-                      fullWidth
                       color="primary"
                       type="submit"
                       size="large"
+                      onClick={() => handleChangePassword(profile?.id_usuario)}
                     >
                       Cambiar contraseña
                     </Button>

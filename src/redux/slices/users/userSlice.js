@@ -9,6 +9,8 @@ const initialState = {
   message: '',
   updateUser: {},
   profile: {},
+  editPass: {},
+  updatePass: {},
   showUser: {}
 };
 
@@ -72,6 +74,18 @@ export const getProfile = createAsyncThunk('users/getProfile', async () => {
   const { data } = await UsersServices.showProfile();
   return data;
 });
+//cambiar contraseña
+export const fetchEditPassword = createAsyncThunk('users/fetchEditPassword', async (id) => {
+    const { data } = await UsersServices.editPass(id);
+    return data;
+  }
+);
+
+export const updatePassword = createAsyncThunk('users/updatePassword', async (passwordEdit) => {
+  // alert(JSON.stringify(passwordEdit));
+  const { data } = await UsersServices.updatePass(passwordEdit);
+  return data;
+});
 
 export const fetchShowEmployee = createAsyncThunk(
   'users/fetchShowEmployee',
@@ -112,6 +126,19 @@ const UserSlice = createSlice({
 
     builder.addCase(getProfile.fulfilled, (state, { payload }) => {
       state.profile = payload;
+    });
+    //edit
+    builder.addCase(fetchEditPassword.fulfilled, (state, { payload }) => {
+      state.editPass = payload;
+    });
+    //update
+    builder.addCase(updatePassword.fulfilled, (state, { payload }) => {
+      // state.updatePass = payload.id_recibid;
+      state.updatePass = 'Contraseña actualizada satisfactoriamente';
+    });
+
+    builder.addCase(updatePassword.rejected, (state, { payload }) => {
+      state.updatePass = 'Error al actualizar la contraseña';
     });
 
     builder.addCase(fetchShowEmployee.fulfilled, (state, { payload }) => {

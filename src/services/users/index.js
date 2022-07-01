@@ -85,6 +85,23 @@ const UsersServices = {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
     });
+  },
+
+  //llamar a la vista enviando solo ID, y el token
+  editPass: () => {
+    return axios.get(`${process.env.REACT_APP_API_URL}perfil`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+  },
+  //cambiar contraseña
+  updatePass: (passwordEdit) => {    
+    return axios.put(`${process.env.REACT_APP_API_URL}passUpdate/${passwordEdit.id}`, passwordEdit, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    });
   }
 };
 
