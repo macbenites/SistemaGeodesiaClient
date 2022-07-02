@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import UsersServices from 'src/services/users';
 const initialState = {
   index: {},
+  indexDeleted: {},
   create: {},
   province: [],
   district: [],
@@ -11,13 +12,23 @@ const initialState = {
   profile: {},
   editPass: {},
   updatePass: {},
-  showUser: {}
+  showUser: {},
+  destroy : null,
+  restore : null
 };
 
 export const fetchUsers = createAsyncThunk(
   'users/fetchUsers',
   async (searchText) => {
     const { data } = await UsersServices.indexEmployee(searchText);
+    return data;
+  }
+);
+
+export const fetchUsersDeleted = createAsyncThunk(
+  'users/fetchUsersDeleted',
+  async (searchText) => {
+    const { data } = await UsersServices.indexEmployeeDeleted(searchText);
     return data;
   }
 );
@@ -102,6 +113,22 @@ export const updateEmployee = createAsyncThunk(
   }
 );
 
+export const destroyEmployee = createAsyncThunk(
+  'destroyEmployee',
+  async (id) => {
+    const { data } = await UsersServices.deleteById(id);
+    return data;
+  }
+);
+
+export const restoreEmployee = createAsyncThunk(
+  'restoreEmployee',
+  async (id) => {
+    const { data } = await UsersServices.restoreById(id);
+    return data;
+  }
+);
+
 export const getProfile = createAsyncThunk('users/getProfile', async () => {
   const { data } = await UsersServices.showProfile();
   return data;
@@ -135,6 +162,9 @@ const UserSlice = createSlice({
     builder.addCase(fetchUsers.fulfilled, (state, { payload }) => {
       state.index = payload;
     });
+    builder.addCase(fetchUsersDeleted.fulfilled, (state, { payload }) => {
+      state.indexDeleted = payload;
+    });
     builder.addCase(fetchCreateEmployee.fulfilled, (state, { payload }) => {
       state.create = payload;
     });
@@ -154,6 +184,20 @@ const UserSlice = createSlice({
 
     builder.addCase(updateEmployee.fulfilled, (state, { payload }) => {
       state.message = payload.msg;
+    });
+
+    builder.addCase(destroyEmployee.fulfilled, (state, { payload }) => {
+      state.destroy = 'Trabajador eliminado satisfactoriamente';
+    });
+    builder.addCase(destroyEmployee.rejected, (state, { payload }) => {
+      state.destroy = 'Error al eliminar el trabajador';
+    });
+
+    builder.addCase(restoreEmployee.fulfilled, (state, { payload }) => {
+      state.restore = 'Trabajador restaurado satisfactoriamente';
+    });
+    builder.addCase(restoreEmployee.rejected, (state, { payload }) => {
+      state.restore = 'Error al restaurar el trabajador';
     });
 
     builder.addCase(getProfile.fulfilled, (state, { payload }) => {

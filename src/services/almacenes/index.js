@@ -19,6 +19,17 @@ const almacenesServices = {
       }
     );
   },
+  restoreById: (id) => {
+    return axios.put(
+      `${process.env.REACT_APP_API_URL}almacenRestore/${id}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
+    );
+  },
   updateAlmacen: (warehouse) => {
     return axios.put(
       `${process.env.REACT_APP_API_URL}almacenUpdate/${warehouse.cod_almacen}`,
@@ -30,8 +41,22 @@ const almacenesServices = {
       }
     );
   },
+  // tabla almacenes +
   getAll: (value) => {
     return axios.post(`${process.env.REACT_APP_API_URL}almacenes`, 
+    {
+      searchText: value
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+  },
+
+  // tabla almacenes -
+  getAllDeleted: (value) => {
+    return axios.post(`${process.env.REACT_APP_API_URL}almacenesDeleted`, 
     {
       searchText: value
     },

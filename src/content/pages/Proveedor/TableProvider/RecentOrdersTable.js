@@ -19,7 +19,6 @@ import {
 import Label from 'src/components/Label';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
-import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityTwoToneIcon from '@mui/icons-material/VisibilityTwoTone';
 import { useDispatch, useSelector } from 'react-redux';
 import {

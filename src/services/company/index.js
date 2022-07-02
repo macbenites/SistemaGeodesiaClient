@@ -4,7 +4,7 @@ const companyServices = {
     //update
     updateCompany: (company) => {
         return axios.put(
-        `${process.env.REACT_APP_API_URL}empresaUpdate/${company.cod_persona}`,
+        `${process.env.REACT_APP_API_URL}empresaUpdate/${company.cod_emp}`,
         company,
         {
             headers: {
