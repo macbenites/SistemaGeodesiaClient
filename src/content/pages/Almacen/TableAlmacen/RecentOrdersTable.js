@@ -13,7 +13,8 @@ import {
   TableContainer,
   Typography,
   useTheme,
-  CardHeader
+  CardHeader,
+  Button
 } from '@mui/material';
 
 import Label from 'src/components/Label';
@@ -100,15 +101,15 @@ const RecentOrdersTable = () => {
                       </Typography>
                     </TableCell>
                     <TableCell>
-                      <Typography
-                        variant="body1"
-                        fontWeight="bold"
-                        color="text.primary"
-                        gutterBottom
-                        noWrap
+                      <Button
+                        sx={{ mt: { xs: 2, md: 0 } }}
+                        variant="contained"
+                        //endIcon={<AutoDeleteIcon fontSize="small" />}
+                        onClick={() => window.open(cryptoOrder.ubic_almacen, '_blank', 'noopener,noreferrer')}
+                        
                       >
-                        {cryptoOrder.ubic_almacen}
-                      </Typography>
+                        Ver ubicacion
+                      </Button>
                     </TableCell>
                     <TableCell align="right">
                       <Tooltip title="Editar" arrow>

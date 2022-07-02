@@ -1,11 +1,11 @@
-//proveedor
+//empresa
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import companyServices from '../../../services/company/index';
 const initialState = {
     editCompanyState:{},
     status: null,
-    update: null,
+    updateComp: '',
     showCompanyState: {}
   };
 
@@ -28,7 +28,13 @@ const initialState = {
   export const updateCompany = createAsyncThunk(
     'updateCompany',
     async (company) => {
-      const { data } = await companyServices.updateCompany (company);
+      const putCompany = {
+        cod_emp: company.cod_emp,
+        razon_social: company.razon_social,
+        nro_doc: company.nro_doc,
+        correo_per: company.correo_per,
+      };
+      const { data } = await companyServices.updateCompany (putCompany);
       return data;
     }
   );
@@ -36,7 +42,8 @@ const initialState = {
   const companySlice = createSlice({
     name: 'company',
     initialState,
-    reducers: {},
+    reducers: {
+    },
       extraReducers: (builder) => {
       //edit
       builder.addCase(fetchEditCompany.fulfilled, (state, { payload }) => {
@@ -44,15 +51,15 @@ const initialState = {
       });
       //update
       builder.addCase(updateCompany.fulfilled, (state, { payload }) => {
-        state.update = 'Datos de empresa actualizado satisfactoriamente';
+        state.updateComp = 'Datos de empresa actualizado satisfactoriamente';
       });
       builder.addCase(updateCompany.rejected, (state, { payload }) => {
-        state.update = 'Error al actualizar datos de la empresa';
+        state.updateComp = 'Error al actualizar datos de la empresa';
       });
-    //show
-    builder.addCase(fetchShowCompany.fulfilled, (state, { payload }) => {
+      //show
+      builder.addCase(fetchShowCompany.fulfilled, (state, { payload }) => {
         state.showCompanyState = payload;
-    });
-  }
+      });
+      }
   });
   export default companySlice.reducer;

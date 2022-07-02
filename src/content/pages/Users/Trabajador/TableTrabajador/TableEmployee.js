@@ -21,6 +21,7 @@ import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import VisibilityTwoToneIcon from '@mui/icons-material/VisibilityTwoTone';
 import { useDispatch, useSelector } from 'react-redux';
 import {
+  destroyEmployee,
   fetchUpdateUser,
   fetchUsers,
   fetchShowEmployee
@@ -80,7 +81,7 @@ const TableEmployee = () => {
   const theme = useTheme();
 
   const handleDestroy = (id) => {
-    dispatch(destroyArticle(id));
+    dispatch(destroyEmployee(id));
     setDeleted(id);
   };
 

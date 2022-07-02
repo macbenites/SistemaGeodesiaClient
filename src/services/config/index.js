@@ -27,6 +27,17 @@ const configServices = {
       }
     );
   },
+  restoreCategory: (id) => {
+    return axios.put(
+      `${process.env.REACT_APP_API_URL}categoriaRestore/${id}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
+    );
+  },
   updateCategory: (category) => {
     return axios.put(
       `${process.env.REACT_APP_API_URL}categoriaUpdate/${category.cod_cat}`,
@@ -41,6 +52,19 @@ const configServices = {
   getAllCategory: (value) => {
     return axios.post(
       `${process.env.REACT_APP_API_URL}categorias`,
+      {
+        searchText: value
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
+    );
+  },
+  getAllCategoryDeleted: (value) => {
+    return axios.post(
+      `${process.env.REACT_APP_API_URL}categoriasDeleted`,
       {
         searchText: value
       },
@@ -80,6 +104,17 @@ const configServices = {
       }
     );
   },
+  restoreUnit: (id) => {
+    return axios.put(
+      `${process.env.REACT_APP_API_URL}unidadMedidaRestore/${id}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
+    );
+  },
   updateUnit: (unit) => {
     return axios.put(
       `${process.env.REACT_APP_API_URL}unidadMedidaUpdate/${unit.cod_unid_med}`,
@@ -94,6 +129,19 @@ const configServices = {
   getAllUnit: (value) => {
     return axios.post(
       `${process.env.REACT_APP_API_URL}unidadesMedida`,
+      {
+        searchText: value
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
+    );
+  },
+  getAllUnitDeleted: (value) => {
+    return axios.post(
+      `${process.env.REACT_APP_API_URL}unidadesMedidaDeleted`,
       {
         searchText: value
       },
@@ -137,6 +185,17 @@ const configServices = {
       }
     );
   },
+  restorePresentacion: (id) => {
+    return axios.put(
+      `${process.env.REACT_APP_API_URL}presentacionRestore/${id}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
+    );
+  },
   updatePresentacion: (presentation) => {
     return axios.put(
       `${process.env.REACT_APP_API_URL}presentacionUpdate/${presentation.cod_pres}`,
@@ -151,6 +210,19 @@ const configServices = {
   getAllPresentacion: (value) => {
     return axios.post(
       `${process.env.REACT_APP_API_URL}presentaciones`,
+      {
+        searchText: value
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
+    );
+  },
+  getAllPresentacionDeleted: (value) => {
+    return axios.post(
+      `${process.env.REACT_APP_API_URL}presentacionesDeleted`,
       {
         searchText: value
       },
@@ -194,6 +266,17 @@ const configServices = {
       }
     );
   },
+  restoreTransferencia: (id) => {
+    return axios.put(
+      `${process.env.REACT_APP_API_URL}tipoTransferenciaRestore/${id}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
+    );
+  },
   updateTransferencia: (transferencia) => {
     return axios.put(
       `${process.env.REACT_APP_API_URL}tipoTransferenciaUpdate/${transferencia.cod_t_transf}`,
@@ -208,6 +291,19 @@ const configServices = {
   getAllTransferencia: (value) => {
     return axios.post(
       `${process.env.REACT_APP_API_URL}tiposTransferencias`,
+      {
+        searchText: value
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
+    );
+  },
+  getAllTransferenciaDeleted: (value) => {
+    return axios.post(
+      `${process.env.REACT_APP_API_URL}tiposTransferenciasDeleted`,
       {
         searchText: value
       },
@@ -251,6 +347,17 @@ const configServices = {
       }
     );
   },
+  restoreDocumento: (id) => {
+    return axios.put(
+      `${process.env.REACT_APP_API_URL}tipoDocumentoRestore/${id}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
+    );
+  },
   updateDocumento: (documento) => {
     return axios.put(
       `${process.env.REACT_APP_API_URL}tipoDocumentoRegistroUpdate/${documento.cod_t_doc}`,
@@ -265,6 +372,19 @@ const configServices = {
   getAllDocumento: (value) => {
     return axios.post(
       `${process.env.REACT_APP_API_URL}tiposDocumentosRegistros`,
+      {
+        searchText: value
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
+    );
+  },
+  getAllDocumentoDeleted: (value) => {
+    return axios.post(
+      `${process.env.REACT_APP_API_URL}tiposDocumentosRegistrosDeleted`,
       {
         searchText: value
       },

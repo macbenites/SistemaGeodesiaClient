@@ -3,12 +3,14 @@ import { createSlice } from '@reduxjs/toolkit';
 import articleServices from '../../../services/articles/index';
 const initialState = {
   articlesIndex: {},
+  articlesIndexDeleted: {},
   categories: [],
   presentations: [],
   units: [],
   status: null,
   created: null,
   destroy: null,
+  restore: null,
   update: null,
   showArticle: {}
 };
@@ -22,8 +24,16 @@ export const destroyArticle = createAsyncThunk('destroyArticle', async (id) => {
   const { data } = await articleServices.deleteById(id);
   return data;
 });
+export const restoreArticle = createAsyncThunk('restoreArticle', async (id) => {
+  const { data } = await articleServices.restoreById(id);
+  return data;
+});
 export const fetchArticles = createAsyncThunk('getArticleAll', async (value) => {
   const { data } = await articleServices.getAll(value);
+  return data;
+});
+export const fetchArticlesDeleted = createAsyncThunk('getArticleAllDeleted', async (value) => {
+  const { data } = await articleServices.getAllDeleted(value);
   return data;
 });
 
@@ -66,6 +76,18 @@ const articleSlice = createSlice({
     builder.addCase(fetchArticles.rejected, (state, action) => {
       state.status = 'error';
     });
+
+    builder.addCase(fetchArticlesDeleted.pending, (state, action) => {
+      state.status = 'loading';
+    });
+    builder.addCase(fetchArticlesDeleted.fulfilled, (state, { payload }) => {
+      state.articlesIndexDeleted = payload.articulos;
+      state.status = 'success';
+    });
+    builder.addCase(fetchArticlesDeleted.rejected, (state, action) => {
+      state.status = 'error';
+    });
+
     builder.addCase(fetchArticlesCreate.fulfilled, (state, { payload }) => {
       state.categories = payload.categoria;
       state.presentations = payload.presentacion;
@@ -89,6 +111,13 @@ const articleSlice = createSlice({
     });
     builder.addCase(destroyArticle.rejected, (state, { payload }) => {
       state.destroy = 'Error al eliminar el articulo';
+    });
+    
+    builder.addCase(restoreArticle.fulfilled, (state, { payload }) => {
+      state.restore = 'Articulo restaurado satisfactoriamente';
+    });
+    builder.addCase(restoreArticle.rejected, (state, { payload }) => {
+      state.restore = 'Error al restaurar el articulo';
     });
 
     builder.addCase(fetchShowArticle.fulfilled, (state, { payload }) => {
