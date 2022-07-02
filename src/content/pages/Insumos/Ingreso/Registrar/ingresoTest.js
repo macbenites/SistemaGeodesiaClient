@@ -17,7 +17,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FieldArray, Form, Field, Formik } from 'formik';
 import {
   fetchSuppliesCreate,
-  saveSupplies
+  saveSupplies,
+  fetchEmployee
 } from 'src/redux/slices/supplies/suppliesSlice';
 import { validationSupplies } from 'src/utils/validation';
 import BasicModal from 'src/components/common/Modals';
@@ -33,7 +34,9 @@ const emptyArticles = {
 const IngresoTest = () => {
   const dispatch = useDispatch();
   const [modal, setModal] = useState(false);
-  const { selectedSupply, created } = useSelector((state) => state.supplies);
+  const { selectedSupply, created, employe } = useSelector(
+    (state) => state.supplies
+  );
 
   useEffect(() => {
     dispatch(fetchSuppliesCreate());
@@ -118,7 +121,12 @@ const IngresoTest = () => {
                             fullWidth
                             name="cod_almacen"
                             value={values.cod_almacen}
-                            onChange={handleChange}
+                            onChange={async (e) => {
+                              const { value } = e.target;
+                              dispatch(fetchEmployee(value));
+                              setFieldValue('cod_almacen', value);
+                              setFieldValue('cod_trabajador', '');
+                            }}
                             error={
                               touched.cod_almacen && Boolean(errors.cod_almacen)
                             }
@@ -149,7 +157,7 @@ const IngresoTest = () => {
                             }
                             helperText={errors.cod_trabajador}
                           >
-                            {selectedSupply.trabajador?.map((supply) => (
+                            {employe?.trabajador?.map((supply) => (
                               <MenuItem
                                 key={supply.cod_trabajador}
                                 value={supply.cod_trabajador}

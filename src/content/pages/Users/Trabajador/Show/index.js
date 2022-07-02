@@ -28,7 +28,7 @@ const ShowEmployee = () => {
           mb={2}
         >
           <Grid item xs={12}>
-            <CardHeader title="Trajador" />
+            <CardHeader title="Trabajador" />
             <Divider />
             <CardContent>
               <Grid container spacing={2}>
@@ -43,9 +43,9 @@ const ShowEmployee = () => {
                   <Button
                     variant="contained"
                     color="primary"
-                    href="/usuarios/trabajador/create"
+                    href="/usuarios/roles"
                   >
-                    Asiganar Roles
+                    Asignar Roles
                   </Button>
                 </Grid>
                 <Grid item xs={12} md={12}>
@@ -144,7 +144,7 @@ const ShowEmployee = () => {
                     label="Dirección"
                     variant="standard"
                     fullWidth
-                    value={showUser.trabajador.direccion_per}
+                    value={showUser.trabajador.dir_per}
                   />
                 </Grid>
                 {showUser?.telefono?.map((telefono, index) => (

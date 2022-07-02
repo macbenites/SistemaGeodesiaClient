@@ -180,6 +180,17 @@ export const validationLogin = yup.object().shape({
     .min(6, 'La contraseña debe tener minimo 6 caracteres')
 });
 
+export const validationChangePass = yup.object().shape({
+  password: yup.string('Ingrese la nueva contraseña')
+  .required('La nueva contraseña es requerida')
+  .min(6, 'La contraseña debe tener minimo 6 caracteres'),
+  password_confirmation: yup
+    .string('Confirme la nueva contraseña')
+    .required('La confirmacion de contraseña es requerida')
+    .oneOf([yup.ref('password')], 'No coinciden las contraseñas')
+    .min(6, 'La contraseña debe tener minimo 6 caracteres')
+});
+
 export const validationEmployee = yup.object().shape({
   cod_t_per: yup.string().required('El tipo de persona es requerido'),
   nom_per: yup.string().required('El nombre es requerido'),
@@ -196,14 +207,13 @@ export const validationEmployee = yup.object().shape({
   cod_provi: yup.string().required('La provincia es requerida'),
   cod_dist: yup.string().required('El distrito es requerido'),
   dir_per: yup.string().required('La direccion es requerida'),
-  nro_telf: array(
+  telephones: array(
     object({
-      nro_telf: yup
-        .string()
+      nro_telf: string('Ingrese número de telefono')
+        .min(7, 'Ingrese minimo 7 digitos')
+        .max(9, 'Ingrese máximo 9 digitos')
+        .matches(/^[0-9]+$/, 'Ingrese solo números')
         .required('El numero de telefono es requerido')
-        .max(9, 'El numero de telefono debe tener 9 caracteres')
     })
   )
-    .min(1, 'Debe ingresar al menos un telefono')
-    .max(3, 'Debe ingresar maximo 2 telefonos')
 });

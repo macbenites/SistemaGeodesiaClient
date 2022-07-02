@@ -37,7 +37,7 @@ const RecentOrdersTable = () => {
   const { data } = transferencias;
 
   useEffect(() => {
-    dispatch(fetchTransferencias({}));
+    dispatch(fetchTransferencias());
   },[dispatch, modal, deleted]);
 
 

@@ -42,7 +42,7 @@ const RecentOrdersTable = () => {
   const { data } = ingresos;
 
   useEffect(() => {
-    dispatch(fetchAllSupplies({}));
+    dispatch(fetchAllSupplies());
   }, [dispatch, modal, deleted,showModal]);
 
 
@@ -176,7 +176,7 @@ const handleShow = (id) => {
                           <VisibilityTwoToneIcon fontSize="small" />
                         </IconButton>
                       </Tooltip>
-                      <Tooltip title="Editar" arrow>
+                      {/* <Tooltip title="Editar" arrow>
                         <IconButton
                           sx={{
                             '&:hover': {
@@ -205,7 +205,7 @@ const handleShow = (id) => {
                         >
                           <DeleteTwoToneIcon fontSize="small" />
                         </IconButton>
-                      </Tooltip>
+                      </Tooltip> */}
                     </TableCell>
                   </TableRow>
                 );

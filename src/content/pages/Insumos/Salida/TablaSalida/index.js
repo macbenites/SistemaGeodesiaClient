@@ -1,10 +1,10 @@
 import { Helmet } from 'react-helmet-async';
-import PageHeader from './PageHeader';
 import PageTitleWrapper from 'src/components/PageTitleWrapper';
 import { Container, Grid } from '@mui/material';
 import Footer from 'src/components/Footer';
-
+import PageHeader from 'src/components/common/Tables/TableHeader';
 import RecentOrders from './RecentOrders';
+import { fetchAllOutputs } from 'src/redux/slices/supplies/suppliesSlice';
 
 function ApplicationsTransactions() {
   return (
@@ -13,7 +13,14 @@ function ApplicationsTransactions() {
         <title>Registros de salida</title>
       </Helmet>
       <PageTitleWrapper>
-        <PageHeader />
+      <PageHeader
+          //Titule de cabecera
+          title="Salida de insumos"
+          //funcion para buscar creadad en el slice de proveedor
+          searchDispatch={fetchAllOutputs}
+          //ruta del botón de cabecera que te lleva al registro de proveedor
+          route={'/insumos/salida-nueva'}
+        />
       </PageTitleWrapper>
       <Container maxWidth="lg">
         <Grid

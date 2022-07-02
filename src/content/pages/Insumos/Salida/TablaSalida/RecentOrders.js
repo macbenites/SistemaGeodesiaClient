@@ -23,13 +23,13 @@ import VisibilityTwoToneIcon from '@mui/icons-material/VisibilityTwoTone';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-//   destroyProvider,
-//   fetchShowProvider,
-    fetchAllOutputs,
-    fetchSupplyOut
+  //   destroyProvider,
+  //   fetchShowProvider,
+  fetchAllOutputs,
+  fetchSupplyOut
 } from 'src/redux/slices/supplies/suppliesSlice';
 import ModalCrud from 'src/components/common/Modals/modalCrud';
-    // import EditIngreso from '../Edit';
+// import EditIngreso from '../Edit';
 import { useEffect, useState } from 'react';
 import ShowSupplyOut from '../Show';
 
@@ -41,26 +41,25 @@ const RecentOrdersTable = () => {
   const salidas = useSelector((state) => state.supplies.outputsIndex);
   const { data } = salidas;
   useEffect(() => {
-    dispatch(fetchAllOutputs({}));
-  }, [dispatch, modal, deleted,showModal]);
-
+    dispatch(fetchAllOutputs());
+  }, [dispatch, modal, deleted, showModal]);
 
   const theme = useTheme();
   const handleDestroy = (id) => {
     dispatch(destroyProvider(id));
-  setDeleted(id);
+    setDeleted(id);
   };
 
-//   const handleUpdate = (id) => {
-//     dispatch(fetchShowProvider(id)).then(() => {
-//       setModal(id);
-//     });
-//   };
-const handleShow = (id) => {
-  dispatch(fetchSupplyOut (id)).then(() => {
-    setShowModal(id);
-  });
-};
+  //   const handleUpdate = (id) => {
+  //     dispatch(fetchShowProvider(id)).then(() => {
+  //       setModal(id);
+  //     });
+  //   };
+  const handleShow = (id) => {
+    dispatch(fetchSupplyOut(id)).then(() => {
+      setShowModal(id);
+    });
+  };
 
   return (
     <>
@@ -91,7 +90,7 @@ const handleShow = (id) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {data?.map((cryptoOrder,index) => {
+              {data?.map((cryptoOrder, index) => {
                 return (
                   <TableRow hover key={cryptoOrder.cod_reg_sal}>
                     <TableCell>
@@ -102,7 +101,7 @@ const handleShow = (id) => {
                         gutterBottom
                         noWrap
                       >
-                        {index+1}
+                        {index + 1}
                       </Typography>
                     </TableCell>
                     <TableCell>
@@ -134,7 +133,7 @@ const handleShow = (id) => {
                         color="text.primary"
                         gutterBottom
                         noWrap
-                    >
+                      >
                         {cryptoOrder.des_almacen}
                       </Typography>
                     </TableCell>
@@ -156,12 +155,12 @@ const handleShow = (id) => {
                         color="text.primary"
                         gutterBottom
                         noWrap
-                    >
+                      >
                         {cryptoOrder.fec_sal}
                       </Typography>
                     </TableCell>
                     <TableCell align="right">
-                    <Tooltip title="Ver" arrow>
+                      <Tooltip title="Ver" arrow>
                         <IconButton
                           sx={{
                             '&:hover': {
@@ -176,7 +175,7 @@ const handleShow = (id) => {
                           <VisibilityTwoToneIcon fontSize="small" />
                         </IconButton>
                       </Tooltip>
-                      <Tooltip title="Editar" arrow>
+                      {/* <Tooltip title="Editar" arrow>
                         <IconButton
                           sx={{
                             '&:hover': {
@@ -190,8 +189,8 @@ const handleShow = (id) => {
                         >
                           <EditTwoToneIcon fontSize="small" />
                         </IconButton>
-                      </Tooltip>
-                      <Tooltip title="Eliminar" arrow>
+                      </Tooltip> */}
+                      {/* <Tooltip title="Eliminar" arrow>
                         <IconButton
                           sx={{
                             '&:hover': {
@@ -205,7 +204,7 @@ const handleShow = (id) => {
                         >
                           <DeleteTwoToneIcon fontSize="small" />
                         </IconButton>
-                      </Tooltip>
+                      </Tooltip> */}
                     </TableCell>
                   </TableRow>
                 );

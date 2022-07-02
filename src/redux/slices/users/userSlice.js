@@ -9,6 +9,8 @@ const initialState = {
   message: '',
   updateUser: {},
   profile: {},
+  editPass: {},
+  updatePass: {},
   showUser: {}
 };
 
@@ -55,7 +57,23 @@ export const fetchDistrict = createAsyncThunk(
 export const saveEmployee = createAsyncThunk(
   'users/saveEmployee',
   async (employee) => {
-    const { data } = await UsersServices.saveEmployee(employee);
+    const postEmployee = {
+      cod_t_per: employee.cod_t_per,
+      nom_per: employee.nom_per,
+      ape_pat_per: employee.ape_pat_per,
+      ape_mat_per: employee.ape_mat_per,
+      cod_t_doc: employee.cod_t_doc,
+      nro_doc: employee.nro_doc,
+      correo_per: employee.correo_per,
+      dir_per: employee.dir_per,
+      cod_dpt: employee.cod_dpt,
+      cod_provi: employee.cod_provi,
+      cod_dist: employee.cod_dist,
+      dir_per: employee.dir_per,
+      nro_telf: employee.telephones.map((telephone) => telephone.nro_telf)
+    };
+
+    const { data } = await UsersServices.saveEmployee(postEmployee);
     return data;
   }
 );
@@ -63,13 +81,41 @@ export const saveEmployee = createAsyncThunk(
 export const updateEmployee = createAsyncThunk(
   'users/updateEmployee',
   async (employee) => {
-    const { data } = await UsersServices.updateEmployee(employee);
+    const putEmployee = {
+      cod_persona: employee.cod_persona,
+      cod_t_per: employee.cod_t_per,
+      nom_per: employee.nom_per,
+      ape_pat_per: employee.ape_pat_per,
+      ape_mat_per: employee.ape_mat_per,
+      cod_t_doc: employee.cod_t_doc,
+      nro_doc: employee.nro_doc,
+      correo_per: employee.correo_per,
+      dir_per: employee.dir_per,
+      cod_dpt: employee.cod_dpt,
+      cod_provi: employee.cod_provi,
+      cod_dist: employee.cod_dist,
+      dir_per: employee.dir_per,
+      nro_telf: employee.telephones.map((telephone) => telephone.nro_telf)
+    };
+    const { data } = await UsersServices.updateEmployee(putEmployee);
     return data;
   }
 );
 
 export const getProfile = createAsyncThunk('users/getProfile', async () => {
   const { data } = await UsersServices.showProfile();
+  return data;
+});
+//cambiar contraseña
+export const fetchEditPassword = createAsyncThunk('users/fetchEditPassword', async (id) => {
+    const { data } = await UsersServices.editPass(id);
+    return data;
+  }
+);
+
+export const updatePassword = createAsyncThunk('users/updatePassword', async (passwordEdit) => {
+  // alert(JSON.stringify(passwordEdit));
+  const { data } = await UsersServices.updatePass(passwordEdit);
   return data;
 });
 
@@ -112,6 +158,19 @@ const UserSlice = createSlice({
 
     builder.addCase(getProfile.fulfilled, (state, { payload }) => {
       state.profile = payload;
+    });
+    //edit
+    builder.addCase(fetchEditPassword.fulfilled, (state, { payload }) => {
+      state.editPass = payload;
+    });
+    //update
+    builder.addCase(updatePassword.fulfilled, (state, { payload }) => {
+      // state.updatePass = payload.id_recibid;
+      state.updatePass = 'Contraseña actualizada satisfactoriamente';
+    });
+
+    builder.addCase(updatePassword.rejected, (state, { payload }) => {
+      state.updatePass = 'Error al actualizar la contraseña';
     });
 
     builder.addCase(fetchShowEmployee.fulfilled, (state, { payload }) => {

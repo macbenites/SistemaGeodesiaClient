@@ -28,6 +28,7 @@ const InventarioSlice = createSlice({
       state.almacen = payload.almacen;
     });
     builder.addCase(fetchInventarioReporte.fulfilled, (state, { payload }) => {
+      alert('Reporte generado');
       state.InventarioReport = payload;
     });
   }

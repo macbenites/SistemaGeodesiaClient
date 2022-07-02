@@ -26,6 +26,7 @@ import {
   List,
   CardHeader
 } from '@mui/material';
+
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FieldArray, Form, Field, Formik } from 'formik';
@@ -38,6 +39,9 @@ import {
 import { validationEmployee } from 'src/utils/validation';
 import BasicModal from 'src/components/common/Modals/index';
 import AddIcCallIcon from '@mui/icons-material/AddIcCall';
+const emptyTelephones = {
+  nro_telf: ''
+};
 
 const EmployeeForm = () => {
   const [modal, setModal] = useState(false);
@@ -82,7 +86,7 @@ const EmployeeForm = () => {
                     cod_provi: '',
                     cod_dist: '',
                     dir_per: '',
-                    nro_telf: ['']
+                    telephones: [emptyTelephones]
                   }}
                   validationSchema={validationEmployee}
                   onSubmit={async (values, { resetForm }) => {
@@ -241,8 +245,6 @@ const EmployeeForm = () => {
                               const { value } = e.target;
                               dispatch(fetchProvince(value));
                               setFieldValue('cod_dpt', value);
-                              setFieldValue('cod_provi', '');
-                              setFieldValue('cod_provi', province);
                             }}
                             error={touched.cod_dpt && Boolean(errors.cod_dpt)}
                             helperText={errors.cod_dpt}
@@ -269,8 +271,6 @@ const EmployeeForm = () => {
                               const { value } = e.target;
                               dispatch(fetchDistrict(value));
                               setFieldValue('cod_provi', value);
-                              setFieldValue('cod_dist', '');
-                              setFieldValue('cod_dist', district);
                             }}
                             error={
                               touched.cod_provi && Boolean(errors.cod_provi)
@@ -323,7 +323,7 @@ const EmployeeForm = () => {
                             helperText={errors.dir_per}
                           />
                         </Grid>
-                        <FieldArray name="nro_telf">
+                        <FieldArray name="telephones">
                           {({ push, remove }) => (
                             <>
                               <Grid item container spacing={2}>
@@ -343,7 +343,7 @@ const EmployeeForm = () => {
                                   <Grid item>
                                     <Button
                                       disabled={
-                                        values.nro_telf.length <= 1
+                                        values.telephones.length <= 1
                                           ? false
                                           : true
                                       }
@@ -351,60 +351,51 @@ const EmployeeForm = () => {
                                       endIcon={<AddIcCallIcon />}
                                       color="secondary"
                                       size="large"
-                                      onClick={() => push('')}
+                                      onClick={() => push(emptyTelephones)}
                                     >
                                       Agregar
                                     </Button>
                                   </Grid>
                                 </Grid>
                               </Grid>
-                              {values.nro_telf.map(
-                                (_, index) => (
-                                  console.log(values.nro_telf.length),
-                                  (
-                                    <Grid
-                                      container
-                                      item
-                                      key={index}
-                                      spacing={2}
-                                    >
-                                      <Grid item container spacing={2} xs={12}>
-                                        <Grid item xs={12} md={3}>
-                                          <TextField
-                                            type="search"
-                                            label="Telefono o celular"
-                                            fullWidth
-                                            value={values.nro_telf[index]}
-                                            name={`nro_telf.${index}`}
-                                            onChange={handleChange}
-                                          />
-                                        </Grid>
-
-                                        <Grid item xs={12} md={1}>
-                                          <Button
-                                            disabled={
-                                              values.nro_telf.length === 1
-                                                ? true
-                                                : false
-                                            }
-                                            onClick={() => remove(index)}
-                                            variant="outlined"
-                                            size="large"
-                                            color="error"
-                                            fullWidth
-                                          >
-                                            Quitar
-                                          </Button>
-                                        </Grid>
-                                      </Grid>
+                              {values.telephones.map((_, index) => (
+                                <Grid container item key={index} spacing={2}>
+                                  <Grid item container spacing={2} xs={12}>
+                                    <Grid item xs={12} md={3}>
+                                      <TextField
+                                        type="search"
+                                        label="Telefono o celular"
+                                        fullWidth
+                                        value={
+                                          values.telephones[index].nro_telf
+                                        }
+                                        name={`telephones.${index}.nro_telf`}
+                                        onChange={handleChange}
+                                      />
                                     </Grid>
-                                  )
-                                )
-                              )}
+                                    <Grid item xs={12} md={1}>
+                                      <Button
+                                        disabled={
+                                          values.telephones.length === 1
+                                            ? true
+                                            : false
+                                        }
+                                        onClick={() => remove(index)}
+                                        variant="outlined"
+                                        size="large"
+                                        color="error"
+                                        fullWidth
+                                      >
+                                        Quitar
+                                      </Button>
+                                    </Grid>
+                                  </Grid>
+                                </Grid>
+                              ))}
                               <Grid item xs={12} md={12}>
-                                {errors?.nro_telf?.length > 0 ? (
+                                {errors?.telephones?.length > 0 ? (
                                   <Typography color="error">
-                                    {errors?.nro_telf?.map((error, index) => (
+                                    {errors?.telephones?.map((error, index) => (
                                       <List key={index}>
                                         {error !== null && (
                                           <>

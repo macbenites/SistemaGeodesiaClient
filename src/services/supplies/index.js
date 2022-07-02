@@ -26,20 +26,42 @@ const suppliesServices = {
     );
   },
 
-  getAllSupplies: (searchText) => {
-    return axios.post(`${process.env.REACT_APP_API_URL}registrosIngresos`, searchText, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`
+  getEmployee: (id) => {
+    return axios.get(
+      `${process.env.REACT_APP_API_URL}registroIngreso/trabajador/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
       }
-    });
+    );
+  },
+  getAllSupplies: (value) => {
+    return axios.post(
+      `${process.env.REACT_APP_API_URL}registrosIngresos`,
+      {
+        searchText: value
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
+    );
   },
 
-  getAllOutputs: (searchText) => {
-    return axios.post(`${process.env.REACT_APP_API_URL}registrosSalidas`, searchText, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`
+  getAllOutputs: (value) => {
+    return axios.post(
+      `${process.env.REACT_APP_API_URL}registrosSalidas`,
+      {
+        searchText: value
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
       }
-    });
+    );
   },
 
   //SHOW INGRESO - SALIDA

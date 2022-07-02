@@ -22,8 +22,8 @@ export const destroyArticle = createAsyncThunk('destroyArticle', async (id) => {
   const { data } = await articleServices.deleteById(id);
   return data;
 });
-export const fetchArticles = createAsyncThunk('getArticleAll', async () => {
-  const { data } = await articleServices.getAll();
+export const fetchArticles = createAsyncThunk('getArticleAll', async (value) => {
+  const { data } = await articleServices.getAll(value);
   return data;
 });
 

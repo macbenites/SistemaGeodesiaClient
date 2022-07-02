@@ -41,14 +41,13 @@ const RecentOrdersTable = () => {
   const providers = useSelector((state) => state.provider.providersIndex);
   const { data } = providers;
   useEffect(() => {
-    dispatch(fetchProviders({}));
-  }, [dispatch, modal, deleted,showModal]);
-
+    dispatch(fetchProviders());
+  }, [dispatch, modal, deleted, showModal]);
 
   const theme = useTheme();
   const handleDestroy = (id) => {
-  dispatch(destroyProvider(id));
-  setDeleted(id);
+    dispatch(destroyProvider(id));
+    setDeleted(id);
   };
 
   const handleUpdate = (id) => {
@@ -86,7 +85,7 @@ const RecentOrdersTable = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {data?.map((cryptoOrder,index) => {
+              {data?.map((cryptoOrder, index) => {
                 return (
                   <TableRow hover key={cryptoOrder.cod_prov}>
                     <TableCell>
@@ -97,7 +96,7 @@ const RecentOrdersTable = () => {
                         gutterBottom
                         noWrap
                       >
-                        {index+1}
+                        {index + 1}
                       </Typography>
                     </TableCell>
                     <TableCell>
@@ -122,9 +121,9 @@ const RecentOrdersTable = () => {
                         {cryptoOrder.ruc}
                       </Typography>
                     </TableCell>
-                    
+
                     <TableCell align="right">
-                    <Tooltip title="Ver" arrow>
+                      <Tooltip title="Ver" arrow>
                         <IconButton
                           sx={{
                             '&:hover': {

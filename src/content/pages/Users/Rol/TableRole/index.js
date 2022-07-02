@@ -1,25 +1,23 @@
 import { Helmet } from 'react-helmet-async';
+import PageHeader from 'src/components/common/Tables/TableHeader';
 import PageTitleWrapper from 'src/components/PageTitleWrapper';
 import { Container, Grid } from '@mui/material';
 import Footer from 'src/components/Footer';
-import PageHeader from 'src/components/common/Tables/TableHeader';
-import RecentOrders from './RecentOrders';
-import { fetchProviders } from 'src/redux/slices/providers/providerSlice';
+import { fetchRoles } from 'src/redux/slices/roles/roleSlice';
+import RecentRoles from './RecentRoles.js';
 
-function ApplicationsTransactions() {
+function RoleMaintenance() {
   return (
     <>
       <Helmet>
-        <title>Proveedores</title>
+        <title>Rol</title>
       </Helmet>
       <PageTitleWrapper>
+        {/* Componente de busqueda */}
         <PageHeader
-          //Titule de cabecera
-          title="Proveedor"
-          //funcion para buscar creadad en el slice de proveedor
-          searchDispatch={fetchProviders}
-          //ruta del botón de cabecera que te lleva al registro de proveedor
-          route={'/proveedor/registro-nuevo'}
+          title="Rol"
+          searchDispatch={fetchRoles}
+          route={'usuarios/rol'}
         />
       </PageTitleWrapper>
       <Container maxWidth="lg">
@@ -31,7 +29,7 @@ function ApplicationsTransactions() {
           spacing={3}
         >
           <Grid item xs={12}>
-            <RecentOrders />
+            <RecentRoles/>
           </Grid>
         </Grid>
       </Container>
@@ -40,4 +38,4 @@ function ApplicationsTransactions() {
   );
 }
 
-export default ApplicationsTransactions;
+export default RoleMaintenance;

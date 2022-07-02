@@ -128,6 +128,18 @@ const ShowEmployee = Loader(
   lazy(() => import('src/content/pages/Users/Trabajador/Show'))
 );
 
+const AssignRole = Loader(
+  lazy(() => import('src/content/pages/Users/Trabajador/Role'))
+);
+
+// Roles
+const TablaRol = Loader(
+  lazy(() => import('src/content/pages/Users/Rol/TableRole'))
+);
+const RegistroRol = Loader(
+  lazy(() => import('src/content/pages/Users/Rol/Registrar'))
+);
+
 // Status
 
 const Status404 = Loader(
@@ -386,7 +398,19 @@ const routes = (isLoggedIn) => [
       {
         path: 'ver-trabajador',
         element: <ShowEmployee />
-      }
+      },
+      {
+        path: 'roles',
+        element: <AssignRole />
+      }, //rol crud
+      {
+        path: 'rol',
+        element: <TablaRol/>
+      },
+      {
+        path: 'rol-registrar',
+        element: <RegistroRol/>
+      },
     ]
   },
   {
