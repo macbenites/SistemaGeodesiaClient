@@ -55,7 +55,6 @@ const IngresoInsumos = Loader(
   lazy(() => import('src/content/pages/Insumos/Ingreso/Registrar/ingresoTest'))
 );
 
-
 const TablaSalidas = Loader(
   lazy(() => import('src/content/pages/Insumos/Salida/TablaSalida'))
 );
@@ -156,7 +155,7 @@ const AssignRole = Loader(
   lazy(() => import('src/content/pages/Users/Trabajador/Role'))
 );
 
-const DeshabilitadoEmployee= Loader(
+const DeshabilitadoEmployee = Loader(
   lazy(() => import('src/content/pages/Users/Trabajador/Deshabilitados'))
 );
 
@@ -248,7 +247,7 @@ const routes = (isLoggedIn) => [
       },
       {
         path: 'registro-deshabilitados',
-        element: <DeshabilitadoAlmacen/>
+        element: <DeshabilitadoAlmacen />
       }
     ]
   },
@@ -270,7 +269,7 @@ const routes = (isLoggedIn) => [
       },
       {
         path: 'ingreso-deshabilitados',
-        element: <DeshabilitadoProducto/>
+        element: <DeshabilitadoProducto />
       }
     ]
   },
@@ -298,7 +297,6 @@ const routes = (isLoggedIn) => [
         path: 'salida-nueva',
         element: <SalidaInsumos />
       }
-      
     ]
   },
   {
@@ -465,16 +463,16 @@ const routes = (isLoggedIn) => [
       }, //rol crud
       {
         path: 'rol',
-        element: <TablaRol/>
+        element: <TablaRol />
       },
       {
         path: 'rol-registrar',
-        element: <RegistroRol/>
+        element: <RegistroRol />
       },
       {
         path: 'deshabilitados',
         element: <DeshabilitadoEmployee />
-      },
+      }
     ]
   },
   {

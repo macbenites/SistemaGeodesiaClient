@@ -6,6 +6,8 @@ const initialState = {
   articlesContainerOut: [],
   selectedSupply: {},
   selectedSupplyOut: {},
+  selectApplicantOut: {},
+  selectAuthorizerOut: {},
   articlesSupplies: [],
   suppliesIndex: {}, //ingresos
   outputsIndex: {}, //salidas
@@ -41,7 +43,19 @@ export const saveSupplies = createAsyncThunk('saveSupplie', async (supplie) => {
 export const saveSuppliesOut = createAsyncThunk(
   'saveSupplieOut',
   async (supplie) => {
-    const { status } = await suppliesServices.createOut(supplie);
+    const postSupplie = {
+      cod_solicitador: supplie.cod_solicitador,
+      cod_autorizador: supplie.cod_autorizador,
+      cod_almacen: supplie.cod_almacen,
+      cod_t_transf: supplie.cod_t_transf,
+      cod_t_doc: supplie.cod_t_doc,
+      nro_doc: supplie.nro_doc,
+      fec_doc: supplie.fec_doc,
+      cod_art: supplie.articles.map((article) => article.cod_art),
+      cant_art: supplie.articles.map((article) => article.cant_art),
+      obs_sal: supplie.articles.map((article) => article.obs_sal)
+    };
+    const { status } = await suppliesServices.createOut(postSupplie);
     return status;
   }
 );
@@ -76,15 +90,21 @@ export const fetchArticlesSupplies = createAsyncThunk(
 );
 
 //index ingreso
-export const fetchAllSupplies = createAsyncThunk('getSupliesAll', async (value) => {
-  const { data } = await suppliesServices.getAllSupplies(value);
-  return data;
-});
+export const fetchAllSupplies = createAsyncThunk(
+  'getSupliesAll',
+  async (value) => {
+    const { data } = await suppliesServices.getAllSupplies(value);
+    return data;
+  }
+);
 //index salida
-export const fetchAllOutputs = createAsyncThunk('getOutputsAll', async (value) => {
-  const { data } = await suppliesServices.getAllOutputs(value);
-  return data;
-});
+export const fetchAllOutputs = createAsyncThunk(
+  'getOutputsAll',
+  async (value) => {
+    const { data } = await suppliesServices.getAllOutputs(value);
+    return data;
+  }
+);
 
 export const fetchSupplyIn = createAsyncThunk('getSupplyIn', async (id) => {
   const { data } = await suppliesServices.getSuppliesById(id);
@@ -95,6 +115,22 @@ export const fetchSupplyOut = createAsyncThunk('getSupplyOut', async (id) => {
   const { data } = await suppliesServices.getSuppliesOutById(id);
   return data;
 });
+
+export const fetchApplicantOut = createAsyncThunk(
+  'getApplicantOut',
+  async (id) => {
+    const { data } = await suppliesServices.getApplicants(id);
+    return data;
+  }
+);
+
+export const fetchAuthorizerOut = createAsyncThunk(
+  'getAuthorizerOut',
+  async (id) => {
+    const { data } = await suppliesServices.getAuthorizer(id);
+    return data;
+  }
+);
 
 const suppliesSlice = createSlice({
   name: 'supplies',
@@ -180,6 +216,14 @@ const suppliesSlice = createSlice({
 
     builder.addCase(fetchEmployee.fulfilled, (state, { payload }) => {
       state.employe = payload.data;
+    });
+
+    //Registro de salida
+    builder.addCase(fetchApplicantOut.fulfilled, (state, { payload }) => {
+      state.selectApplicantOut = payload;
+    });
+    builder.addCase(fetchAuthorizerOut.fulfilled, (state, { payload }) => {
+      state.selectAuthorizerOut = payload;
     });
   }
 });

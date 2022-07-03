@@ -244,3 +244,42 @@ export const validationEmployee = yup.object().shape({
     })
   )
 });
+
+// cod_solicitador: '',
+// cod_autorizador: '',
+// cod_almacen: '',
+// cod_t_transf: '',
+// cod_t_doc: '',
+// nro_doc: '',
+// fec_doc: '',
+// articles: [emptyArticle]
+export const validationCheckoutForm = yup.object().shape({
+  cod_solicitador: yup.string().required('El solicitador es requerido'),
+  cod_autorizador: yup.string().required('El autorizador es requerido'),
+  cod_almacen: yup.string().required('El almacen es requerido'),
+  cod_t_transf: yup.string().required('El tipo de transferencia es requerido'),
+  cod_t_doc: yup.string().required('El tipo de documento es requerido'),
+  nro_doc: yup.string().required('El numero de documento es requerido'),
+  fec_doc: yup.string().required('La fecha de documento es requerida'),
+  articles: array(
+    object({
+      cod_art: string().required('El codigo del articulo es requerido'),
+      stock_almacen: number().required('El stock del almacen es requerido'),
+      cant_art: number()
+        .required('La cantidad del articulo es requerida')
+        .integer('La cantidad del articulo debe ser un numero entero')
+        .min(1, 'La cantidad del articulo debe ser mayor a 1')
+        .max(
+          yup.ref('stock_almacen'),
+          'La cantidad del  articulo debe ser menor al stock del almacen'
+        ),
+      obs_sal: string()
+        .required('La observacion del articulo es requerida')
+        .min(3, 'La observacion del articulo debe tener minimo 3 caracteres')
+        .max(
+          255,
+          'La observacion del articulo debe tener maximo 255 caracteres'
+        )
+    })
+  ).min(1, 'Debe ingresar al menos un articulo')
+});

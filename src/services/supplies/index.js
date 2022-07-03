@@ -105,7 +105,28 @@ const suppliesServices = {
       }
     );
   },
-
+  // Obtener trabajadores solicitantes
+  getApplicants: (id) => {
+    return axios.get(
+      `${process.env.REACT_APP_API_URL}registroSalida/solicita/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
+    );
+  },
+  // Obtener trabajadores autorizador
+  getAuthorizer: (id) => {
+    return axios.get(
+      `${process.env.REACT_APP_API_URL}registroSalida/autoriza/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
+    );
+  },
   //getArticles
   getArticlesSupplies: (id) => {
     return axios.get(
