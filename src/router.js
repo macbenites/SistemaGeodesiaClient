@@ -49,7 +49,6 @@ const IngresoInsumos = Loader(
   lazy(() => import('src/content/pages/Insumos/Ingreso/Registrar/ingresoTest'))
 );
 
-
 const TablaSalidas = Loader(
   lazy(() => import('src/content/pages/Insumos/Salida/TablaSalida'))
 );
@@ -262,7 +261,6 @@ const routes = (isLoggedIn) => [
         path: 'salida-nueva',
         element: <SalidaInsumos />
       }
-      
     ]
   },
   {
@@ -405,12 +403,12 @@ const routes = (isLoggedIn) => [
       }, //rol crud
       {
         path: 'rol',
-        element: <TablaRol/>
+        element: <TablaRol />
       },
       {
         path: 'rol-registrar',
-        element: <RegistroRol/>
-      },
+        element: <RegistroRol />
+      }
     ]
   },
   {
