@@ -24,39 +24,68 @@ const TableKardex = () => {
 
   const doc = new jsPDF();
 
-  doc.addImage(imgData, 'JPEG', 5, 5, 40, 18);
+  doc.addImage(imgData, 'JPEG', 13, 8, 30, 10);
 
-  doc.setTextColor(0, 0, 170);
-  doc.setFont('courier');
-  doc.setFontSize(20);
-  doc.text(String(kardexReport?.empresa), 80, 15);
+  doc.setTextColor(0, 0, 80);
+  doc.setFont("helvetica","bold");
+  doc.setFontSize(16);
+  doc.text(String(kardexReport?.empresa), doc.internal.pageSize.width/2, 13, null, null, 'center');
 
-  doc.setTextColor(0, 0, 170);
   doc.setFont('courier');
+  doc.setFontSize(12);
+  doc.text(String(kardexReport?.almacen), doc.internal.pageSize.width/2, 18, null, null, 'center');
+
+  doc.setTextColor(200, 150, 0);
+  doc.setFont("times","italic");
+  doc.setFontSize(12);
+  doc.text('Inventario Valorizado de Almacén', doc.internal.pageSize.width/2, 23, null, null, 'center');
+
+  doc.setTextColor(0, 0, 0);
+  doc.setFont("helvetica","bold");
   doc.setFontSize(10);
-  doc.text(String(kardexReport?.almacen), 105, 25);
+  doc.text("Articulo: ", 15, 31);
 
-  doc.setTextColor(0, 0, 170);
-  doc.setFont('courier');
   doc.setFontSize(10);
-  doc.text('Inventario Valorizado de Almacén', 70, 35);
+  doc.text("F. Inicio: ", 15, 37);
 
-  doc.setTextColor(0, 0, 170);
-  doc.setFont('courier');
-  doc.setFontSize(17);
-  doc.text(String(kardexReport?.articulo), 40, 45);
+  doc.setFontSize(10);
+  doc.text("F. Final: ", 15, 43);
 
-  doc.setTextColor(0, 0, 170);
-  doc.setFont('courier');
-  doc.setFontSize(17);
-  doc.text('Fecha Generada: ' + String(kardexReport?.fec_inicio), 120, 45);
+ // doc.setFont("times");
+  doc.setFont("helvetica","normal");
+  doc.setFontSize(10);
+  doc.text(String(kardexReport?.articulo), 32, 31);
+ // doc.setFont("times");
+  doc.setFontSize(10);
+  doc.text(String(kardexReport?.fec_inicio), 32, 37);
+ // doc.setFont("times");
+  doc.setFontSize(10);
+  doc.text(String(kardexReport?.fec_final), 32, 43);
 
-  doc.setTextColor(0, 0, 170);
-  doc.setFont('courier');
-  doc.setFontSize(17);
-  doc.text('Fecha Generada: ' + String(kardexReport?.fec_final), 150, 45);
+  doc.setFont("helvetica","bold");
+  doc.setFontSize(10);
+  doc.text("Trabajador: ", 124, 31);
 
-  autoTable(doc, { html: '#my-table', margin: { top: 60 } });
+  doc.setFontSize(10);
+  doc.text("Generado: ", 124, 37);
+
+  doc.setFontSize(10);
+  doc.text("Metodo: ", 124, 43);
+
+ // doc.setFont("times");
+  doc.setFont("helvetica","normal");
+  doc.setFontSize(10);
+  doc.text(String(kardexReport?.nom_trabajador), 145, 31);
+ // doc.setFont("times");
+  doc.setFontSize(10);
+  doc.text(String(kardexReport?.fec_generado), 145, 37);
+ // doc.setFont("times");
+  doc.setFontSize(10);
+  doc.text("PEPS", 145, 43);
+
+  // doc.setTextColor(0, 0, 170);
+
+  autoTable(doc, { html: '#my-table', margin: { top: 50 } });
 
   let cant =
     kardexReport.cant_ini?.length > 0

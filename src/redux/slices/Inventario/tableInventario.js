@@ -21,35 +21,38 @@ const TableInventario = ({ InventarioReport }) => {
   const theme = useTheme();
   const doc = new jsPDF();
 
-  doc.addImage(imgData, 'JPEG', 10, 10);
-  doc.setTextColor(0, 0, 170);
-  doc.setFont('courier');
-  doc.setFontSize(20);
-  doc.text(String(InventarioReport?.empresa), 75, 20);
+  doc.addImage(imgData, 'JPEG', 13, 8, 30, 10);
 
-  doc.setTextColor(0, 0, 170);
-  doc.setFont('courier');
-  doc.setFontSize(15);
-  doc.text(String(InventarioReport?.almacen), 75, 30);
+  doc.setTextColor(0, 0, 80);
+  doc.setFont("helvetica","bold");
+  doc.setFontSize(16);
+  doc.text(String(InventarioReport?.empresa), doc.internal.pageSize.width/2, 13, null, null, 'center');
 
-  doc.setTextColor(0, 0, 170);
   doc.setFont('courier');
-  doc.setFontSize(15);
-  doc.text(String(InventarioReport?.nom_trabajador), 40, 55);
+  doc.setFontSize(12);
+  doc.text(String(InventarioReport?.almacen), doc.internal.pageSize.width/2, 18, null, null, 'center');
 
-  doc.setTextColor(0, 0, 170);
-  doc.setFont('courier');
-  doc.setFontSize(15);
-  doc.text('Documento Inventario', 40, 45);
+  doc.setTextColor(200, 150, 0);
+  doc.setFont("times","italic");
+  doc.setFontSize(12);
+  doc.text('Estado inventario', doc.internal.pageSize.width/2, 23, null, null, 'center');
 
-  doc.setTextColor(0, 0, 170);
-  doc.setFont('courier');
-  doc.setFontSize(15);
-  doc.text(
-    'Fecha Generada: ' + String(InventarioReport?.fec_generado),
-    105,
-    45
-  );
+  doc.setTextColor(0, 0, 0);
+  doc.setFont("helvetica","bold");
+  doc.setFontSize(10);
+  doc.text("Trabajador: ", 15, 31);
+
+  doc.setFont("helvetica","normal");
+  doc.setFontSize(10);
+  doc.text(String(InventarioReport?.nom_trabajador), 35, 31);
+
+  doc.setFont("helvetica","bold");
+  doc.setFontSize(10);
+  doc.text("Generado: ", 124, 31);
+
+  doc.setFont("helvetica","normal");
+  doc.setFontSize(10);
+  doc.text(String(InventarioReport?.fec_generado), 145, 31);
 
   autoTable(doc, {
     head: [['Código', 'Descripción', 'Unidad Medida', 'Stock', 'Valor Neto']],
@@ -62,7 +65,7 @@ const TableInventario = ({ InventarioReport }) => {
         object.valor_total
       ];
     }),
-    margin: { top: 60 }
+    margin: { top: 38 }
   });
 
   return (

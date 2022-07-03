@@ -30,6 +30,9 @@ const RegistroAlmacen = Loader(
 const TablaAlmacen = Loader(
   lazy(() => import('src/content/pages/Almacen/TableAlmacen'))
 );
+const DeshabilitadoAlmacen = Loader(
+  lazy(() => import('src/content/pages/Almacen/Deshabilitados'))
+);
 
 //Productos
 
@@ -39,6 +42,9 @@ const Ingreso = Loader(
 
 const RegistroProducto = Loader(
   lazy(() => import('src/content/pages/Products/Ingreso'))
+);
+const DeshabilitadoProducto = Loader(
+  lazy(() => import('src/content/pages/Products/Deshabilitados'))
 );
 
 //Insumos
@@ -63,11 +69,17 @@ const TablaPresentacion = Loader(
 const RegistroPresentacion = Loader(
   lazy(() => import('src/content/pages/Config/Presentation/Registrar')) //archivo registrar presentacion
 );
+const DeshabilitadoPresentacion = Loader(
+  lazy(() => import('src/content/pages/Config/Presentation/Deshabilitados'))
+);
 const TablaTipoTransferencia = Loader(
   lazy(() => import('src/content/pages/Config/Transf/TableTransferencias'))
 );
 const RegistroTipoTransferencia = Loader(
   lazy(() => import('src/content/pages/Config/Transf/Registrar'))
+);
+const DeshabilitadoTipoTransferencia = Loader(
+  lazy(() => import('src/content/pages/Config/Transf/Deshabilitados'))
 );
 const TablaCategoria = Loader(
   lazy(() => import('src/content/pages/Config/Category/TableCategorias'))
@@ -75,17 +87,26 @@ const TablaCategoria = Loader(
 const RegistroCategoria = Loader(
   lazy(() => import('src/content/pages/Config/Category/Registrar'))
 );
+const DeshabilitadoCategoria = Loader(
+  lazy(() => import('src/content/pages/Config/Category/Deshabilitados'))
+);
 const TablaUnidadMedida = Loader(
   lazy(() => import('src/content/pages/Config/Unit/TableUnidades'))
 );
 const RegistroUnidadMedida = Loader(
   lazy(() => import('src/content/pages/Config/Unit/Registrar'))
 );
+const DeshabilitadoUnidadMedida = Loader(
+  lazy(() => import('src/content/pages/Config/Unit/Deshabilitados'))
+);
 const TablaTipoDoc = Loader(
   lazy(() => import('src/content/pages/Config/DocumentIden/TableDocumentos'))
 );
 const RegistroTipoDoc = Loader(
   lazy(() => import('src/content/pages/Config/DocumentIden/Registrar'))
+);
+const DeshabilitadoTipoDoc = Loader(
+  lazy(() => import('src/content/pages/Config/DocumentIden/Deshabilitados'))
 );
 
 // Dashboards
@@ -105,6 +126,9 @@ const RegistroProveedor = Loader(
 );
 const TablaProveedor = Loader(
   lazy(() => import('src/content/pages/Proveedor/TableProvider'))
+);
+const DeshabilitadoProveedor = Loader(
+  lazy(() => import('src/content/pages/Proveedor/Deshabilitados'))
 );
 
 // Empresa
@@ -129,6 +153,10 @@ const ShowEmployee = Loader(
 
 const AssignRole = Loader(
   lazy(() => import('src/content/pages/Users/Trabajador/Role'))
+);
+
+const DeshabilitadoEmployee = Loader(
+  lazy(() => import('src/content/pages/Users/Trabajador/Deshabilitados'))
 );
 
 // Roles
@@ -216,6 +244,10 @@ const routes = (isLoggedIn) => [
       {
         path: 'registro-nuevo',
         element: <RegistroAlmacen />
+      },
+      {
+        path: 'registro-deshabilitados',
+        element: <DeshabilitadoAlmacen />
       }
     ]
   },
@@ -234,6 +266,10 @@ const routes = (isLoggedIn) => [
       {
         path: 'ingreso-insumos',
         element: <RegistroProducto />
+      },
+      {
+        path: 'ingreso-deshabilitados',
+        element: <DeshabilitadoProducto />
       }
     ]
   },
@@ -280,12 +316,20 @@ const routes = (isLoggedIn) => [
         element: <RegistroPresentacion />
       },
       {
+        path: 'presentacion-deshabilitados',
+        element: <DeshabilitadoPresentacion />
+      },
+      {
         path: 'tipotransferencia',
         element: <TablaTipoTransferencia />
       },
       {
         path: 'tipotransferencia-registrar',
         element: <RegistroTipoTransferencia />
+      },
+      {
+        path: 'tipotransferencia-deshabilitados',
+        element: <DeshabilitadoTipoTransferencia />
       },
       {
         path: 'categoria',
@@ -296,6 +340,10 @@ const routes = (isLoggedIn) => [
         element: <RegistroCategoria />
       },
       {
+        path: 'categoria-deshabilitados',
+        element: <DeshabilitadoCategoria />
+      },
+      {
         path: 'unidadmedida',
         element: <TablaUnidadMedida />
       },
@@ -304,12 +352,20 @@ const routes = (isLoggedIn) => [
         element: <RegistroUnidadMedida />
       },
       {
+        path: 'unidadmedida-deshabilitados',
+        element: <DeshabilitadoUnidadMedida />
+      },
+      {
         path: 'tipodocumento',
         element: <TablaTipoDoc />
       },
       {
         path: 'tipodocumento-registrar',
         element: <RegistroTipoDoc />
+      },
+      {
+        path: 'tipodocumento-deshabilitados',
+        element: <DeshabilitadoTipoDoc />
       }
     ]
   },
@@ -360,6 +416,10 @@ const routes = (isLoggedIn) => [
       {
         path: 'registro-nuevo',
         element: <RegistroProveedor />
+      },
+      {
+        path: 'registro-deshabilitados',
+        element: <DeshabilitadoProveedor />
       }
     ]
   },
@@ -408,6 +468,10 @@ const routes = (isLoggedIn) => [
       {
         path: 'rol-registrar',
         element: <RegistroRol />
+      },
+      {
+        path: 'deshabilitados',
+        element: <DeshabilitadoEmployee />
       }
     ]
   },

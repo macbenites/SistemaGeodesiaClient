@@ -1,36 +1,46 @@
 import {
-Container,
 Grid,
 Card,
 CardHeader,
 Divider,
 CardContent,
-Box,
+useTheme,
 Button
 } from '@mui/material';
-import {
-fetchShowCompany
-} from 'src/redux/slices/company/companySlice';
-import TextField from '@mui/material/TextField';
+
 import FormLabel from '@mui/material/FormLabel';
-import MenuItem from '@mui/material/MenuItem';
-import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useFormik } from 'formik';
-import BasicModal from 'src/components/common/Modals';
+import {
+    fetchShowCompany,
+    fetchEditCompany
+} from 'src/redux/slices/company/companySlice';
+import ModalCrud from 'src/components/common/Modals/modalCrud';
+import EditCompany from '../Editar';
+import { useState, useEffect } from 'react';
 
 const ShowCompa = () => {
 const dispatch = useDispatch();
-const { showCompanyState } = useSelector(
-    (state) => state.company
-);
+const [modal, setModal] = useState(false);
+const { showCompanyState } = useSelector((state) => state.company);
+const theme = useTheme();
 
 useEffect(() => {
     dispatch(fetchShowCompany());
-}, [dispatch]); 
+}, [dispatch, modal]); 
+
+const handleShow = (id) => {
+    dispatch(fetchEditCompany(id)).then(() => {
+      setModal(id);
+    });
+};
 
 return (
     <>
+    {modal && (
+    <ModalCrud modal={modal} setModal={setModal}>
+        <EditCompany setModal={setModal} />
+    </ModalCrud>
+    )}
     <Grid item xs={12}>
         <Card>
             <CardHeader title="Empresa" />
@@ -70,6 +80,7 @@ return (
                       color="primary"
                       type="submit"
                       size="large"
+                      onClick={() => handleShow(showCompanyState?.empresa?.cod_emp)}
                     >
                       Editar
                     </Button>

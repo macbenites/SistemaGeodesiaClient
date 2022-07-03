@@ -5,7 +5,8 @@ import {
     Container,
     CardContent,
     TextField,
-    CardHeader
+    CardHeader,
+    Box
   } from '@mui/material';
   import { useState, useEffect } from 'react';
   import { useDispatch, useSelector } from 'react-redux';
@@ -123,9 +124,9 @@ import {
                                 label="Cod. Art."
                                 variant="standard"
                                 fullWidth
-                                value={detalle.cod_art} />
+                                value={detalle.cod_art} />  
                         </Grid>
-                        <Grid item xs={12} md={4}>
+                        <Grid item xs={12} md={5}>
                                 <TextField
                                     id="des_art"
                                     label="Articulo"
@@ -133,7 +134,7 @@ import {
                                     fullWidth
                                     value={detalle.des_art +" / " + detalle.des_unid_med } />
                         </Grid>
-                        <Grid item xs={12} md={3}>
+                        <Grid item xs={12} md={2}>
                             <TextField
                                 id="prec_unit"
                                 label="P. unit."
@@ -141,7 +142,7 @@ import {
                                 fullWidth
                                 value={detalle.prec_unit} />
                         </Grid>
-                        <Grid item xs={12} md={3}>
+                        <Grid item xs={12} md={1}>
                             <TextField
                                 id="cant_art"
                                 label="Cantidad"
@@ -149,7 +150,7 @@ import {
                                 fullWidth
                                 value={detalle.cant_art} />
                         </Grid>
-                        <Grid item xs={12} md={4}>
+                        <Grid item xs={12} md={2}>
                             <TextField
                                 id="prec_compr"
                                 label="P. compra"
@@ -157,7 +158,7 @@ import {
                                 fullWidth
                                 value={detalle.prec_compr} />
                         </Grid>
-                        <Grid item xs={12} md={8}>
+                        <Grid item xs={12} md={12}>
                             <TextField
                                 id="obs_ing"
                                 label="Observacion"

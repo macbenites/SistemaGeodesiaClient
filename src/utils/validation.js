@@ -64,6 +64,33 @@ export const validationWarehouse = yup.object().shape({
     .required('La ubicacion del almacen es requerido')
 });
 
+export const validationCompany = yup.object().shape({
+  razon_social: yup
+    .string('Ingrese razon social')
+    .required('La razon social es requerida'),
+  nro_doc: yup
+    .string('Ingrese número del documento')
+    .required('El número de documento es requerido')
+    .matches(/\b\d{11}\b/, {
+      message: 'Ingrese solo 11 digitos',
+      excludeEmptyString: true
+    }),
+  correo_per: yup
+    .string('Ingrese email')
+    .email('El email no tiene un formato válido')
+    .max(90, 'El email no puede superar los 90 caracteres')
+    .required('El email es requerido'),
+  // telephones: array(
+  //   object({
+  //     nro_telf: string('Ingrese número de telefono')
+  //       .min(7, 'Ingrese minimo 7 digitos')
+  //       .max(9, 'Ingrese máximo 9 digitos')
+  //       .matches(/^[0-9]+$/, 'Ingrese solo números')
+  //       .required('El numero de telefono es requerido')
+  //   })
+  // )
+});
+
 export const validationCategory = yup.object().shape({
   des_cat: yup
     .string('Ingrese la descripción')
@@ -177,6 +204,17 @@ export const validationLogin = yup.object().shape({
   contraseña: yup
     .string('Ingrese la contraseña')
     .required('La contraseña es requerida')
+    .min(6, 'La contraseña debe tener minimo 6 caracteres')
+});
+
+export const validationChangePass = yup.object().shape({
+  password: yup.string('Ingrese la nueva contraseña')
+  .required('La nueva contraseña es requerida')
+  .min(6, 'La contraseña debe tener minimo 6 caracteres'),
+  password_confirmation: yup
+    .string('Confirme la nueva contraseña')
+    .required('La confirmacion de contraseña es requerida')
+    .oneOf([yup.ref('password')], 'No coinciden las contraseñas')
     .min(6, 'La contraseña debe tener minimo 6 caracteres')
 });
 

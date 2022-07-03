@@ -7,6 +7,7 @@ const initialState = {
   telephonesContainerOut: [],
   providersCreate: {},
   providersIndex: {},
+  providersIndexDeleted: {},
   tdoc_ide: [],
   departamento: [],
   provincia: [],
@@ -15,6 +16,7 @@ const initialState = {
   status: null,
   created: null,
   destroy: null,
+  restore: null,
   msgUpdate: '',
   updateProv: {},
   verProveedor: {}
@@ -58,6 +60,14 @@ export const fetchProviders = createAsyncThunk(
   'getProviderAll',
   async (value) => {
     const { data } = await providerServices.getAll(value);
+    return data;
+  }
+);
+
+export const fetchProvidersDeleted = createAsyncThunk(
+  'getProviderAllDeleted',
+  async (value) => {
+    const { data } = await providerServices.getAllDeleted(value);
     return data;
   }
 );
@@ -107,6 +117,14 @@ export const destroyProvider = createAsyncThunk(
   }
 );
 
+export const restoreProvider = createAsyncThunk(
+  'restoreProvider',
+  async (id) => {
+    const { data } = await providerServices.restoreById(id);
+    return data;
+  }
+);
+
 export const fetchProviderShow = createAsyncThunk(
   'getProviderShow',
   async (id) => {
@@ -143,6 +161,17 @@ const providerSlice = createSlice({
     builder.addCase(fetchProviders.rejected, (state, action) => {
       state.status = 'error';
     });
+    //index inhabilitados
+    builder.addCase(fetchProvidersDeleted.pending, (state, action) => {
+      state.status = 'loading';
+    });
+    builder.addCase(fetchProvidersDeleted.fulfilled, (state, { payload }) => {
+      state.providersIndexDeleted = payload.proveedor; //nombre de la tabla
+      state.status = 'success';
+    });
+    builder.addCase(fetchProvidersDeleted.rejected, (state, action) => {
+      state.status = 'error';
+    });
     //show
     builder.addCase(fetchShowProvider.fulfilled, (state, { payload }) => {
       state.updateProv = payload;
@@ -175,6 +204,13 @@ const providerSlice = createSlice({
     });
     builder.addCase(destroyProvider.rejected, (state, { payload }) => {
       state.destroy = 'Error al eliminar el proveedor';
+    });
+    //restaurar
+    builder.addCase(restoreProvider.fulfilled, (state, { payload }) => {
+      state.restore = 'Proveedor restaurado satisfactoriamente';
+    });
+    builder.addCase(restoreProvider.rejected, (state, { payload }) => {
+      state.restore = 'Error al restaurar el proveedor';
     });
     //update
     builder.addCase(saveUpdateProvider.fulfilled, (state, { payload }) => {

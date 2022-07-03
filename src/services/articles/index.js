@@ -20,6 +20,17 @@ const articleServices = {
       }
     );
   },
+  restoreById: (id) => {
+    return axios.put(
+      `${process.env.REACT_APP_API_URL}articuloRestore/${id}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
+    );
+  },
   updateArticle: (article) => {
     return axios.put(
       `${process.env.REACT_APP_API_URL}articuloUpdate/${article.cod_art}`,
@@ -33,6 +44,18 @@ const articleServices = {
   },
   getAll: (value) => {
     return axios.post(`${process.env.REACT_APP_API_URL}articulos`,
+    {
+      searchText: value
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+  },
+
+  getAllDeleted: (value) => {
+    return axios.post(`${process.env.REACT_APP_API_URL}articulosDeleted`,
     {
       searchText: value
     },

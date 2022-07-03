@@ -1,12 +1,15 @@
 import { Helmet } from 'react-helmet-async';
 import PageTitleWrapper from 'src/components/PageTitleWrapper';
-import { Container, Grid } from '@mui/material';
+import { Container, Grid,Button } from '@mui/material';
 import Footer from 'src/components/Footer';
 import PageHeader from 'src/components/common/Tables/TableHeader';
 import RecentOrders from './RecentOrders';
 import { fetchProviders } from 'src/redux/slices/providers/providerSlice';
+import AutoDeleteIcon from '@mui/icons-material/AutoDelete';
+import { useNavigate } from 'react-router';
 
 function ApplicationsTransactions() {
+  const navigate = useNavigate();
   return (
     <>
       <Helmet>
@@ -21,6 +24,16 @@ function ApplicationsTransactions() {
           //ruta del botón de cabecera que te lleva al registro de proveedor
           route={'/proveedor/registro-nuevo'}
         />
+        <Grid item>
+          <Button
+            sx={{ mt: { xs: 2, md: 0 } }}
+            variant="contained"
+            endIcon={<AutoDeleteIcon fontSize="small" />}
+            onClick={() => navigate(`/proveedor/registro-deshabilitados`)}
+          >
+            Proveedores deshabilitados
+          </Button>
+        </Grid>
       </PageTitleWrapper>
       <Container maxWidth="lg">
         <Grid
