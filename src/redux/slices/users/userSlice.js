@@ -7,14 +7,15 @@ const initialState = {
   create: {},
   province: [],
   district: [],
-  message: '',
+  message: null,
   updateUser: {},
   profile: {},
   editPass: {},
   updatePass: {},
   showUser: {},
-  destroy : null,
-  restore : null
+  assignRole: {},
+  destroy: null,
+  restore: null
 };
 
 export const fetchUsers = createAsyncThunk(
@@ -134,22 +135,43 @@ export const getProfile = createAsyncThunk('users/getProfile', async () => {
   return data;
 });
 //cambiar contraseña
-export const fetchEditPassword = createAsyncThunk('users/fetchEditPassword', async (id) => {
+export const fetchEditPassword = createAsyncThunk(
+  'users/fetchEditPassword',
+  async (id) => {
     const { data } = await UsersServices.editPass(id);
     return data;
   }
 );
 
-export const updatePassword = createAsyncThunk('users/updatePassword', async (passwordEdit) => {
-  // alert(JSON.stringify(passwordEdit));
-  const { data } = await UsersServices.updatePass(passwordEdit);
-  return data;
-});
+export const updatePassword = createAsyncThunk(
+  'users/updatePassword',
+  async (passwordEdit) => {
+    // alert(JSON.stringify(passwordEdit));
+    const { data } = await UsersServices.updatePass(passwordEdit);
+    return data;
+  }
+);
 
 export const fetchShowEmployee = createAsyncThunk(
   'users/fetchShowEmployee',
   async (id) => {
     const { data } = await UsersServices.showEmployee(id);
+    return data;
+  }
+);
+
+export const fetchAssignRole = createAsyncThunk(
+  'users/fetchAssignRole',
+  async (id) => {
+    const { data } = await UsersServices.getAssignRole(id);
+    return data;
+  }
+);
+
+export const saveAssignRole = createAsyncThunk(
+  'users/assignRole',
+  async (assignRole) => {
+    const { data } = await UsersServices.saveAssignRole(assignRole);
     return data;
   }
 );
@@ -219,6 +241,14 @@ const UserSlice = createSlice({
 
     builder.addCase(fetchShowEmployee.fulfilled, (state, { payload }) => {
       state.showUser = payload;
+    });
+
+    builder.addCase(fetchAssignRole.fulfilled, (state, { payload }) => {
+      state.assignRole = payload;
+    });
+
+    builder.addCase(saveAssignRole.fulfilled, (state, { payload }) => {
+      state.message = payload.status;
     });
   }
 });
