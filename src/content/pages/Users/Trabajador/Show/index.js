@@ -8,13 +8,22 @@ import {
   CardHeader,
   Button
 } from '@mui/material';
-import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 
-import {} from 'src/redux/slices/users/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
+import { fetchAssignRole } from 'src/redux/slices/users/userSlice';
 
 const ShowEmployee = () => {
-  const { showUser } = useSelector((state) => state.users);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { showUser, message } = useSelector((state) => state.users);
+
+  const handleAssignRole = () => {
+    dispatch(fetchAssignRole(showUser.trabajador.cod_persona)).then(() => {
+      navigate('/usuarios/roles');
+    });
+  };
+
   return (
     <>
       <Container maxWidth="md">
@@ -43,7 +52,8 @@ const ShowEmployee = () => {
                   <Button
                     variant="contained"
                     color="primary"
-                    href="/usuarios/roles"
+                    // href="/usuarios/roles"
+                    onClick={handleAssignRole}
                   >
                     Asignar Roles
                   </Button>

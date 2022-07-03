@@ -1,4 +1,3 @@
-import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Container,
@@ -8,145 +7,143 @@ import {
   CardHeader,
   Divider,
   Box,
+  Card,
+  Button,
   FormControl,
   FormLabel,
   FormGroup,
   FormControlLabel,
   Checkbox,
-  FormHelperText,
   MenuItem
 } from '@mui/material';
-import { Formik, Form, Field } from 'formik';
-
-const options = [
-  {
-    label: 'Uno',
-    value: 'one'
-  },
-  {
-    label: 'Dos',
-    value: 'two'
-  },
-  {
-    label: 'Tres',
-    value: 'three'
-  }
-];
+import { Formik, Form } from 'formik';
+import { saveAssignRole } from 'src/redux/slices/users/userSlice';
+import { useNavigate } from 'react-router';
+import BasicModal from 'src/components/common/Modals/index';
+import { useState } from 'react';
+import GoBackButton from 'src/components/common/Buttons/goBack';
 
 const AssignRole = () => {
+  const [modal, setModal] = useState(false);
+  const { assignRole, message } = useSelector((state) => state.users);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   return (
     <>
-      <Container maxWidth="md">
+      <BasicModal modal={modal} setModal={setModal} message={message} />
+      <GoBackButton linkRoute="usuarios/mantenimiento" />
+      <Container maxWidth="xs">
         <Grid
           container
           direction="row"
           justifyContent="center"
           alignItems="stretch"
           spacing={2}
-          mt={2}
           mb={2}
         >
           <Grid item xs={12}>
-            <CardHeader title="Asignar Roles" />
-            <Divider />
-            <CardContent>
-              {/* <Grid container spacing={2}>
-                <Grid
-                  item
-                  xs={12}
-                  container
-                  direction="row"
-                  justifyContent="flex-end"
-                  alignItems="stretch"
-                >
-                  <TextField
-                    select
-                    id="des_t_per"
-                    label="Tipo de persona"
-                    fullWidth
-                  />
-                </Grid>
-              </Grid> */}
-              {/* <Box sx={{ display: 'flex' }}>
-                <FormControl
-                  sx={{ my: 3 }}
-                  component="fieldset"
-                  variant="standard"
-                >
-                  <FormLabel component="legend">Asignar roles</FormLabel>
-                  <FormGroup>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          //   checked={gilad}
-                          //   onChange={handleChange}
-                          name="gilad"
-                        />
-                      }
-                      label="Gilad Gray"
+            <Card>
+              <CardHeader title="Asignar Roles" />
+              <Divider />
+              <CardContent>
+                <Grid container spacing={2}>
+                  <Grid item xs={12} md={12}>
+                    <TextField
+                      id="nom_per"
+                      label="Trabajador"
+                      variant="outlined"
+                      fullWidth
+                      value={`${assignRole.trabajador.nom_per} ${assignRole.trabajador.ape_pat_per} ${assignRole.trabajador.ape_mat_per}`}
                     />
-                  </FormGroup>
-                  <FormHelperText>Be careful</FormHelperText>
-                </FormControl>
-              </Box> */}
-              <Formik initialValues={{ roles: '', acceso: [] }}>
-                {({ values, handleChange, handleSubmit, setFieldValue }) => {
-                  return (
-                    <Form>
-                      <TextField
-                        select
-                        id="roles" /* codigo */
-                        label="Roles"
-                        fullWidth
-                        name="roles" /* codigo */
-                        value={values.roles} /* codigo */
-                        onChange={handleChange} /* codigo */
-                        //   onChange={handleChange}
-                        //   error={touched.cod_t_per && Boolean(errors.cod_t_per)}
-                        //   helperText={errors.cod_t_per}
-                      >
-                        {options?.map(
-                          (
-                            provider /* nombre de la variable que contiene los datos B*/
-                          ) => (
-                            <MenuItem
-                              key={provider.value}
-                              value={provider.value}
+                  </Grid>
+                  <Grid item xs={12} md={12}>
+                    <Formik
+                      onSubmit={(values, { setSubmitting }) => {
+                        dispatch(saveAssignRole(values)).then(() => {
+                          setModal(true);
+                        });
+                      }}
+                      initialValues={{
+                        id: assignRole.usuario?.id,
+                        rol: assignRole.rolUsuario[0]?.name,
+                        acceso: assignRole.accesoUsuario?.map(
+                          (item) => `${item.id}`
+                        )
+                      }}
+                    >
+                      {({ values, handleChange }) => {
+                        return (
+                          <Form>
+                            <TextField
+                              select
+                              id="roles"
+                              label="Roles"
+                              fullWidth
+                              name="roles"
+                              value={values.rol}
+                              onChange={handleChange}
+                              //   error={touched.cod_t_per && Boolean(errors.cod_t_per)}
+                              //   helperText={errors.cod_t_per}
                             >
-                              {provider.label}
-                            </MenuItem> /* NOMBRE DEL PARAMETRO A MOSTRAR */
-                          )
-                        )}
-                      </TextField>
-                      <FormControl
-                        component="fieldset"
-                        style={{ display: 'flex' }}
-                      >
-                        <FormLabel component="legend">Accesos</FormLabel>
-                        <FormGroup>
-                          {options.map((opt) => (
-                            <FormControlLabel
-                              control={
-                                <Checkbox
-                                  checked={values.acceso.includes(opt.value)}
-                                  onChange={handleChange}
-                                  key={opt.value}
-                                  value={opt.value}
-                                  name="acceso"
-                                />
-                              }
-                              label={opt.label}
-                            />
-                          ))}
-                        </FormGroup>
-                      </FormControl>
-                      <h3>Values</h3>
-                      <pre>{JSON.stringify(values, 0, 2)}</pre>
-                    </Form>
-                  );
-                }}
-              </Formik>
-            </CardContent>
+                              {assignRole.roles?.map((rol) => (
+                                <MenuItem key={rol.id} value={rol.name}>
+                                  {rol.name}
+                                </MenuItem>
+                              ))}
+                            </TextField>
+                            <FormControl
+                              component="fieldset"
+                              style={{
+                                display: 'flex',
+                                border: '1px solid #e0e0e0',
+                                padding: '1rem',
+                                borderRadius: '0.5rem',
+                                marginTop: '1.5rem'
+                              }}
+                            >
+                              <FormLabel component="legend">Accesos</FormLabel>
+                              <FormGroup>
+                                {assignRole.accesos?.map((item) => (
+                                  <FormControlLabel
+                                    control={
+                                      <Checkbox
+                                        checked={values?.acceso?.includes(
+                                          `${item.id}`
+                                        )}
+                                        onChange={handleChange}
+                                        key={item.id}
+                                        value={item.id}
+                                        name="acceso"
+                                      />
+                                    }
+                                    label={item.name}
+                                  />
+                                ))}
+                              </FormGroup>
+                            </FormControl>
+                            <Box
+                              display="flex"
+                              justifyContent="flex-end"
+                              mt={2}
+                            >
+                              <Button
+                                variant="contained"
+                                color="primary"
+                                type="submit"
+                                disabled={!values.rol}
+                              >
+                                Asignar
+                              </Button>
+                            </Box>
+                          </Form>
+                        );
+                      }}
+                    </Formik>
+                  </Grid>
+                </Grid>
+              </CardContent>
+            </Card>
           </Grid>
         </Grid>
       </Container>
