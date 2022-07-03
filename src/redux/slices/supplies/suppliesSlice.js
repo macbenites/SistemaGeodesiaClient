@@ -55,8 +55,8 @@ export const saveSuppliesOut = createAsyncThunk(
       cant_art: supplie.articles.map((article) => article.cant_art),
       obs_sal: supplie.articles.map((article) => article.obs_sal)
     };
-    const { status } = await suppliesServices.createOut(postSupplie);
-    return status;
+    const { data } = await suppliesServices.createOut(postSupplie);
+    return data;
   }
 );
 
@@ -182,16 +182,14 @@ const suppliesSlice = createSlice({
     builder.addCase(fetchArticlesSupplies.fulfilled, (state, { payload }) => {
       state.articlesSupplies = payload;
     });
-    builder.addCase(saveSuppliesOut.pending, (state, action) => {
+    builder.addCase(saveSuppliesOut.pending, (state, { payload }) => {
       state.created = 'loading';
     });
     builder.addCase(saveSuppliesOut.fulfilled, (state, { payload }) => {
       state.created = 'Salida creada satisfactoriamente';
-      alert('Salida creado satisfactoriamente');
     });
     builder.addCase(saveSuppliesOut.rejected, (state, { payload }) => {
       state.created = 'Error al crear Salida';
-      alert('Error al crear salida');
     });
 
     //show ingreso - salida

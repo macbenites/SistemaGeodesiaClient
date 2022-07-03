@@ -26,7 +26,6 @@ import {
 
 import { validationCheckoutForm } from 'src/utils/validation';
 import BasicModal from 'src/components/common/Modals/index';
-import AddIcCallIcon from '@mui/icons-material/AddIcCall';
 
 const emptyArticle = {
   cod_art: '',
@@ -40,7 +39,8 @@ const CheckoutForm = () => {
     selectedSupplyOut,
     articlesSupplies,
     selectApplicantOut,
-    selectAuthorizerOut
+    selectAuthorizerOut,
+    created
   } = useSelector((state) => state.supplies);
   const dispatch = useDispatch();
 
@@ -50,7 +50,7 @@ const CheckoutForm = () => {
 
   return (
     <>
-      {/* <BasicModal modal={modal} setModal={setModal} message={message} /> */}
+      <BasicModal modal={modal} setModal={setModal} message={created} />
       <Container maxWidth="md">
         <Grid
           container
