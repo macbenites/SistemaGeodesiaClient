@@ -288,7 +288,7 @@ const Proveedor = () => {
                             helperText={errors.dir_per}
                           />
                         </Grid>
-                        <Grid item xs={12} md={3}>
+                        {/* <Grid item xs={12} md={3}>
                           <TextField
                             id="estado"
                             label="Estado"
@@ -298,7 +298,7 @@ const Proveedor = () => {
                             name="estado"
                             autoComplete="off"
                           />
-                        </Grid>
+                        </Grid> */}
                         <FieldArray name="telephones">
                           {({ push, remove }) => (
                             <>
