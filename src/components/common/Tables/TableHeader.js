@@ -1,15 +1,12 @@
 import { Typography, Button, Grid } from '@mui/material';
 import { useNavigate } from 'react-router';
 import HeaderSearch from 'src/layouts/SidebarLayout/Header/Buttons/Search';
-
+import { useLocalStorage } from 'src/hooks/useLocalStorage';
 import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
 
-function PageHeader({ title, searchDispatch, route }) {
+function PageHeader({ title, searchDispatch, route, buttonShow }) {
+  const [user, setUser] = useLocalStorage('user');
   const navigate = useNavigate();
-  const user = {
-    name: 'Catherine Pike',
-    avatar: '/static/images/avatars/1.jpg'
-  };
   return (
     <Grid container justifyContent="space-between" alignItems="center">
       <Grid item>
@@ -17,7 +14,10 @@ function PageHeader({ title, searchDispatch, route }) {
           {title}
         </Typography>
         <Typography variant="subtitle2">
-          {user.name}, Aquí puedes administrar {title}
+          {user.nombre === 'Usuario Maestro'
+            ? user.nombre
+            : `${user.nombre.nom_per} ${user.nombre.ape_pat_per} ${user.nombre.ape_mat_per}`}
+          , Aquí puedes administrar {title}
         </Typography>
       </Grid>
       <Grid item>
@@ -26,14 +26,16 @@ function PageHeader({ title, searchDispatch, route }) {
             <HeaderSearch searchDispatch={searchDispatch} />
           </Grid>
           <Grid item>
-            <Button
-              sx={{ mt: { xs: 2, md: 0 } }}
-              variant="contained"
-              startIcon={<AddTwoToneIcon fontSize="small" />}
-              onClick={() => navigate(`/${route}`)}
-            >
-              Crear {title.toLowerCase()}
-            </Button>
+            {buttonShow ? (
+              <Button
+                sx={{ mt: { xs: 2, md: 0 } }}
+                variant="contained"
+                startIcon={<AddTwoToneIcon fontSize="small" />}
+                onClick={() => navigate(`/${route}`)}
+              >
+                Crear {title.toLowerCase()}
+              </Button>
+            ) : null}
           </Grid>
         </Grid>
       </Grid>
