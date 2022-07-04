@@ -120,6 +120,9 @@ const RecentOrdersTable = () => {
                       </Button>
                     </TableCell>
                     <TableCell align="right">
+                      {user.permisos.find(
+                        (auth) => auth.name === 'editar-almacenes'
+                      ) ? (
                       <Tooltip title="Editar" arrow>
                         <IconButton
                           sx={{
@@ -135,6 +138,7 @@ const RecentOrdersTable = () => {
                           <EditTwoToneIcon fontSize="small" />
                         </IconButton>
                       </Tooltip>
+                      ) : null}
                       {/* Condicionamos la visualización del boton eliminar
                           solo se cambiará el permiso con el que se quiere comparar
                       */}

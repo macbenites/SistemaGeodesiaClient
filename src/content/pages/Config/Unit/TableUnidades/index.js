@@ -7,10 +7,11 @@ import RecentOrders from './RecentOrders';
 import { fetchUnits } from 'src/redux/slices/config/configSlice';
 import AutoDeleteIcon from '@mui/icons-material/AutoDelete';
 import { useNavigate } from 'react-router';
-
+import { useLocalStorage } from 'src/hooks/useLocalStorage';
 
 function ApplicationsTransactions() {
   const navigate = useNavigate();
+  const [user, setUser] = useLocalStorage('user');
   return (
     <>
       <Helmet>
@@ -24,8 +25,14 @@ function ApplicationsTransactions() {
           searchDispatch={fetchUnits}
           //ruta del botón de cabecera que te lleva al registro de proveedor
           route={'/config/unidadmedida-registrar'}
+          buttonShow={
+            user.permisos.find((auth) => auth.name === 'registrar-unidades de medida')
+              ? true
+              : false
+          }
+          
         />
-        
+      {user.permisos.find((auth) => auth.name === 'eliminar-unidades de medida') ? (
         <Grid item>
           <Button
             sx={{ mt: { xs: 2, md: 0 } }}
@@ -36,6 +43,7 @@ function ApplicationsTransactions() {
             Unidades de medida deshabilitados
           </Button>
         </Grid>
+       ) : null}  
       </PageTitleWrapper>
       <Container maxWidth="lg">
         <Grid

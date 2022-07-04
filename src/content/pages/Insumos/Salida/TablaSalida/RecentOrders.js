@@ -31,9 +31,11 @@ import ModalCrud from 'src/components/common/Modals/modalCrud';
 import EditSupply from '../Edit';
 import { useEffect, useState } from 'react';
 import ShowSupplyOut from '../Show';
+import { useLocalStorage } from 'src/hooks/useLocalStorage';
 
 const RecentOrdersTable = () => {
   const dispatch = useDispatch();
+  const [user, setUser] = useLocalStorage('user');
   const [modal, setModal] = useState(false);
   const [showModal, setShowModal] = useState(false);
   //const [deleted, setDeleted] = useState('');
@@ -175,6 +177,9 @@ const RecentOrdersTable = () => {
                           <VisibilityTwoToneIcon fontSize="small" />
                         </IconButton>
                       </Tooltip>
+                      {user.permisos.find(
+                        (auth) => auth.name === 'editar-salidas de insumo'
+                      ) ? (
                       <Tooltip title="Editar" arrow>
                         <IconButton
                           sx={{
@@ -190,6 +195,7 @@ const RecentOrdersTable = () => {
                           <EditTwoToneIcon fontSize="small" />
                         </IconButton>
                       </Tooltip>
+                    ) : null}
                       {/* <Tooltip title="Eliminar" arrow>
                         <IconButton
                           sx={{

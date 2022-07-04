@@ -12,9 +12,11 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { fetchAssignRole } from 'src/redux/slices/users/userSlice';
+import { useLocalStorage } from 'src/hooks/useLocalStorage';
 
 const ShowEmployee = () => {
   const dispatch = useDispatch();
+  const [user, setUser] = useLocalStorage('user');
   const navigate = useNavigate();
   const { showUser, message } = useSelector((state) => state.users);
 
@@ -41,7 +43,10 @@ const ShowEmployee = () => {
             <Divider />
             <CardContent>
               <Grid container spacing={2}>
-                <Grid
+                {user.permisos.find(
+                (auth) => auth.name === 'asignar-roles'
+              ) ? (
+               <Grid
                   item
                   xs={12}
                   container
@@ -58,6 +63,7 @@ const ShowEmployee = () => {
                     Asignar Roles
                   </Button>
                 </Grid>
+                ) : null}
                 <Grid item xs={12} md={12}>
                   <TextField
                     id="des_t_per"
