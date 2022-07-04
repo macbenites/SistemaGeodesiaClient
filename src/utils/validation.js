@@ -79,7 +79,7 @@ export const validationCompany = yup.object().shape({
     .string('Ingrese email')
     .email('El email no tiene un formato válido')
     .max(90, 'El email no puede superar los 90 caracteres')
-    .required('El email es requerido'),
+    .required('El email es requerido')
   // telephones: array(
   //   object({
   //     nro_telf: string('Ingrese número de telefono')
@@ -208,9 +208,10 @@ export const validationLogin = yup.object().shape({
 });
 
 export const validationChangePass = yup.object().shape({
-  password: yup.string('Ingrese la nueva contraseña')
-  .required('La nueva contraseña es requerida')
-  .min(6, 'La contraseña debe tener minimo 6 caracteres'),
+  password: yup
+    .string('Ingrese la nueva contraseña')
+    .required('La nueva contraseña es requerida')
+    .min(6, 'La contraseña debe tener minimo 6 caracteres'),
   password_confirmation: yup
     .string('Confirme la nueva contraseña')
     .required('La confirmacion de contraseña es requerida')
@@ -245,14 +246,6 @@ export const validationEmployee = yup.object().shape({
   )
 });
 
-// cod_solicitador: '',
-// cod_autorizador: '',
-// cod_almacen: '',
-// cod_t_transf: '',
-// cod_t_doc: '',
-// nro_doc: '',
-// fec_doc: '',
-// articles: [emptyArticle]
 export const validationCheckoutForm = yup.object().shape({
   cod_solicitador: yup.string().required('El solicitador es requerido'),
   cod_autorizador: yup.string().required('El autorizador es requerido'),
@@ -282,4 +275,9 @@ export const validationCheckoutForm = yup.object().shape({
         )
     })
   ).min(1, 'Debe ingresar al menos un articulo')
+});
+
+export const validationRoleCreate = yup.object().shape({
+  permiso: yup.array().min(1, 'Debe ingresar al menos un permiso'),
+  name: yup.string().required('El nombre del rol es requerido')
 });
