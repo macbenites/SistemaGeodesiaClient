@@ -14,8 +14,19 @@ import InventoryTwoToneIcon from '@mui/icons-material/InventoryTwoTone';
 import BusinessIcon from '@mui/icons-material/Business';
 import PrecisionManufacturingIcon from '@mui/icons-material/PrecisionManufacturing';
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
+import DashboardTwoToneIcon from '@mui/icons-material/DashboardTwoTone';
 
 const menuItems = [
+  {
+    heading: 'Dashboard',
+    items: [
+      {
+        name: 'Resumen',
+        link: '/dashboards/crypto',
+        icon: DashboardTwoToneIcon
+      }
+    ]
+  },
   {
     heading: 'Almacenes',
     items: [
