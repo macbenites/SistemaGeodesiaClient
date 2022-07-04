@@ -17,7 +17,7 @@ function RoleMaintenance() {
         <PageHeader
           title="Rol"
           searchDispatch={fetchRoles}
-          route={'usuarios/rol'}
+          route={'usuarios/rol-registrar'}
         />
       </PageTitleWrapper>
       <Container maxWidth="lg">
@@ -29,7 +29,7 @@ function RoleMaintenance() {
           spacing={3}
         >
           <Grid item xs={12}>
-            <RecentRoles/>
+            <RecentRoles />
           </Grid>
         </Grid>
       </Container>
