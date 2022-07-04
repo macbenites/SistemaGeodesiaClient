@@ -39,6 +39,8 @@ import {
 import { validationEmployee } from 'src/utils/validation';
 import BasicModal from 'src/components/common/Modals/index';
 import AddIcCallIcon from '@mui/icons-material/AddIcCall';
+import GoBackButton from 'src/components/common/Buttons/goBack';
+
 const emptyTelephones = {
   nro_telf: ''
 };
@@ -57,6 +59,7 @@ const EmployeeForm = () => {
   return (
     <>
       <BasicModal modal={modal} setModal={setModal} message={message} />
+      <GoBackButton linkRoute="usuarios/mantenimiento" />
       <Container maxWidth="md">
         <Grid
           container

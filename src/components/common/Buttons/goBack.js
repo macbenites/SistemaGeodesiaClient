@@ -11,7 +11,7 @@ const GoBackButton = ({ linkRoute }) => {
     <>
       <Box display="flex">
         <Tooltip arrow placement="top" title="Atras" onClick={handleGoBack}>
-          <IconButton color="primary" sx={{ p: 2, mr: 2 }}>
+          <IconButton color="primary" sx={{ p: 1.5, mr: 2 }}>
             <ArrowBackTwoToneIcon />
           </IconButton>
         </Tooltip>

@@ -24,8 +24,8 @@ export const fetchWareHouse = createAsyncThunk('fetchWareHouse', async () => {
 
 export const fetchArticlesInput = createAsyncThunk(
   'fetchArticlesInput',
-  async () => {
-    const { data } = await DashboardServices.getArticlesInput('1');
+  async (id) => {
+    const { data } = await DashboardServices.getArticlesInput(id);
     return data;
   }
 );
