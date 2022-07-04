@@ -68,7 +68,7 @@ const RoleFormEdit = () => {
                   onSubmit={(values, { resetForm }) => {
                     dispatch(saveUpdateRole(values)).then(() => {
                       setModal(true);
-                      resetForm();
+                      //resetForm();
                     });
                   }}
                 >
