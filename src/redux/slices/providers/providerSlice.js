@@ -79,7 +79,7 @@ export const fetchProvidersCreate = createAsyncThunk(
     return data;
   }
 );
-
+//EDITAR
 export const fetchShowProvider = createAsyncThunk(
   'fetchShowProvider',
   async (id) => {
@@ -87,7 +87,7 @@ export const fetchShowProvider = createAsyncThunk(
     return data;
   }
 );
-
+//UPDATE
 export const saveUpdateProvider = createAsyncThunk(
   'updateProvider',
   async (provider) => {
@@ -172,7 +172,7 @@ const providerSlice = createSlice({
     builder.addCase(fetchProvidersDeleted.rejected, (state, action) => {
       state.status = 'error';
     });
-    //show
+    //EDIT
     builder.addCase(fetchShowProvider.fulfilled, (state, { payload }) => {
       state.updateProv = payload;
     });

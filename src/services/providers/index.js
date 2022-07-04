@@ -56,7 +56,7 @@ const providerServices = {
       }
     );
   },
-
+//Actualizar
   updateProvider: (provider) => {
     return axios.put(
       `${process.env.REACT_APP_API_URL}proveedorUpdate/${provider.cod_prov}`,

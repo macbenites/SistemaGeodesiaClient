@@ -351,7 +351,6 @@ const CheckoutForm = () => {
                                           ? values.articles[index].stock_almacen
                                           : 0
                                       }
-                                      onChange={handleChange}
                                       label="Stock"
                                       fullWidth
                                     />
