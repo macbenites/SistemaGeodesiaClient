@@ -77,10 +77,10 @@ const AssignRole = () => {
                           <Form>
                             <TextField
                               select
-                              id="roles"
-                              label="Roles"
+                              id="rol"
+                              label="Rol"
                               fullWidth
-                              name="roles"
+                              name="rol"
                               value={values.rol}
                               onChange={handleChange}
                               //   error={touched.cod_t_per && Boolean(errors.cod_t_per)}
@@ -131,7 +131,6 @@ const AssignRole = () => {
                                 variant="contained"
                                 color="primary"
                                 type="submit"
-                                disabled={!values.rol}
                               >
                                 Asignar
                               </Button>
