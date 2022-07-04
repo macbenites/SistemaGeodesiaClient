@@ -301,10 +301,10 @@ const TableKardex = () => {
             <TableRow>
               <TableCell colSpan={3}></TableCell>
               <TableCell>{sumColumnCant('Kardex', 'CANT_ING')}</TableCell>
-              <TableCell>{sumColumn('Kardex', 'PREC_ING')}</TableCell>
+              <TableCell></TableCell>
               <TableCell>{sumColumn('Kardex', 'VAL_ING')}</TableCell>
               <TableCell>{sumColumnCant('Kardex', 'CANT_SAL')}</TableCell>
-              <TableCell>{sumColumn('Kardex', 'PREC_SAL')}</TableCell>
+              <TableCell></TableCell>
               <TableCell>{sumColumn('Kardex', 'VAL_SAL')}</TableCell>
               <TableCell>{cant}</TableCell>
               <TableCell>{valorN}</TableCell>

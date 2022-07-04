@@ -126,7 +126,7 @@ const handleShow = (id) => {
                         {cryptoOrder.trabajador}
                       </Typography>
                     </TableCell>
-                    <TableCell align="right">
+                    <TableCell>
                       <Typography
                         variant="body1"
                         fontWeight="bold"
@@ -137,7 +137,7 @@ const handleShow = (id) => {
                         {cryptoOrder.des_almacen}
                       </Typography>
                     </TableCell>
-                    <TableCell align="right">
+                    <TableCell>
                       <Typography
                         variant="body1"
                         fontWeight="bold"
@@ -148,7 +148,7 @@ const handleShow = (id) => {
                         {cryptoOrder.des_transf}
                       </Typography>
                     </TableCell>
-                    <TableCell align="right">
+                    <TableCell >
                       <Typography
                         variant="body1"
                         fontWeight="bold"
@@ -159,7 +159,7 @@ const handleShow = (id) => {
                         {cryptoOrder.fec_ing}
                       </Typography>
                     </TableCell>
-                    <TableCell align="right">
+                    <TableCell>
                     <Tooltip title="Ver" arrow>
                         <IconButton
                           sx={{
