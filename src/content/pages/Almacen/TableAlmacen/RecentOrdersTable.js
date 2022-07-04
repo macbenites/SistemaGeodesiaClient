@@ -23,25 +23,28 @@ import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 
 import { useDispatch, useSelector } from 'react-redux';
 import {
-    fetchAlmacenes,
-    destroyAlmacen,
-    fetchShowAlmacen
+  fetchAlmacenes,
+  destroyAlmacen,
+  fetchShowAlmacen
 } from 'src/redux/slices/almacenes/almacenSlice';
 import ModalCrud from 'src/components/common/Modals/modalCrud';
 import EditAlmacen from '../Edit';
 import { useEffect, useState } from 'react';
+//Importamos custom Hook
+import { useLocalStorage } from 'src/hooks/useLocalStorage';
 
 const RecentOrdersTable = () => {
   const dispatch = useDispatch();
-  const [modal,setModal] = useState(false);
+  const [modal, setModal] = useState(false);
   const [deleted, setDeleted] = useState();
   const warehouses = useSelector((state) => state.almacen.almacenIndex);
   const { data } = warehouses;
+  //Hook personzalido para obtener el usuario
+  const [user, setUser] = useLocalStorage('user');
 
   useEffect(() => {
     dispatch(fetchAlmacenes());
-  },[dispatch, modal, deleted]);
-
+  }, [dispatch, modal, deleted]);
 
   const theme = useTheme();
   const handleDestroy = (id) => {
@@ -58,7 +61,7 @@ const RecentOrdersTable = () => {
     <>
       {modal && (
         <ModalCrud modal={modal} setModal={setModal}>
-            <EditAlmacen setModal={setModal} />
+          <EditAlmacen setModal={setModal} />
         </ModalCrud>
       )}
 
@@ -75,7 +78,7 @@ const RecentOrdersTable = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {data?.map((cryptoOrder,index) => {
+              {data?.map((cryptoOrder, index) => {
                 return (
                   <TableRow hover key={cryptoOrder.cod_almacen}>
                     <TableCell>
@@ -86,7 +89,7 @@ const RecentOrdersTable = () => {
                         gutterBottom
                         noWrap
                       >
-                        {index+1}
+                        {index + 1}
                       </Typography>
                     </TableCell>
                     <TableCell>
@@ -105,13 +108,21 @@ const RecentOrdersTable = () => {
                         sx={{ mt: { xs: 2, md: 0 } }}
                         variant="contained"
                         //endIcon={<AutoDeleteIcon fontSize="small" />}
-                        onClick={() => window.open(cryptoOrder.ubic_almacen, '_blank', 'noopener,noreferrer')}
-                        
+                        onClick={() =>
+                          window.open(
+                            cryptoOrder.ubic_almacen,
+                            '_blank',
+                            'noopener,noreferrer'
+                          )
+                        }
                       >
                         Ver ubicacion
                       </Button>
                     </TableCell>
                     <TableCell align="right">
+                      {user.permisos.find(
+                        (auth) => auth.name === 'editar-almacenes'
+                      ) ? (
                       <Tooltip title="Editar" arrow>
                         <IconButton
                           sx={{
@@ -127,21 +138,32 @@ const RecentOrdersTable = () => {
                           <EditTwoToneIcon fontSize="small" />
                         </IconButton>
                       </Tooltip>
-                      <Tooltip title="Eliminar" arrow>
-                        <IconButton
-                          sx={{
-                            '&:hover': {
-                              background: theme.colors.error.lighter
-                            },
-                            color: theme.palette.error.main
-                          }}
-                          color="inherit"
-                          size="small"
-                          onClick={() => handleDestroy(cryptoOrder.cod_almacen)}
-                        >
-                          <DeleteTwoToneIcon fontSize="small" />
-                        </IconButton>
-                      </Tooltip>
+                      ) : null}
+                      {/* Condicionamos la visualización del boton eliminar
+                          solo se cambiará el permiso con el que se quiere comparar
+                      */}
+                      {user.permisos.find(
+                        (auth) => auth.name === 'eliminar-almacenes'
+                      ) ? (
+                        // Estructura de todo el botón eliminar
+                        <Tooltip title="Eliminar" arrow>
+                          <IconButton
+                            sx={{
+                              '&:hover': {
+                                background: theme.colors.error.lighter
+                              },
+                              color: theme.palette.error.main
+                            }}
+                            color="inherit"
+                            size="small"
+                            onClick={() =>
+                              handleDestroy(cryptoOrder.cod_almacen)
+                            }
+                          >
+                            <DeleteTwoToneIcon fontSize="small" />
+                          </IconButton>
+                        </Tooltip>
+                      ) : null}
                     </TableCell>
                   </TableRow>
                 );

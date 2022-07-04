@@ -7,9 +7,11 @@ import RecentOrders from './RecentOrders';
 import { fetchCategories } from 'src/redux/slices/config/configSlice';
 import AutoDeleteIcon from '@mui/icons-material/AutoDelete';
 import { useNavigate } from 'react-router';
+import { useLocalStorage } from 'src/hooks/useLocalStorage';
 
 function ApplicationsTransactions() {
   const navigate = useNavigate();
+  const [user, setUser] = useLocalStorage('user');
   return (
     <>
       <Helmet>
@@ -23,8 +25,14 @@ function ApplicationsTransactions() {
           searchDispatch={fetchCategories}
           //ruta del botón de cabecera que te lleva al registro de proveedor
           route={'/config/categoria-registrar'}
+          buttonShow={
+            user.permisos.find((auth) => auth.name === 'registrar-categorias')
+              ? true
+              : false
+          }
         />
-                <Grid item>
+        {user.permisos.find((auth) => auth.name === 'eliminar-categorias') ? (
+        <Grid item>
           <Button
             sx={{ mt: { xs: 2, md: 0 } }}
             variant="contained"
@@ -34,6 +42,7 @@ function ApplicationsTransactions() {
             Categorias deshabilitados
           </Button>
         </Grid>
+        ) : null}
       </PageTitleWrapper>
       <Container maxWidth="lg">
         <Grid

@@ -31,9 +31,12 @@ import ModalCrud from 'src/components/common/Modals/modalCrud';
 import { useEffect, useState } from 'react';
 import ShowSupplyIn from '../Show';
 import EditSupply from '../Edit';
+import { useLocalStorage } from 'src/hooks/useLocalStorage';
+
 
 const RecentOrdersTable = () => {
   const dispatch = useDispatch();
+  const [user, setUser] = useLocalStorage('user');
   const [modal, setModal] = useState(false);
   const [showModal, setShowModal] = useState(false);
  // const [deleted, setDeleted] = useState('');
@@ -126,7 +129,7 @@ const handleShow = (id) => {
                         {cryptoOrder.trabajador}
                       </Typography>
                     </TableCell>
-                    <TableCell align="right">
+                    <TableCell>
                       <Typography
                         variant="body1"
                         fontWeight="bold"
@@ -137,7 +140,7 @@ const handleShow = (id) => {
                         {cryptoOrder.des_almacen}
                       </Typography>
                     </TableCell>
-                    <TableCell align="right">
+                    <TableCell>
                       <Typography
                         variant="body1"
                         fontWeight="bold"
@@ -148,7 +151,7 @@ const handleShow = (id) => {
                         {cryptoOrder.des_transf}
                       </Typography>
                     </TableCell>
-                    <TableCell align="right">
+                    <TableCell >
                       <Typography
                         variant="body1"
                         fontWeight="bold"
@@ -159,7 +162,7 @@ const handleShow = (id) => {
                         {cryptoOrder.fec_ing}
                       </Typography>
                     </TableCell>
-                    <TableCell align="right">
+                    <TableCell>
                     <Tooltip title="Ver" arrow>
                         <IconButton
                           sx={{
@@ -175,6 +178,7 @@ const handleShow = (id) => {
                           <VisibilityTwoToneIcon fontSize="small" />
                         </IconButton>
                       </Tooltip>
+                      {user.permisos.find((auth) => auth.name === 'eliminar-ingresos de insumo') ? (
                       <Tooltip title="Editar" arrow>
                         <IconButton
                           sx={{
@@ -190,6 +194,7 @@ const handleShow = (id) => {
                           <EditTwoToneIcon fontSize="small" />
                         </IconButton>
                       </Tooltip>
+                   ) : null}
                       {/* 
                       <Tooltip title="Eliminar" arrow>
                         <IconButton

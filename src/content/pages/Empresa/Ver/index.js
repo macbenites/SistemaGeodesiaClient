@@ -18,9 +18,12 @@ import {
 import ModalCrud from 'src/components/common/Modals/modalCrud';
 import EditCompany from '../Editar';
 import { useState, useEffect } from 'react';
+import { useLocalStorage } from 'src/hooks/useLocalStorage';
+
 
 const ShowCompa = () => {
   const dispatch = useDispatch();
+  const [user, setUser] = useLocalStorage('user');
   const [modal, setModal] = useState(false);
   const { showCompanyState } = useSelector((state) => state.company);
   const theme = useTheme();
@@ -86,7 +89,7 @@ const ShowCompa = () => {
                       {showCompanyState?.empresa?.correo_per}
                     </FormLabel>
                   </Grid>
-
+                  {user.permisos.find((auth) => auth.name === 'editar-empresa') ? (
                   <Grid item xs={12} md={5}>
                     <Button
                       variant="contained"
@@ -100,6 +103,7 @@ const ShowCompa = () => {
                       Editar
                     </Button>
                   </Grid>
+                 ) : null}
                 </Grid>
                 {/* </form> */}
               </CardContent>

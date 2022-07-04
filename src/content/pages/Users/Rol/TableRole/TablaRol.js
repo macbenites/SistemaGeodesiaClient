@@ -31,13 +31,19 @@ import ModalCrud from 'src/components/common/Modals/modalCrud';
 // import EditEmployee from '../Edit';
 import { useEffect, useState } from 'react';
 // import ShowEmployee from '../Show';
+import RoleFormEdit from '../Edit';
+import BasicModal from 'src/components/common/Modals';
+import { useLocalStorage } from 'src/hooks/useLocalStorage';
 
 const TablaRol = () => {
   const dispatch = useDispatch();
+  //Creamos un estado local para el modal
+  const [user, setUser] = useLocalStorage('user');
+  const [modal, setModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [deleted, setDeleted] = useState('');
-  const { rolesIndex } = useSelector((state) => state.role);
+  const { destroy, rolesIndex } = useSelector((state) => state.role);
 
   useEffect(() => {
     dispatch(fetchRoles());
@@ -46,12 +52,15 @@ const TablaRol = () => {
   const theme = useTheme();
 
   const handleDestroy = (id) => {
-    dispatch(destroyRole(id));
-    setDeleted(id);
+    dispatch(destroyRole(id)).then(() => {
+      setDeleted(id);
+      //Linea agregada para mostrar modal de confirmacion
+      setModal(true);
+    });
   };
 
   const handleUpdate = (id) => {
-    dispatch(fetchUpdateRole(id)).then(() => {
+    dispatch(fetchShowRole(id)).then(() => {
       setEditModal(id);
     });
   };
@@ -67,6 +76,7 @@ const TablaRol = () => {
       {editModal && (
         <ModalCrud modal={editModal} setModal={setEditModal}>
           {/* <EditEmployee setModal={setEditModal} /> */}
+          <RoleFormEdit setModal={setEditModal} />
         </ModalCrud>
       )}
       {showModal && (
@@ -74,7 +84,8 @@ const TablaRol = () => {
           {/* <ShowEmployee setModal={setShowModal} /> */}
         </ModalCrud>
       )}
-
+      {/* Mostramos el mensaje de confirmacion de eliminacion */}
+      <BasicModal modal={modal} setModal={setModal} message={destroy} />
       <Card>
         <Divider />
         <TableContainer>
@@ -113,6 +124,9 @@ const TablaRol = () => {
                       </Typography>
                     </TableCell>
                     <TableCell align="right">
+                  {user.permisos.find(
+                        (auth) => auth.name === 'editar-roles'
+                      ) ? (
                       <Tooltip title="Editar" arrow>
                         <IconButton
                           sx={{
@@ -123,11 +137,15 @@ const TablaRol = () => {
                           }}
                           color="inherit"
                           size="small"
-                        //   onClick={() => handleUpdate(cryptoOrder.id)}
+                          onClick={() => handleUpdate(cryptoOrder.id)}
                         >
                           <EditTwoToneIcon fontSize="small" />
                         </IconButton>
                       </Tooltip>
+                      ) : null}
+                      {user.permisos.find(
+                        (auth) => auth.name === 'eliminar-roles'
+                      ) ? (
                       <Tooltip title="Eliminar" arrow>
                         <IconButton
                           sx={{
@@ -138,11 +156,12 @@ const TablaRol = () => {
                           }}
                           color="inherit"
                           size="small"
-                        //   onClick={() =>handleDestroy(cryptoOrder.id)}
+                          onClick={() => handleDestroy(cryptoOrder.id)}
                         >
                           <DeleteTwoToneIcon fontSize="small" />
                         </IconButton>
                       </Tooltip>
+                      ) : null}
                     </TableCell>
                   </TableRow>
                 );

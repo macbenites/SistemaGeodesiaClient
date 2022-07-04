@@ -41,7 +41,7 @@ const RoleForm = () => {
     'editar',
     'eliminar',
     'generar',
-    'iteraciones'
+    'asignar'
   ];
 
   const objectPermissions = sectionsRoles.map((section) => {

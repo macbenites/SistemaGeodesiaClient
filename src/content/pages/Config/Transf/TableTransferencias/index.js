@@ -7,9 +7,11 @@ import RecentOrders from './RecentOrders';
 import { fetchTransferencias } from 'src/redux/slices/config/configSlice';
 import AutoDeleteIcon from '@mui/icons-material/AutoDelete';
 import { useNavigate } from 'react-router';
+import { useLocalStorage } from 'src/hooks/useLocalStorage';
 
 function ApplicationsTransactions() {
   const navigate = useNavigate();
+  const [user, setUser] = useLocalStorage('user');
   return (
     <>
       <Helmet>
@@ -23,17 +25,24 @@ function ApplicationsTransactions() {
           searchDispatch={fetchTransferencias}
           //ruta del botón de cabecera que te lleva al registro de proveedor
           route={'/config/tipotransferencia-registrar'}
+          buttonShow={
+            user.permisos.find((auth) => auth.name === 'registrar-tipos de transferencias')
+              ? true
+              : false
+          }
         />
+       {user.permisos.find((auth) => auth.name === 'eliminar-tipos de transferencias') ? (
         <Grid item>
           <Button
             sx={{ mt: { xs: 2, md: 0 } }}
             variant="contained"
             endIcon={<AutoDeleteIcon fontSize="small" />}
             onClick={() => navigate(`/config/tipotransferencia-deshabilitados`)}
-          >
+           >
             Almacenes deshabilitados
           </Button>
         </Grid>
+        ) : null}
       </PageTitleWrapper>
       <Container maxWidth="lg">
         <Grid
