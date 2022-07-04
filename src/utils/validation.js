@@ -13,7 +13,7 @@ export const validationArticle = yup.object().shape({
     .string('Ingrese presentación')
     .required('La presentacion es requerida'),
   cod_unid_med: yup.string().required('La unidad de medida es requerida'),
-  imagen_art: yup.string('Ingrese url').required('La imagen es requerida')
+  //imagen_art: yup.string('Ingrese url').required('La imagen es requerida')
 });
 
 export const validationProvider = yup.object().shape({
