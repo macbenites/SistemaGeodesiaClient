@@ -7,9 +7,11 @@ import RecentOrders from './RecentOrders';
 import { fetchPresentaciones } from 'src/redux/slices/config/configSlice';
 import AutoDeleteIcon from '@mui/icons-material/AutoDelete';
 import { useNavigate } from 'react-router';
+import { useLocalStorage } from 'src/hooks/useLocalStorage';
 
 function ApplicationsTransactions() {
   const navigate = useNavigate();
+  const [user, setUser] = useLocalStorage('user');
   return (
     <>
       <Helmet>
@@ -23,7 +25,13 @@ function ApplicationsTransactions() {
           searchDispatch={fetchPresentaciones}
           //ruta del botón de cabecera que te lleva al registro de proveedor
           route={'/config/presentacion-registrar'}
+          buttonShow={
+            user.permisos.find((auth) => auth.name === 'registrar-presentaciones')
+              ? true
+              : false
+          }
         />
+       {user.permisos.find((auth) => auth.name === 'eliminar-presentaciones') ? (
         <Grid item>
           <Button
             sx={{ mt: { xs: 2, md: 0 } }}
@@ -34,6 +42,7 @@ function ApplicationsTransactions() {
             Presentaciones deshabilitados
           </Button>
         </Grid>
+        ) : null} 
       </PageTitleWrapper>
       <Container maxWidth="lg">
         <Grid

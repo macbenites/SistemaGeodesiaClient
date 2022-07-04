@@ -5,8 +5,10 @@ import { Container, Grid } from '@mui/material';
 import Footer from 'src/components/Footer';
 import { fetchRoles } from 'src/redux/slices/roles/roleSlice';
 import RecentRoles from './RecentRoles.js';
+import { useLocalStorage } from 'src/hooks/useLocalStorage';
 
 function RoleMaintenance() {
+  const [user, setUser] = useLocalStorage('user');
   return (
     <>
       <Helmet>
@@ -18,6 +20,11 @@ function RoleMaintenance() {
           title="Rol"
           searchDispatch={fetchRoles}
           route={'usuarios/rol-registrar'}
+          buttonShow={
+            user.permisos.find((auth) => auth.name === 'registrar-roles')
+              ? true
+              : false
+          }
         />
       </PageTitleWrapper>
       <Container maxWidth="lg">

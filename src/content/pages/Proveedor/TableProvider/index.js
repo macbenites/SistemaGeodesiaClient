@@ -9,6 +9,7 @@ import AutoDeleteIcon from '@mui/icons-material/AutoDelete';
 import { useNavigate } from 'react-router';
 import { useLocalStorage } from 'src/hooks/useLocalStorage';
 
+
 function ApplicationsTransactions() {
   const [user, setUser] = useLocalStorage('user');
   const navigate = useNavigate();
@@ -32,6 +33,7 @@ function ApplicationsTransactions() {
               : false
           }
         />
+      {user.permisos.find((auth) => auth.name === 'eliminar-proveedores') ? (
         <Grid item>
           <Button
             sx={{ mt: { xs: 2, md: 0 } }}
@@ -42,6 +44,7 @@ function ApplicationsTransactions() {
             Proveedores deshabilitados
           </Button>
         </Grid>
+        ) : null}
       </PageTitleWrapper>
       <Container maxWidth="lg">
         <Grid

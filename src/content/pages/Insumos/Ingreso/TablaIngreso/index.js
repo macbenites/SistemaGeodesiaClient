@@ -5,8 +5,10 @@ import Footer from 'src/components/Footer';
 import PageHeader from 'src/components/common/Tables/TableHeader';
 import RecentOrders from './RecentOrders';
 import { fetchAllSupplies } from 'src/redux/slices/supplies/suppliesSlice';
+import { useLocalStorage } from 'src/hooks/useLocalStorage';
 
 function ApplicationsTransactions() {
+  const [user, setUser] = useLocalStorage('user');
   return (
     <>
       <Helmet>
@@ -20,6 +22,11 @@ function ApplicationsTransactions() {
           searchDispatch={fetchAllSupplies}
           //ruta del botón de cabecera que te lleva al registro de proveedor
           route={'/insumos/ingreso-nuevo'}
+          buttonShow={
+            user.permisos.find((auth) => auth.name === 'registrar-ingresos de insumo')
+              ? true
+              : false
+          }
         />
       </PageTitleWrapper>
       <Container maxWidth="lg">

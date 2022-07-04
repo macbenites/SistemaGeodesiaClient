@@ -31,6 +31,7 @@ import ModalCrud from 'src/components/common/Modals/modalCrud';
 import EditEmployee from '../Edit';
 import { useEffect, useState } from 'react';
 import ShowEmployee from '../Show';
+import { useLocalStorage } from 'src/hooks/useLocalStorage';
 
 // const applyFilters = (cryptoOrders, filters) => {
 //   return cryptoOrders.filter((cryptoOrder) => {
@@ -50,6 +51,7 @@ import ShowEmployee from '../Show';
 
 const TableEmployee = () => {
   const dispatch = useDispatch();
+  const [user, setUser] = useLocalStorage('user');
   const [editModal, setEditModal] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [deleted, setDeleted] = useState('');
@@ -192,6 +194,9 @@ const TableEmployee = () => {
                           <VisibilityTwoToneIcon fontSize="small" />
                         </IconButton>
                       </Tooltip>
+                          {user.permisos.find(
+                        (auth) => auth.name === 'editar-trabajadores'
+                      ) ? (
                       <Tooltip title="Editar" arrow>
                         <IconButton
                           sx={{
@@ -207,6 +212,10 @@ const TableEmployee = () => {
                           <EditTwoToneIcon fontSize="small" />
                         </IconButton>
                       </Tooltip>
+                      ) : null}
+                      {user.permisos.find(
+                        (auth) => auth.name === 'eliminar-trabajadores'
+                      ) ? (
                       <Tooltip title="Eliminar" arrow>
                         <IconButton
                           sx={{
@@ -224,6 +233,7 @@ const TableEmployee = () => {
                           <DeleteTwoToneIcon fontSize="small" />
                         </IconButton>
                       </Tooltip>
+                    ) : null}
                     </TableCell>
                   </TableRow>
                 );

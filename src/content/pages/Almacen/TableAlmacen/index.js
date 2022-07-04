@@ -11,6 +11,7 @@ import { fetchAlmacenes } from 'src/redux/slices/almacenes/almacenSlice';
 import AutoDeleteIcon from '@mui/icons-material/AutoDelete';
 import { useNavigate } from 'react-router';
 import { useLocalStorage } from 'src/hooks/useLocalStorage';
+
 function ApplicationsTransactions() {
   const navigate = useNavigate();
   const [user, setUser] = useLocalStorage('user');
@@ -28,8 +29,14 @@ function ApplicationsTransactions() {
           searchDispatch={fetchAlmacenes}
           //ruta del botón de cabecera que te lleva al registro de proveedor
           route={'/almacenes/registro-nuevo'}
+          //Propiedad para mostrar el botón de registro de proveedor
+          buttonShow={
+            user.permisos.find((auth) => auth.name === 'registrar-almacenes')
+              ? true
+              : false
+          }
         />
-        {user.permisos.find((auth) => auth.name === 'registrar-almacen') ? (
+        {user.permisos.find((auth) => auth.name === 'eliminar-almacenes') ? (
           <Grid item>
             <Button
               sx={{ mt: { xs: 2, md: 0 } }}

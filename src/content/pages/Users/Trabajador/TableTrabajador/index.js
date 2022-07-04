@@ -7,9 +7,11 @@ import { fetchUsers } from 'src/redux/slices/users/userSlice';
 import RecentEmployee from './RecentEmployee';
 import AutoDeleteIcon from '@mui/icons-material/AutoDelete';
 import { useNavigate } from 'react-router';
+import { useLocalStorage } from 'src/hooks/useLocalStorage';
 
 function EmployeeMaintenance() {
   const navigate = useNavigate();
+  const [user, setUser] = useLocalStorage('user');
   return (
     <>
       <Helmet>
@@ -21,8 +23,13 @@ function EmployeeMaintenance() {
           title="Trabajador"
           searchDispatch={fetchUsers}
           route={'usuarios/trabajador'}
+          buttonShow={
+            user.permisos.find((auth) => auth.name === 'registrar-trabajadores')
+              ? true
+              : false
+          }
         />
-      
+    {user.permisos.find((auth) => auth.name === 'eliminar-trabajadores') ? (
       <Grid item>
           <Button
             sx={{ mt: { xs: 2, md: 0 } }}
@@ -33,6 +40,7 @@ function EmployeeMaintenance() {
             Trabajadores deshabilitados
           </Button>
         </Grid>  
+        ) : null}
       </PageTitleWrapper>
       <Container maxWidth="lg">
         <Grid

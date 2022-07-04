@@ -33,10 +33,12 @@ import { useEffect, useState } from 'react';
 // import ShowEmployee from '../Show';
 import RoleFormEdit from '../Edit';
 import BasicModal from 'src/components/common/Modals';
+import { useLocalStorage } from 'src/hooks/useLocalStorage';
 
 const TablaRol = () => {
   const dispatch = useDispatch();
   //Creamos un estado local para el modal
+  const [user, setUser] = useLocalStorage('user');
   const [modal, setModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -122,6 +124,9 @@ const TablaRol = () => {
                       </Typography>
                     </TableCell>
                     <TableCell align="right">
+                  {user.permisos.find(
+                        (auth) => auth.name === 'editar-roles'
+                      ) ? (
                       <Tooltip title="Editar" arrow>
                         <IconButton
                           sx={{
@@ -137,6 +142,10 @@ const TablaRol = () => {
                           <EditTwoToneIcon fontSize="small" />
                         </IconButton>
                       </Tooltip>
+                      ) : null}
+                      {user.permisos.find(
+                        (auth) => auth.name === 'eliminar-roles'
+                      ) ? (
                       <Tooltip title="Eliminar" arrow>
                         <IconButton
                           sx={{
@@ -152,6 +161,7 @@ const TablaRol = () => {
                           <DeleteTwoToneIcon fontSize="small" />
                         </IconButton>
                       </Tooltip>
+                      ) : null}
                     </TableCell>
                   </TableRow>
                 );

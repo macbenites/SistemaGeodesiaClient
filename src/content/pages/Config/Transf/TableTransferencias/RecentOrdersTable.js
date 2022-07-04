@@ -28,9 +28,11 @@ import {
 import ModalCrud from 'src/components/common/Modals/modalCrud';
 import EditTransferencia from '../Edit';
 import { useEffect, useState } from 'react';
+import { useLocalStorage } from 'src/hooks/useLocalStorage';
 
 const RecentOrdersTable = () => {
   const dispatch = useDispatch();
+  const [user, setUser] = useLocalStorage('user');
   const [modal,setModal] = useState(false);
   const [deleted, setDeleted] = useState();
   const transferencias = useSelector((state) => state.config.transferenciaIndex);
@@ -98,6 +100,9 @@ const RecentOrdersTable = () => {
                       </Typography>
                     </TableCell>
                     <TableCell align="right">
+                    {user.permisos.find(
+                        (auth) => auth.name === 'editar-tipos de transferencias'
+                      ) ? (
                       <Tooltip title="Editar" arrow>
                         <IconButton
                           sx={{
@@ -113,6 +118,10 @@ const RecentOrdersTable = () => {
                           <EditTwoToneIcon fontSize="small" />
                         </IconButton>
                       </Tooltip>
+                      ) : null}
+                       {user.permisos.find(
+                        (auth) => auth.name === 'eliminar-tipos de transferencias'
+                      ) ? (
                       <Tooltip title="Eliminar" arrow>
                         <IconButton
                           sx={{
@@ -128,6 +137,7 @@ const RecentOrdersTable = () => {
                           <DeleteTwoToneIcon fontSize="small" />
                         </IconButton>
                       </Tooltip>
+                    ) : null}
                     </TableCell>
                   </TableRow>
                 );
