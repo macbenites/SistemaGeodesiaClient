@@ -31,7 +31,7 @@ export const fetchShowRole = createAsyncThunk('fetchShowRole', async (id) => {
   return data;
 });
 //update
-export const fetchUpdateRole = createAsyncThunk('updateRole', async (role) => {
+export const saveUpdateRole = createAsyncThunk('updateRole', async (role) => {
   const { data } = await RolesServices.updateRole(role);
   return data;
 });
@@ -85,10 +85,10 @@ const RoleSlice = createSlice({
       state.showRole = payload;
     });
     //update
-    builder.addCase(fetchUpdateRole.fulfilled, (state, { payload }) => {
+    builder.addCase(saveUpdateRole.fulfilled, (state, { payload }) => {
       state.update = 'Rol actualizado satisfactoriamente';
     });
-    builder.addCase(fetchUpdateRole.rejected, (state, { payload }) => {
+    builder.addCase(saveUpdateRole.rejected, (state, { payload }) => {
       state.update = 'Error al actualizar el rol';
     });
   }
