@@ -12,6 +12,7 @@ import { getDefaultMiddleware } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import authReducer from './slices/auth/authSlice';
 import userReducer from './slices/users/userSlice';
+import dashboardReducer from './slices/dashboard/dashboardSlice';
 export const store = configureStore({
   reducer: {
     articles: articleReducer,
@@ -25,6 +26,7 @@ export const store = configureStore({
     almacen: almacenReducer,
     company: companyReducer,
     role: roleReducer,
+    dashboard: dashboardReducer
   },
   middleware: getDefaultMiddleware({
     serializableCheck: false
