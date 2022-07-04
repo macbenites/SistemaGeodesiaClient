@@ -29,7 +29,7 @@ import Label from 'src/components/Label';
 import CheckTwoToneIcon from '@mui/icons-material/CheckTwoTone';
 import AlarmTwoToneIcon from '@mui/icons-material/AlarmTwoTone';
 import { Link as RouterLink } from 'react-router-dom';
-
+import { useSelector } from 'react-redux';
 const AvatarSuccess = styled(Avatar)(
   ({ theme }) => `
           background-color: ${theme.colors.success.lighter};
@@ -95,12 +95,7 @@ const TabsContainerWrapper = styled(Box)(
 
 function SidebarContent() {
 
-  const user =
-  {
-    name: 'Catherine Pike',
-    avatar: '/static/images/avatars/1.jpg',
-    jobtitle: 'Software Developer'
-  };
+const { user } = useSelector((state) => state.auth);
 
   const [state, setState] = useState({
     invisible: true
@@ -128,7 +123,7 @@ function SidebarContent() {
   return (
     <RootWrapper>
       <Box display="flex" alignItems="flex-start">
-        <Avatar alt={user.name} src={user.avatar} />
+        <Avatar alt={user.nombre.nom_per} />
         <Box sx={{ ml: 1.5, flex: 1 }}>
           <Box
             display="flex"
@@ -137,10 +132,10 @@ function SidebarContent() {
           >
             <Box>
               <Typography variant="h5" noWrap>
-                {user.name}
+                {user.nombre.nom_per}
               </Typography>
               <Typography variant="subtitle1" noWrap>
-                {user.jobtitle}
+                {user.role}
               </Typography>
             </Box>
             <IconButton sx={{ p: 1 }} size="small" color="primary">

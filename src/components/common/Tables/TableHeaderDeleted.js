@@ -1,11 +1,10 @@
 import { Typography, Button, Grid } from '@mui/material';
 import HeaderSearch from 'src/layouts/SidebarLayout/Header/Buttons/Search';
+import { useSelector } from 'react-redux';
 
-function PageHeaderDeleted({ title, searchDispatch }) { //**** */
-  const user = {
-    name: 'Catherine Pike',
-    avatar: '/static/images/avatars/1.jpg'
-  };
+function PageHeaderDeleted({ title, searchDispatch }) {
+    const { user } = useSelector((state) => state.auth); //**** */
+
   return (
     <Grid container justifyContent="space-between" alignItems="center">
       <Grid item>
@@ -13,7 +12,7 @@ function PageHeaderDeleted({ title, searchDispatch }) { //**** */
           {title}
         </Typography>
         <Typography variant="subtitle2">
-          {user.name}, Aquí puedes administrar {title}
+          {user.nombre.nom_per}, Aquí puedes administrar {title}
         </Typography>
       </Grid>
       <Grid item>
