@@ -20,7 +20,7 @@ import {
   import { useFormik } from 'formik';
   import { validationWarehouse } from 'src/utils/validation';
   import BasicModal from 'src/components/common/Modals';
-  
+  import GoBackButton from 'src/components/common/Buttons/goBack';
   const Almacen = () => {
     const [modal, setModal] = useState(false);
     const dispatch = useDispatch();
@@ -47,6 +47,7 @@ import {
     return (
       <>
         <BasicModal modal={modal} setModal={setModal} message={createdAlmacen} />
+              <GoBackButton linkRoute="almacenes/registro" />
         <Container maxWidth="md">
           <Grid
             container

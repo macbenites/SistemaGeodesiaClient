@@ -6,11 +6,12 @@ import Footer from 'src/components/Footer';
 import RecentOrders from './RecentOrders';
 import PageHeaderDeleted from 'src/components/common/Tables/TableHeaderDeleted';/*** */
 import { fetchCategoriesDeleted  } from 'src/redux/slices/config/configSlice';
-
+import GoBackButton from 'src/components/common/Buttons/goBack';
 
 function ApplicationsTransactions() {
   return (
     <>
+    <GoBackButton linkRoute="config/categoria" />
       <Helmet>
         <title>Categorias deshabilitados</title>
       </Helmet>

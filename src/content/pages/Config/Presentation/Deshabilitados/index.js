@@ -6,10 +6,12 @@ import Footer from 'src/components/Footer';
 import RecentOrders from './RecentOrders';
 import PageHeaderDeleted from 'src/components/common/Tables/TableHeaderDeleted';/*** */
 import { fetchPresentacionesDeleted } from 'src/redux/slices/config/configSlice';
+import GoBackButton from 'src/components/common/Buttons/goBack';
 
 function ApplicationsTransactions() {
   return (
     <>
+          <GoBackButton linkRoute="config/presentacion" />
       <Helmet>
         <title>Presentaciones deshabilitados</title>
       </Helmet>

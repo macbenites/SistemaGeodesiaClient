@@ -26,6 +26,7 @@ import {
 
 import { validationCheckoutForm } from 'src/utils/validation';
 import BasicModal from 'src/components/common/Modals/index';
+import GoBackButton from 'src/components/common/Buttons/goBack';
 
 const emptyArticle = {
   cod_art: '',
@@ -51,6 +52,7 @@ const CheckoutForm = () => {
   return (
     <>
       <BasicModal modal={modal} setModal={setModal} message={created} />
+      <GoBackButton linkRoute="insumos/salida" />
       <Container maxWidth="md">
         <Grid
           container

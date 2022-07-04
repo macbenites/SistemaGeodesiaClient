@@ -57,7 +57,7 @@ const RoleForm = () => {
     <>
       <BasicModal modal={modal} setModal={setModal} message={created} />
       <GoBackButton linkRoute="usuarios/rol" />
-      <Container maxWidth="lg">
+      <Container maxWidth="md">
         <Grid
           container
           direction="row"
