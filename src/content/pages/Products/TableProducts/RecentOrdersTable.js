@@ -103,7 +103,8 @@ const RecentOrdersTable = () => {
                 <TableCell>Id</TableCell>
                 <TableCell>Descripción</TableCell>
                 <TableCell>Categoría</TableCell>
-                <TableCell align="right">Presentación</TableCell>
+                <TableCell>Presentación</TableCell>
+                <TableCell>Un. Medida</TableCell>
                 <TableCell align="right">Acciones</TableCell>
               </TableRow>
             </TableHead>
@@ -144,7 +145,7 @@ const RecentOrdersTable = () => {
                         {cryptoOrder.des_cat}
                       </Typography>
                     </TableCell>
-                    <TableCell align="right">
+                    <TableCell>
                       <Typography
                         variant="body1"
                         fontWeight="bold"
@@ -153,6 +154,17 @@ const RecentOrdersTable = () => {
                         noWrap
                       >
                         {cryptoOrder.des_pres}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography
+                        variant="body1"
+                        fontWeight="bold"
+                        color="text.primary"
+                        gutterBottom
+                        noWrap
+                      >
+                        {cryptoOrder.des_unid_med}
                       </Typography>
                     </TableCell>
                     <TableCell align="right">
