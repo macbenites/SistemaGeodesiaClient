@@ -229,6 +229,7 @@ const routes = (isLoggedIn) => [
       }
     ]
   },
+
   {
     path: '/almacenes',
     element: isLoggedIn ? <SidebarLayout /> : <Navigate to="/" />,

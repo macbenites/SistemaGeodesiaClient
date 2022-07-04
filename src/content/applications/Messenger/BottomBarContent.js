@@ -13,7 +13,7 @@ import {
 import { styled } from '@mui/material/styles';
 import AttachFileTwoToneIcon from '@mui/icons-material/AttachFileTwoTone';
 import SendTwoToneIcon from '@mui/icons-material/SendTwoTone';
-
+import { useSelector } from 'react-redux';
 const DividerWrapper = styled(Divider)(
   ({ theme }) => `
         height: 40px !important;
@@ -28,16 +28,12 @@ const Input = styled('input')({
 
 function BottomBarContent() {
 
-  const user =
-  {
-    name: 'Catherine Pike',
-    avatar: '/static/images/avatars/1.jpg'
-  };
+const { user } = useSelector((state) => state.auth);
 
   return (
     <Card sx={{ display: 'flex', alignItems: 'center', p: 2 }}>
       <Hidden mdDown>
-        <Avatar alt={user.name} src={user.avatar} />
+        <Avatar alt={user.nombre.nom_per} />
         <DividerWrapper orientation="vertical" flexItem />
       </Hidden>
       <Box sx={{ flex: 1, mr: 2 }}>

@@ -46,7 +46,7 @@ const AccountBalanceChart = ({ data: dataProp, ...rest }) => {
           const label = _data.labels[tooltipItem.index];
           const value = _data.datasets[0].data[tooltipItem.index];
 
-          return `${label}: ${value}%`;
+          return `${label}: ${value}`;
         }
       }
     }
