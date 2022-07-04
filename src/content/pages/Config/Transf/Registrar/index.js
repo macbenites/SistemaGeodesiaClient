@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import { validationTransferencia } from 'src/utils/validation';
 import BasicModal from 'src/components/common/Modals';
+import GoBackButton from 'src/components/common/Buttons/goBack';
 
 const FormTransf = () => {
   const [modal, setModal] = useState(false);
@@ -39,6 +40,7 @@ const FormTransf = () => {
   return (
     <>
        <BasicModal modal={modal} setModal={setModal} message={createdTransferencia} /> 
+       <GoBackButton linkRoute="config/tipotransferencia" />
       <Container maxWidth="md">
         <Grid
           container

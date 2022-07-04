@@ -6,11 +6,13 @@ import Footer from 'src/components/Footer';
 import RecentOrders from './RecentOrders';
 import PageHeaderDeleted from 'src/components/common/Tables/TableHeaderDeleted';/*** */
 import { fetchProvidersDeleted  } from 'src/redux/slices/providers/providerSlice';
+import GoBackButton from 'src/components/common/Buttons/goBack';
 
 
 function ApplicationsTransactions() {
   return (
     <>
+    <GoBackButton linkRoute="proveedor/registro" />
       <Helmet>
         <title>Proveedores deshabilitados</title>
       </Helmet>

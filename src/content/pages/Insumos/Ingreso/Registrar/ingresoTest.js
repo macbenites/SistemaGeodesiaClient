@@ -22,6 +22,7 @@ import {
 } from 'src/redux/slices/supplies/suppliesSlice';
 import { validationSupplies } from 'src/utils/validation';
 import BasicModal from 'src/components/common/Modals';
+import GoBackButton from 'src/components/common/Buttons/goBack';
 
 const emptyArticles = {
   cod_art: '',
@@ -44,6 +45,7 @@ const IngresoTest = () => {
 
   return (
     <>
+    <GoBackButton linkRoute="insumos/ingreso" />
       <BasicModal modal={modal} setModal={setModal} message={created} />
       <Container maxWidth="lg">
         <Grid

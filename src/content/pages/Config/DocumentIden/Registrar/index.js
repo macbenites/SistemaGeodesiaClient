@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import { validationDocumento} from 'src/utils/validation';
 import BasicModal from 'src/components/common/Modals';
+import GoBackButton from 'src/components/common/Buttons/goBack';
 
 const FormDocumento = () => {
   const [modal, setModal] = useState(false);
@@ -39,6 +40,7 @@ const FormDocumento = () => {
   return (
     <>
       <BasicModal modal={modal} setModal={setModal} message={createdDocumento} />
+      <GoBackButton linkRoute="config/tipodocumento" />
       <Container maxWidth="md">
         <Grid
           container

@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import { validationCategory } from 'src/utils/validation';
 import BasicModal from 'src/components/common/Modals';
+import GoBackButton from 'src/components/common/Buttons/goBack';
 
 const Category = () => {
   const [modal, setModal] = useState(false);
@@ -38,6 +39,7 @@ const Category = () => {
   return (
     <>
       <BasicModal modal={modal} setModal={setModal} message={createdCategory} />
+      <GoBackButton linkRoute="config/categoria" />
       <Container maxWidth="md">
         <Grid
           container

@@ -6,11 +6,12 @@ import Footer from 'src/components/Footer';
 import RecentOrders from './RecentOrders';
 import PageHeaderDeleted from 'src/components/common/Tables/TableHeaderDeleted';/*** */
 import { fetchAlmacenesDeleted } from 'src/redux/slices/almacenes/almacenSlice';
-
+import GoBackButton from 'src/components/common/Buttons/goBack';
 
 function ApplicationsTransactions() {
   return (
     <>
+          <GoBackButton linkRoute="almacenes/registro" />
       <Helmet>
         <title>Almacenes deshabilitados</title>
       </Helmet>

@@ -6,11 +6,13 @@ import Footer from 'src/components/Footer';
 import RecentOrders from './RecentOrders';
 import PageHeaderDeleted from 'src/components/common/Tables/TableHeaderDeleted';/*** */
 import { fetchUsersDeleted  } from 'src/redux/slices/users/userSlice';
+import GoBackButton from 'src/components/common/Buttons/goBack';
 
 
 function ApplicationsTransactions() {
   return (
     <>
+    <GoBackButton linkRoute="usuarios/mantenimiento" />
       <Helmet>
         <title>Trabajadores deshabilitados</title>
       </Helmet>
