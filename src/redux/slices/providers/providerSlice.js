@@ -7,6 +7,7 @@ const initialState = {
   telephonesContainerOut: [],
   providersCreate: {},
   providersIndex: {},
+  providersIndexDeleted: {},
   tdoc_ide: [],
   departamento: [],
   provincia: [],
@@ -15,6 +16,7 @@ const initialState = {
   status: null,
   created: null,
   destroy: null,
+  restore: null,
   msgUpdate: '',
   updateProv: {},
   verProveedor: {}
@@ -62,6 +64,14 @@ export const fetchProviders = createAsyncThunk(
   }
 );
 
+export const fetchProvidersDeleted = createAsyncThunk(
+  'getProviderAllDeleted',
+  async (value) => {
+    const { data } = await providerServices.getAllDeleted(value);
+    return data;
+  }
+);
+
 export const fetchProvidersCreate = createAsyncThunk(
   'getProviderCreate',
   async () => {
@@ -69,7 +79,7 @@ export const fetchProvidersCreate = createAsyncThunk(
     return data;
   }
 );
-
+//EDITAR
 export const fetchShowProvider = createAsyncThunk(
   'fetchShowProvider',
   async (id) => {
@@ -77,7 +87,7 @@ export const fetchShowProvider = createAsyncThunk(
     return data;
   }
 );
-
+//UPDATE
 export const saveUpdateProvider = createAsyncThunk(
   'updateProvider',
   async (provider) => {
@@ -103,6 +113,14 @@ export const destroyProvider = createAsyncThunk(
   'destroyProvider',
   async (id) => {
     const { data } = await providerServices.deleteById(id);
+    return data;
+  }
+);
+
+export const restoreProvider = createAsyncThunk(
+  'restoreProvider',
+  async (id) => {
+    const { data } = await providerServices.restoreById(id);
     return data;
   }
 );
@@ -143,7 +161,18 @@ const providerSlice = createSlice({
     builder.addCase(fetchProviders.rejected, (state, action) => {
       state.status = 'error';
     });
-    //show
+    //index inhabilitados
+    builder.addCase(fetchProvidersDeleted.pending, (state, action) => {
+      state.status = 'loading';
+    });
+    builder.addCase(fetchProvidersDeleted.fulfilled, (state, { payload }) => {
+      state.providersIndexDeleted = payload.proveedor; //nombre de la tabla
+      state.status = 'success';
+    });
+    builder.addCase(fetchProvidersDeleted.rejected, (state, action) => {
+      state.status = 'error';
+    });
+    //EDIT
     builder.addCase(fetchShowProvider.fulfilled, (state, { payload }) => {
       state.updateProv = payload;
     });
@@ -175,6 +204,13 @@ const providerSlice = createSlice({
     });
     builder.addCase(destroyProvider.rejected, (state, { payload }) => {
       state.destroy = 'Error al eliminar el proveedor';
+    });
+    //restaurar
+    builder.addCase(restoreProvider.fulfilled, (state, { payload }) => {
+      state.restore = 'Proveedor restaurado satisfactoriamente';
+    });
+    builder.addCase(restoreProvider.rejected, (state, { payload }) => {
+      state.restore = 'Error al restaurar el proveedor';
     });
     //update
     builder.addCase(saveUpdateProvider.fulfilled, (state, { payload }) => {

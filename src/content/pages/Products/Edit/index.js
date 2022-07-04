@@ -153,7 +153,7 @@ const EditArticle = ({ setModal }) => {
                     ))}
                   </TextField>
                 </Grid>
-                <Grid item xs={12} md={12}>
+                {/* <Grid item xs={12} md={12}>
                   <TextField
                     id="image"
                     name="imagen_art"
@@ -171,7 +171,7 @@ const EditArticle = ({ setModal }) => {
                       formik.errors.imagen_art && formik.errors.imagen_art
                     }
                   />
-                </Grid>
+                </Grid> */}
 
                 <Grid item xs={12} md={3} justifyContent={'right'}>
                   <Button

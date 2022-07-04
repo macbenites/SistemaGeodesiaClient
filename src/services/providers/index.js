@@ -43,6 +43,20 @@ const providerServices = {
     );
   },
 
+  getAllDeleted: (value) => {
+    return axios.post(
+      `${process.env.REACT_APP_API_URL}proveedoresDeleted`,
+      {
+        searchText: value
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
+    );
+  },
+//Actualizar
   updateProvider: (provider) => {
     return axios.put(
       `${process.env.REACT_APP_API_URL}proveedorUpdate/${provider.cod_prov}`,
@@ -66,6 +80,18 @@ const providerServices = {
   deleteById: (id) => {
     return axios.put(
       `${process.env.REACT_APP_API_URL}proveedorDestroy/${id}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
+    );
+  },
+
+  restoreById: (id) => {
+    return axios.put(
+      `${process.env.REACT_APP_API_URL}proveedorRestore/${id}`,
       {},
       {
         headers: {

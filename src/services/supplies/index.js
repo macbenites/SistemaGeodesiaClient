@@ -105,7 +105,28 @@ const suppliesServices = {
       }
     );
   },
-
+  // Obtener trabajadores solicitantes
+  getApplicants: (id) => {
+    return axios.get(
+      `${process.env.REACT_APP_API_URL}registroSalida/solicita/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
+    );
+  },
+  // Obtener trabajadores autorizador
+  getAuthorizer: (id) => {
+    return axios.get(
+      `${process.env.REACT_APP_API_URL}registroSalida/autoriza/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
+    );
+  },
   //getArticles
   getArticlesSupplies: (id) => {
     return axios.get(
@@ -116,7 +137,51 @@ const suppliesServices = {
         }
       }
     );
-  }
+  },
+
+  //VISTA EDITAR INGRESO
+  getIngresoEdit: (id) => {
+    return axios.get(`${process.env.REACT_APP_API_URL}registroIngresoEditar/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+  },
+
+  updateIngreso: (ingreso) => {
+    return axios.put(
+      `${process.env.REACT_APP_API_URL}registroIngresoUpdate/${ingreso.cod_reg_in}`,
+      ingreso,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
+    );
+  },
+
+  
+  //VISTA EDITAR SALIDA
+  getSalidaEdit: (id) => {
+    return axios.get(`${process.env.REACT_APP_API_URL}registroSalidaEditar/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+  },
+
+  updateSalida: (salida) => {
+    return axios.put(
+      `${process.env.REACT_APP_API_URL}registroSalidaUpdate/${salida.cod_reg_sal}`,
+      salida,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
+    );
+  },
+
 };
 
 export default suppliesServices;

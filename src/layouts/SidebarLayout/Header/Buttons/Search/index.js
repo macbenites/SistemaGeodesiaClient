@@ -54,20 +54,12 @@ const DialogTitleWrapper = styled(DialogTitle)(
 );
 
 function HeaderSearch({ searchDispatch }) {
-  const [openSearchResults, setOpenSearchResults] = useState(false);
   const [searchValue, setSearchValue] = useState('');
   const dispatch = useDispatch();
 
   const handleSearchChange = (event) => {
     setSearchValue(event.target.value);
-
-    if (event.target.value) {
-      if (!openSearchResults) {
-        setOpenSearchResults(true);
-      }
-    } else {
-      setOpenSearchResults(false);
-    }
+    dispatch(searchDispatch(event.target.value));
   };
 
   const [open, setOpen] = useState(false);
@@ -87,7 +79,7 @@ function HeaderSearch({ searchDispatch }) {
 
   return (
     <>
-      <Tooltip arrow title="Search">
+      <Tooltip arrow title="Buscar">
         <IconButton color="primary" onClick={handleClickOpen}>
           <SearchTwoToneIcon />
         </IconButton>
@@ -102,7 +94,7 @@ function HeaderSearch({ searchDispatch }) {
         onClose={handleClose}
       >
         <DialogTitleWrapper>
-          <form onSubmit={handleSubmit}>
+          <form>
             <SearchInputWrapper
               value={searchValue}
               autoFocus={true}

@@ -6,6 +6,8 @@ const initialState = {
   articlesContainerOut: [],
   selectedSupply: {},
   selectedSupplyOut: {},
+  selectApplicantOut: {},
+  selectAuthorizerOut: {},
   articlesSupplies: [],
   suppliesIndex: {}, //ingresos
   outputsIndex: {}, //salidas
@@ -13,7 +15,11 @@ const initialState = {
   created: null,
   supplyIn: {},
   supplyOut: {},
-  employe: {}
+  employe: {},
+  updateSupplyIn: {},
+  updateSupplyOut: {},
+  msgUpdateIn: '',
+  msgUpdateOut: '',
 };
 
 export const saveSupplies = createAsyncThunk('saveSupplie', async (supplie) => {
@@ -41,8 +47,20 @@ export const saveSupplies = createAsyncThunk('saveSupplie', async (supplie) => {
 export const saveSuppliesOut = createAsyncThunk(
   'saveSupplieOut',
   async (supplie) => {
-    const { status } = await suppliesServices.createOut(supplie);
-    return status;
+    const postSupplie = {
+      cod_solicitador: supplie.cod_solicitador,
+      cod_autorizador: supplie.cod_autorizador,
+      cod_almacen: supplie.cod_almacen,
+      cod_t_transf: supplie.cod_t_transf,
+      cod_t_doc: supplie.cod_t_doc,
+      nro_doc: supplie.nro_doc,
+      fec_doc: supplie.fec_doc,
+      cod_art: supplie.articles.map((article) => article.cod_art),
+      cant_art: supplie.articles.map((article) => article.cant_art),
+      obs_sal: supplie.articles.map((article) => article.obs_sal)
+    };
+    const { data } = await suppliesServices.createOut(postSupplie);
+    return data;
   }
 );
 
@@ -76,15 +94,21 @@ export const fetchArticlesSupplies = createAsyncThunk(
 );
 
 //index ingreso
-export const fetchAllSupplies = createAsyncThunk('getSupliesAll', async (value) => {
-  const { data } = await suppliesServices.getAllSupplies(value);
-  return data;
-});
+export const fetchAllSupplies = createAsyncThunk(
+  'getSupliesAll',
+  async (value) => {
+    const { data } = await suppliesServices.getAllSupplies(value);
+    return data;
+  }
+);
 //index salida
-export const fetchAllOutputs = createAsyncThunk('getOutputsAll', async (value) => {
-  const { data } = await suppliesServices.getAllOutputs(value);
-  return data;
-});
+export const fetchAllOutputs = createAsyncThunk(
+  'getOutputsAll',
+  async (value) => {
+    const { data } = await suppliesServices.getAllOutputs(value);
+    return data;
+  }
+);
 
 export const fetchSupplyIn = createAsyncThunk('getSupplyIn', async (id) => {
   const { data } = await suppliesServices.getSuppliesById(id);
@@ -95,6 +119,83 @@ export const fetchSupplyOut = createAsyncThunk('getSupplyOut', async (id) => {
   const { data } = await suppliesServices.getSuppliesOutById(id);
   return data;
 });
+
+export const fetchApplicantOut = createAsyncThunk(
+  'getApplicantOut',
+  async (id) => {
+    const { data } = await suppliesServices.getApplicants(id);
+    return data;
+  }
+);
+
+export const fetchAuthorizerOut = createAsyncThunk(
+  'getAuthorizerOut',
+  async (id) => {
+    const { data } = await suppliesServices.getAuthorizer(id);
+    return data;
+  }
+);
+//EDITAR INGRESO
+export const fetchEditIngreso = createAsyncThunk(
+  'fetchEditIngreso',
+  async (id) => {
+    const { data } = await suppliesServices.getIngresoEdit(id);
+    return data;
+  }
+);
+
+//EDITAR INGRESO
+export const fetchEditSalida = createAsyncThunk(
+  'fetchEditSalida',
+  async (id) => {
+    const { data } = await suppliesServices.getSalidaEdit(id);
+    return data;
+  }
+);
+//UPDATE INGRESO
+export const saveUpdateIngreso = createAsyncThunk(
+  'updateIngreso',
+  async (supplie) => {
+    const putIngreso = {
+      cod_reg_in: supplie.cod_reg_in,
+      cod_prov: supplie.cod_prov,
+      cod_almacen: supplie.cod_almacen,
+      cod_trabajador: supplie.cod_trabajador,
+      cod_t_transf: supplie.cod_t_transf,
+      cod_t_doc: supplie.cod_t_doc,
+      nro_doc: supplie.nro_doc,
+      fec_doc: supplie.fec_doc,
+      cod_art: supplie.articles.map((article) => article.cod_art),
+      prec_unit: supplie.articles.map((article) => article.prec_unit),
+      cant_art: supplie.articles.map((article) => article.cant_art),
+      obs_ing: supplie.articles.map((article) => article.obs_ing)
+    };
+    const { data } = await suppliesServices.updateIngreso(putIngreso);
+    return data;
+  }
+);
+//UPDATE INGRESO
+export const saveUpdateSalida = createAsyncThunk(
+  'updateSalida',
+  async (supplie) => {
+    const putSalida = {
+      cod_reg_sal: supplie.cod_reg_sal,
+      cod_solicitador: supplie.cod_solicitador,
+      cod_autorizador: supplie.cod_autorizador,
+      cod_almacen: supplie.cod_almacen,
+      cod_t_transf: supplie.cod_t_transf,
+      cod_t_doc: supplie.cod_t_doc,
+      nro_doc: supplie.nro_doc,
+      fec_doc: supplie.fec_doc,
+      cod_art: supplie.articles.map((article) => article.cod_art),
+      cant_art: supplie.articles.map((article) => article.cant_art),
+      obs_sal: supplie.articles.map((article) => article.obs_sal),
+      stock_almacen: supplie.articles.map((article) => article.stock_almacen)
+    };
+    const { data } = await suppliesServices.updateSalida(putSalida);
+    return data;
+  }
+);
 
 const suppliesSlice = createSlice({
   name: 'supplies',
@@ -146,16 +247,14 @@ const suppliesSlice = createSlice({
     builder.addCase(fetchArticlesSupplies.fulfilled, (state, { payload }) => {
       state.articlesSupplies = payload;
     });
-    builder.addCase(saveSuppliesOut.pending, (state, action) => {
+    builder.addCase(saveSuppliesOut.pending, (state, { payload }) => {
       state.created = 'loading';
     });
     builder.addCase(saveSuppliesOut.fulfilled, (state, { payload }) => {
       state.created = 'Salida creada satisfactoriamente';
-      alert('Salida creado satisfactoriamente');
     });
     builder.addCase(saveSuppliesOut.rejected, (state, { payload }) => {
       state.created = 'Error al crear Salida';
-      alert('Error al crear salida');
     });
 
     //show ingreso - salida
@@ -180,6 +279,31 @@ const suppliesSlice = createSlice({
 
     builder.addCase(fetchEmployee.fulfilled, (state, { payload }) => {
       state.employe = payload.data;
+    });
+
+    //Registro de salida
+    builder.addCase(fetchApplicantOut.fulfilled, (state, { payload }) => {
+      state.selectApplicantOut = payload;
+    });
+    builder.addCase(fetchAuthorizerOut.fulfilled, (state, { payload }) => {
+      state.selectAuthorizerOut = payload;
+    });
+
+    //EDTAR INGRESO
+    builder.addCase(fetchEditIngreso.fulfilled, (state, { payload }) => {
+      state.updateSupplyIn = payload;
+    });
+    //update
+    builder.addCase(saveUpdateIngreso.fulfilled, (state, { payload }) => {
+      state.msgUpdateIn = 'Ingreso actualizado satisfactoriamente';
+    });
+    //EDTAR SALIDA
+    builder.addCase(fetchEditSalida.fulfilled, (state, { payload }) => {
+      state.updateSupplyOut = payload;
+    });
+    //update
+    builder.addCase(saveUpdateSalida.fulfilled, (state, { payload }) => {
+      state.msgUpdateOut = 'Salida actualizada satisfactoriamente';
     });
   }
 });

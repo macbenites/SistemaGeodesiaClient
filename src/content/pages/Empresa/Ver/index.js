@@ -1,87 +1,114 @@
 import {
-Container,
-Grid,
-Card,
-CardHeader,
-Divider,
-CardContent,
-Box,
-Button
+  Grid,
+  Card,
+  CardHeader,
+  Divider,
+  CardContent,
+  useTheme,
+  Container,
+  Button
 } from '@mui/material';
-import {
-fetchShowCompany
-} from 'src/redux/slices/company/companySlice';
-import TextField from '@mui/material/TextField';
+
 import FormLabel from '@mui/material/FormLabel';
-import MenuItem from '@mui/material/MenuItem';
-import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useFormik } from 'formik';
-import BasicModal from 'src/components/common/Modals';
+import {
+  fetchShowCompany,
+  fetchEditCompany
+} from 'src/redux/slices/company/companySlice';
+import ModalCrud from 'src/components/common/Modals/modalCrud';
+import EditCompany from '../Editar';
+import { useState, useEffect } from 'react';
 
 const ShowCompa = () => {
-const dispatch = useDispatch();
-const { showCompanyState } = useSelector(
-    (state) => state.company
-);
+  const dispatch = useDispatch();
+  const [modal, setModal] = useState(false);
+  const { showCompanyState } = useSelector((state) => state.company);
+  const theme = useTheme();
 
-useEffect(() => {
+  useEffect(() => {
     dispatch(fetchShowCompany());
-}, [dispatch]); 
+  }, [dispatch, modal]);
 
-return (
+  const handleShow = (id) => {
+    dispatch(fetchEditCompany(id)).then(() => {
+      setModal(id);
+    });
+  };
+
+  return (
     <>
-    <Grid item xs={12}>
-        <Card>
-            <CardHeader title="Empresa" />
-            <Divider />
-            <CardContent>
-            {/* <form onSubmit={formik.handleSubmit}> */}
+      {modal && (
+        <ModalCrud modal={modal} setModal={setModal}>
+          <EditCompany setModal={setModal} />
+        </ModalCrud>
+      )}
+      <Container maxWidth="lg">
+        <Grid
+          container
+          direction="row"
+          justifyContent="center"
+          alignItems="stretch"
+          spacing={2}
+          mt={2}
+          mb={2}
+        >
+          <Grid item xs={12}>
+            <Card>
+              <CardHeader title="Empresa" />
+              <Divider />
+              <CardContent>
+                {/* <form onSubmit={formik.handleSubmit}> */}
                 <Grid container spacing={2}>
-                <Grid item xs={12} md={9} >
-                    
-                    <img src={ showCompanyState?.empresa?.logo} height="100hv"></img>
-                </Grid>
-                <Grid item xs={12} md={9}>
+                  <Grid item xs={12} md={9}>
+                    <img
+                      src={showCompanyState?.empresa?.logo}
+                      height="100hv"
+                    ></img>
+                  </Grid>
+                  <Grid item xs={12} md={9}>
                     <FormLabel component="" sx={{}}>
-                        {showCompanyState?.empresa?.razon_social}
+                      {showCompanyState?.empresa?.razon_social}
                     </FormLabel>
-                </Grid>
-                <Grid item xs={12} md={9}>
+                  </Grid>
+                  <Grid item xs={12} md={9}>
                     <FormLabel component="" sx={{ fontWeight: 'bold' }}>
-                    RUC: {'\u00A0'}
+                      RUC: {'\u00A0'}
                     </FormLabel>
                     <FormLabel component="" sx={{}}>
-                        {showCompanyState?.empresa?.nro_doc}
+                      {showCompanyState?.empresa?.nro_doc}
                     </FormLabel>
-                </Grid>
-                <Grid item xs={12} md={9}>
+                  </Grid>
+                  <Grid item xs={12} md={9}>
                     <FormLabel component="" sx={{ fontWeight: 'bold' }}>
-                    Correo: {'\u00A0'}
+                      Correo: {'\u00A0'}
                     </FormLabel>
                     <FormLabel component="" sx={{}}>
-                        {showCompanyState?.empresa?.correo_per}
+                      {showCompanyState?.empresa?.correo_per}
                     </FormLabel>
-                </Grid>
-                
-                <Grid item xs={12} md={5}>
+                  </Grid>
+
+                  <Grid item xs={12} md={5}>
                     <Button
-                      variant="contained"   
+                      variant="contained"
                       color="primary"
                       type="submit"
                       size="large"
+                      onClick={() =>
+                        handleShow(showCompanyState?.empresa?.cod_emp)
+                      }
                     >
                       Editar
                     </Button>
                   </Grid>
-
                 </Grid>
-            {/* </form> */}
-            </CardContent>
-        </Card>
-    </Grid>
+                {/* </form> */}
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
+      </Container>
     </>
-);
+  );
 };
 
 export default ShowCompa;

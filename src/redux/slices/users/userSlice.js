@@ -3,21 +3,33 @@ import { createSlice } from '@reduxjs/toolkit';
 import UsersServices from 'src/services/users';
 const initialState = {
   index: {},
+  indexDeleted: {},
   create: {},
   province: [],
   district: [],
-  message: '',
+  message: null,
   updateUser: {},
   profile: {},
   editPass: {},
   updatePass: {},
-  showUser: {}
+  showUser: {},
+  assignRole: {},
+  destroy: null,
+  restore: null
 };
 
 export const fetchUsers = createAsyncThunk(
   'users/fetchUsers',
   async (searchText) => {
     const { data } = await UsersServices.indexEmployee(searchText);
+    return data;
+  }
+);
+
+export const fetchUsersDeleted = createAsyncThunk(
+  'users/fetchUsersDeleted',
+  async (searchText) => {
+    const { data } = await UsersServices.indexEmployeeDeleted(searchText);
     return data;
   }
 );
@@ -102,27 +114,64 @@ export const updateEmployee = createAsyncThunk(
   }
 );
 
+export const destroyEmployee = createAsyncThunk(
+  'destroyEmployee',
+  async (id) => {
+    const { data } = await UsersServices.deleteById(id);
+    return data;
+  }
+);
+
+export const restoreEmployee = createAsyncThunk(
+  'restoreEmployee',
+  async (id) => {
+    const { data } = await UsersServices.restoreById(id);
+    return data;
+  }
+);
+
 export const getProfile = createAsyncThunk('users/getProfile', async () => {
   const { data } = await UsersServices.showProfile();
   return data;
 });
 //cambiar contraseña
-export const fetchEditPassword = createAsyncThunk('users/fetchEditPassword', async (id) => {
+export const fetchEditPassword = createAsyncThunk(
+  'users/fetchEditPassword',
+  async (id) => {
     const { data } = await UsersServices.editPass(id);
     return data;
   }
 );
 
-export const updatePassword = createAsyncThunk('users/updatePassword', async (passwordEdit) => {
-  // alert(JSON.stringify(passwordEdit));
-  const { data } = await UsersServices.updatePass(passwordEdit);
-  return data;
-});
+export const updatePassword = createAsyncThunk(
+  'users/updatePassword',
+  async (passwordEdit) => {
+    // alert(JSON.stringify(passwordEdit));
+    const { data } = await UsersServices.updatePass(passwordEdit);
+    return data;
+  }
+);
 
 export const fetchShowEmployee = createAsyncThunk(
   'users/fetchShowEmployee',
   async (id) => {
     const { data } = await UsersServices.showEmployee(id);
+    return data;
+  }
+);
+
+export const fetchAssignRole = createAsyncThunk(
+  'users/fetchAssignRole',
+  async (id) => {
+    const { data } = await UsersServices.getAssignRole(id);
+    return data;
+  }
+);
+
+export const saveAssignRole = createAsyncThunk(
+  'users/assignRole',
+  async (assignRole) => {
+    const { data } = await UsersServices.saveAssignRole(assignRole);
     return data;
   }
 );
@@ -134,6 +183,9 @@ const UserSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchUsers.fulfilled, (state, { payload }) => {
       state.index = payload;
+    });
+    builder.addCase(fetchUsersDeleted.fulfilled, (state, { payload }) => {
+      state.indexDeleted = payload;
     });
     builder.addCase(fetchCreateEmployee.fulfilled, (state, { payload }) => {
       state.create = payload;
@@ -156,6 +208,20 @@ const UserSlice = createSlice({
       state.message = payload.msg;
     });
 
+    builder.addCase(destroyEmployee.fulfilled, (state, { payload }) => {
+      state.destroy = 'Trabajador eliminado satisfactoriamente';
+    });
+    builder.addCase(destroyEmployee.rejected, (state, { payload }) => {
+      state.destroy = 'Error al eliminar el trabajador';
+    });
+
+    builder.addCase(restoreEmployee.fulfilled, (state, { payload }) => {
+      state.restore = 'Trabajador restaurado satisfactoriamente';
+    });
+    builder.addCase(restoreEmployee.rejected, (state, { payload }) => {
+      state.restore = 'Error al restaurar el trabajador';
+    });
+
     builder.addCase(getProfile.fulfilled, (state, { payload }) => {
       state.profile = payload;
     });
@@ -175,6 +241,14 @@ const UserSlice = createSlice({
 
     builder.addCase(fetchShowEmployee.fulfilled, (state, { payload }) => {
       state.showUser = payload;
+    });
+
+    builder.addCase(fetchAssignRole.fulfilled, (state, { payload }) => {
+      state.assignRole = payload;
+    });
+
+    builder.addCase(saveAssignRole.fulfilled, (state, { payload }) => {
+      state.message = payload.status;
     });
   }
 });

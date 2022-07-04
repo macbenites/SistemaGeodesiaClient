@@ -42,7 +42,7 @@ const Ingreso = () => {
       cod_pres: '',
       cod_unid_med: '',
       cod_estado_art: 1,
-      imagen_art: ''
+      //imagen_art: ''
     },
     validationSchema: validationArticle,
     onSubmit: (values, { resetForm }) => {
@@ -189,7 +189,7 @@ const Ingreso = () => {
                         ))}
                       </TextField>
                     </Grid>
-                    <Grid item xs={12} md={12}>
+                    {/* <Grid item xs={12} md={12}>
                       <TextField
                         id="image"
                         name="imagen_art"
@@ -207,7 +207,7 @@ const Ingreso = () => {
                           formik.errors.imagen_art && formik.errors.imagen_art
                         }
                       />
-                    </Grid>
+                    </Grid> */}
                     {/* Align Rigth */}
                     <Grid item xs={12} md={3} justifyContent={'right'}>
                       <Button

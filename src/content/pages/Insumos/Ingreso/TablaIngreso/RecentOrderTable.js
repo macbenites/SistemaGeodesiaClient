@@ -23,40 +23,39 @@ import VisibilityTwoToneIcon from '@mui/icons-material/VisibilityTwoTone';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-//   destroyProvider,
-//   fetchShowProvider,
+    fetchEditIngreso,
     fetchAllSupplies,
     fetchSupplyIn
 } from 'src/redux/slices/supplies/suppliesSlice';
 import ModalCrud from 'src/components/common/Modals/modalCrud';
-    // import EditIngreso from '../Edit';
 import { useEffect, useState } from 'react';
 import ShowSupplyIn from '../Show';
+import EditSupply from '../Edit';
 
 const RecentOrdersTable = () => {
   const dispatch = useDispatch();
   const [modal, setModal] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [deleted, setDeleted] = useState('');
+ // const [deleted, setDeleted] = useState('');
   const ingresos = useSelector((state) => state.supplies.suppliesIndex);
   const { data } = ingresos;
 
   useEffect(() => {
     dispatch(fetchAllSupplies());
-  }, [dispatch, modal, deleted,showModal]);
+  }, [dispatch, modal/*, deleted*/,showModal]);
 
 
   const theme = useTheme();
-  const handleDestroy = (id) => {
-    dispatch(destroyProvider(id));
-  setDeleted(id);
-  };
+  // const handleDestroy = (id) => {
+  //   dispatch(destroyProvider(id));
+  // setDeleted(id);
+  // };
 
-//   const handleUpdate = (id) => {
-//     dispatch(fetchShowProvider(id)).then(() => {
-//       setModal(id);
-//     });
-//   };
+  const handleUpdate = (id) => {
+    dispatch( fetchEditIngreso(id) ).then(() => {
+      setModal(id);
+    });
+  };
 
 const handleShow = (id) => {
   dispatch(fetchSupplyIn (id)).then(() => {
@@ -67,7 +66,7 @@ const handleShow = (id) => {
     <>
       {modal && (
         <ModalCrud modal={modal} setModal={setModal}>
-          {/* <EditProvider setModal={setModal} /> */}
+           <EditSupply setModal={setModal} />
         </ModalCrud>
       )}
       {showModal && (
@@ -176,7 +175,7 @@ const handleShow = (id) => {
                           <VisibilityTwoToneIcon fontSize="small" />
                         </IconButton>
                       </Tooltip>
-                      {/* <Tooltip title="Editar" arrow>
+                      <Tooltip title="Editar" arrow>
                         <IconButton
                           sx={{
                             '&:hover': {
@@ -186,11 +185,12 @@ const handleShow = (id) => {
                           }}
                           color="inherit"
                           size="small"
-                        //   onClick={() => handleUpdate(cryptoOrder.cod_prov)}
+                          onClick={() => handleUpdate(cryptoOrder.cod_reg_in)}
                         >
                           <EditTwoToneIcon fontSize="small" />
                         </IconButton>
                       </Tooltip>
+                      {/* 
                       <Tooltip title="Eliminar" arrow>
                         <IconButton
                           sx={{

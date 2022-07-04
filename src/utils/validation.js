@@ -13,7 +13,7 @@ export const validationArticle = yup.object().shape({
     .string('Ingrese presentación')
     .required('La presentacion es requerida'),
   cod_unid_med: yup.string().required('La unidad de medida es requerida'),
-  imagen_art: yup.string('Ingrese url').required('La imagen es requerida')
+  //imagen_art: yup.string('Ingrese url').required('La imagen es requerida')
 });
 
 export const validationProvider = yup.object().shape({
@@ -62,6 +62,33 @@ export const validationWarehouse = yup.object().shape({
     .string('Ingrese direccin URL de google map')
     // .matches(/^https?\:\/\/?goo.gl(\.[a-z]+){1,2}\/maps\/?\?([^&]+&)*(ll=-?[0-9]{1,2}\.[0-9]+,-?[0-9]{1,2}\.[0-9]+|q=[^&]+)+($|&)/,'URL invalida')
     .required('La ubicacion del almacen es requerido')
+});
+
+export const validationCompany = yup.object().shape({
+  razon_social: yup
+    .string('Ingrese razon social')
+    .required('La razon social es requerida'),
+  nro_doc: yup
+    .string('Ingrese número del documento')
+    .required('El número de documento es requerido')
+    .matches(/\b\d{11}\b/, {
+      message: 'Ingrese solo 11 digitos',
+      excludeEmptyString: true
+    }),
+  correo_per: yup
+    .string('Ingrese email')
+    .email('El email no tiene un formato válido')
+    .max(90, 'El email no puede superar los 90 caracteres')
+    .required('El email es requerido')
+  // telephones: array(
+  //   object({
+  //     nro_telf: string('Ingrese número de telefono')
+  //       .min(7, 'Ingrese minimo 7 digitos')
+  //       .max(9, 'Ingrese máximo 9 digitos')
+  //       .matches(/^[0-9]+$/, 'Ingrese solo números')
+  //       .required('El numero de telefono es requerido')
+  //   })
+  // )
 });
 
 export const validationCategory = yup.object().shape({
@@ -181,9 +208,10 @@ export const validationLogin = yup.object().shape({
 });
 
 export const validationChangePass = yup.object().shape({
-  password: yup.string('Ingrese la nueva contraseña')
-  .required('La nueva contraseña es requerida')
-  .min(6, 'La contraseña debe tener minimo 6 caracteres'),
+  password: yup
+    .string('Ingrese la nueva contraseña')
+    .required('La nueva contraseña es requerida')
+    .min(6, 'La contraseña debe tener minimo 6 caracteres'),
   password_confirmation: yup
     .string('Confirme la nueva contraseña')
     .required('La confirmacion de contraseña es requerida')
@@ -216,4 +244,40 @@ export const validationEmployee = yup.object().shape({
         .required('El numero de telefono es requerido')
     })
   )
+});
+
+export const validationCheckoutForm = yup.object().shape({
+  cod_solicitador: yup.string().required('El solicitador es requerido'),
+  cod_autorizador: yup.string().required('El autorizador es requerido'),
+  cod_almacen: yup.string().required('El almacen es requerido'),
+  cod_t_transf: yup.string().required('El tipo de transferencia es requerido'),
+  cod_t_doc: yup.string().required('El tipo de documento es requerido'),
+  nro_doc: yup.string().required('El numero de documento es requerido'),
+  fec_doc: yup.string().required('La fecha de documento es requerida'),
+  articles: array(
+    object({
+      cod_art: string().required('El codigo del articulo es requerido'),
+      stock_almacen: number().required('El stock del almacen es requerido'),
+      cant_art: number()
+        .required('La cantidad del articulo es requerida')
+        .integer('La cantidad del articulo debe ser un numero entero')
+        .min(1, 'La cantidad del articulo debe ser mayor a 1')
+        .max(
+          yup.ref('stock_almacen'),
+          'La cantidad del  articulo debe ser menor al stock del almacen'
+        ),
+      obs_sal: string()
+        .required('La observacion del articulo es requerida')
+        .min(3, 'La observacion del articulo debe tener minimo 3 caracteres')
+        .max(
+          255,
+          'La observacion del articulo debe tener maximo 255 caracteres'
+        )
+    })
+  ).min(1, 'Debe ingresar al menos un articulo')
+});
+
+export const validationRoleCreate = yup.object().shape({
+  permiso: yup.array().min(1, 'Debe ingresar al menos un permiso'),
+  name: yup.string().required('El nombre del rol es requerido')
 });

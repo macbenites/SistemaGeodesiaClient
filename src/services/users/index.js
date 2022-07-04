@@ -14,6 +14,19 @@ const UsersServices = {
       }
     );
   },
+  indexEmployeeDeleted: (value) => {
+    return axios.post(
+      `${process.env.REACT_APP_API_URL}trabajadoresDeleted`,
+      {
+        searchText: value
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
+    );
+  },
   createEmployee: () => {
     return axios.get(`${process.env.REACT_APP_API_URL}trabajador/create`, {
       headers: {
@@ -49,6 +62,31 @@ const UsersServices = {
       }
     );
   },
+  //destroy trabajador
+  deleteById: (id) => {
+    return axios.put(
+      `${process.env.REACT_APP_API_URL}trabajadorDestroy/${id}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
+    );
+  },
+  //restore trabajador
+  restoreById: (id) => {
+    return axios.put(
+      `${process.env.REACT_APP_API_URL}trabajadorRestore/${id}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
+    );
+  },
+
   //Ver Trabajador
   showEmployee: (id) => {
     return axios.get(`${process.env.REACT_APP_API_URL}trabajador/${id}`, {
@@ -96,12 +134,39 @@ const UsersServices = {
     });
   },
   //cambiar contraseña
-  updatePass: (passwordEdit) => {    
-    return axios.put(`${process.env.REACT_APP_API_URL}passUpdate/${passwordEdit.id}`, passwordEdit, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`
+  updatePass: (passwordEdit) => {
+    return axios.put(
+      `${process.env.REACT_APP_API_URL}passUpdate/${passwordEdit.id}`,
+      passwordEdit,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
       }
-    });
+    );
+  },
+  //Asignar Rol vista
+  getAssignRole: (id) => {
+    return axios.get(
+      `${process.env.REACT_APP_API_URL}trabajadorAsignar/assing/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
+    );
+  },
+  //Asignar Rol
+  saveAssignRole: (assignRole) => {
+    return axios.post(
+      `${process.env.REACT_APP_API_URL}trabajadorAsignar/${assignRole.id}`,
+      assignRole,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
+    );
   }
 };
 
