@@ -178,7 +178,7 @@ const handleShow = (id) => {
                           <VisibilityTwoToneIcon fontSize="small" />
                         </IconButton>
                       </Tooltip>
-                      {user.permisos.find((auth) => auth.name === 'eliminar-ingresos de insumo') ? (
+                      {user.permisos.find((auth) => auth.name === 'editar-ingresos de insumo') ? (
                       <Tooltip title="Editar" arrow>
                         <IconButton
                           sx={{
