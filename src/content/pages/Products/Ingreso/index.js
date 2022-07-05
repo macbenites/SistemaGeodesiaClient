@@ -21,6 +21,7 @@ import { DatePicker } from '@mui/lab';
 import { useFormik } from 'formik';
 import { validationArticle } from 'src/utils/validation';
 import BasicModal from 'src/components/common/Modals';
+import GoBackButton from 'src/components/common/Buttons/goBack';
 
 const Ingreso = () => {
   const [modal, setModal] = useState(false);
@@ -56,6 +57,7 @@ const Ingreso = () => {
   return (
     <>
       <BasicModal modal={modal} setModal={setModal} message={created} />
+            <GoBackButton linkRoute="productos/ingreso" />
       <Container maxWidth="md">
         <Grid
           container

@@ -38,6 +38,7 @@ import {
 import { validationProvider } from 'src/utils/validation';
 import BasicModal from 'src/components/common/Modals';
 import AddIcCallIcon from '@mui/icons-material/AddIcCall';
+import GoBackButton from 'src/components/common/Buttons/goBack';
 
 const emptyTelephones = {
   nro_telf: ''
@@ -57,6 +58,7 @@ const Proveedor = () => {
   return (
     <>
       <BasicModal modal={modal} setModal={setModal} message={created} />
+      <GoBackButton linkRoute="proveedor/registro" />
       <Container maxWidth="lg">
         <Grid
           container

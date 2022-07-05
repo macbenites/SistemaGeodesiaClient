@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import { validationPresentacion} from 'src/utils/validation';
 import BasicModal from 'src/components/common/Modals';
+import GoBackButton from 'src/components/common/Buttons/goBack';
 
 const FormPresentation = () => {
   const [modal, setModal] = useState(false);
@@ -38,6 +39,7 @@ const FormPresentation = () => {
   return (
     <>
       <BasicModal modal={modal} setModal={setModal} message={createdPresentation} />
+            <GoBackButton linkRoute="config/presentacion" />
       <Container maxWidth="md">
         <Grid
           container
