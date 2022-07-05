@@ -51,16 +51,22 @@ const RecentOrdersTable = () => {
   //   setDeleted(id);
   // };
 
-    const handleUpdate = (id) => {
-      dispatch(fetchEditSalida (id)).then(() => {
-        setModal(id);
-      });
-    };
+  const handleUpdate = (id) => {
+    dispatch(fetchEditSalida(id)).then(() => {
+      setModal(id);
+    });
+  };
 
   const handleShow = (id) => {
     dispatch(fetchSupplyOut(id)).then(() => {
       setShowModal(id);
     });
+  };
+
+  const getDiffDays = (date1, date2) => {
+    const diffTime = Math.abs(date2 - date1);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
   };
 
   return (
@@ -179,23 +185,29 @@ const RecentOrdersTable = () => {
                       </Tooltip>
                       {user.permisos.find(
                         (auth) => auth.name === 'editar-salidas de insumo'
-                      ) ? (
-                      <Tooltip title="Editar" arrow>
-                        <IconButton
-                          sx={{
-                            '&:hover': {
-                              background: theme.colors.primary.lighter
-                            },
-                            color: theme.palette.primary.main
-                          }}
-                          color="inherit"
-                          size="small"
-                          onClick={() => handleUpdate(cryptoOrder.cod_reg_sal)}
-                        >
-                          <EditTwoToneIcon fontSize="small" />
-                        </IconButton>
-                      </Tooltip>
-                    ) : null}
+                      ) &&
+                      getDiffDays(
+                        new Date(),
+                        Date.parse(cryptoOrder.fec_sal)
+                      ) <= 1 ? (
+                        <Tooltip title="Editar" arrow>
+                          <IconButton
+                            sx={{
+                              '&:hover': {
+                                background: theme.colors.primary.lighter
+                              },
+                              color: theme.palette.primary.main
+                            }}
+                            color="inherit"
+                            size="small"
+                            onClick={() =>
+                              handleUpdate(cryptoOrder.cod_reg_sal)
+                            }
+                          >
+                            <EditTwoToneIcon fontSize="small" />
+                          </IconButton>
+                        </Tooltip>
+                      ) : null}
                       {/* <Tooltip title="Eliminar" arrow>
                         <IconButton
                           sx={{
