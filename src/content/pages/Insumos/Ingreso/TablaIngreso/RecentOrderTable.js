@@ -189,7 +189,7 @@ const RecentOrdersTable = () => {
                       {user.permisos.find(
                         (auth) => auth.name === 'editar-ingresos de insumo'
                       ) &&
-                      getDiffDays(new Date(), Date.parse(cryptoOrder.fec_ing)) >
+                      getDiffDays(new Date(), Date.parse(cryptoOrder.fec_ing)) <=
                         1 ? (
                         <Tooltip title="Editar" arrow>
                           <IconButton
