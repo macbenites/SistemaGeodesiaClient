@@ -23,9 +23,9 @@ import VisibilityTwoToneIcon from '@mui/icons-material/VisibilityTwoTone';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-    fetchEditIngreso,
-    fetchAllSupplies,
-    fetchSupplyIn
+  fetchEditIngreso,
+  fetchAllSupplies,
+  fetchSupplyIn
 } from 'src/redux/slices/supplies/suppliesSlice';
 import ModalCrud from 'src/components/common/Modals/modalCrud';
 import { useEffect, useState } from 'react';
@@ -33,20 +33,18 @@ import ShowSupplyIn from '../Show';
 import EditSupply from '../Edit';
 import { useLocalStorage } from 'src/hooks/useLocalStorage';
 
-
 const RecentOrdersTable = () => {
   const dispatch = useDispatch();
   const [user, setUser] = useLocalStorage('user');
   const [modal, setModal] = useState(false);
   const [showModal, setShowModal] = useState(false);
- // const [deleted, setDeleted] = useState('');
+  // const [deleted, setDeleted] = useState('');
   const ingresos = useSelector((state) => state.supplies.suppliesIndex);
   const { data } = ingresos;
 
   useEffect(() => {
     dispatch(fetchAllSupplies());
-  }, [dispatch, modal/*, deleted*/,showModal]);
-
+  }, [dispatch, modal /*, deleted*/, showModal]);
 
   const theme = useTheme();
   // const handleDestroy = (id) => {
@@ -55,21 +53,28 @@ const RecentOrdersTable = () => {
   // };
 
   const handleUpdate = (id) => {
-    dispatch( fetchEditIngreso(id) ).then(() => {
+    dispatch(fetchEditIngreso(id)).then(() => {
       setModal(id);
     });
   };
 
-const handleShow = (id) => {
-  dispatch(fetchSupplyIn (id)).then(() => {
-    setShowModal(id);
-  });
-};
+  const handleShow = (id) => {
+    dispatch(fetchSupplyIn(id)).then(() => {
+      setShowModal(id);
+    });
+  };
+
+  const getDiffDays = (date1, date2) => {
+    const diffTime = Math.abs(date2 - date1);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
+  };
+
   return (
     <>
       {modal && (
         <ModalCrud modal={modal} setModal={setModal}>
-           <EditSupply setModal={setModal} />
+          <EditSupply setModal={setModal} />
         </ModalCrud>
       )}
       {showModal && (
@@ -93,7 +98,10 @@ const handleShow = (id) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {data?.map((cryptoOrder,index) => {
+              {data?.map((cryptoOrder, index) => {
+                console.log(
+                  getDiffDays(Date.parse(cryptoOrder.fec_ing), new Date())
+                );
                 return (
                   <TableRow hover key={cryptoOrder.cod_reg_in}>
                     <TableCell>
@@ -104,7 +112,7 @@ const handleShow = (id) => {
                         gutterBottom
                         noWrap
                       >
-                        {index+1}
+                        {index + 1}
                       </Typography>
                     </TableCell>
                     <TableCell>
@@ -151,7 +159,7 @@ const handleShow = (id) => {
                         {cryptoOrder.des_transf}
                       </Typography>
                     </TableCell>
-                    <TableCell >
+                    <TableCell>
                       <Typography
                         variant="body1"
                         fontWeight="bold"
@@ -163,7 +171,7 @@ const handleShow = (id) => {
                       </Typography>
                     </TableCell>
                     <TableCell>
-                    <Tooltip title="Ver" arrow>
+                      <Tooltip title="Ver" arrow>
                         <IconButton
                           sx={{
                             '&:hover': {
@@ -178,23 +186,27 @@ const handleShow = (id) => {
                           <VisibilityTwoToneIcon fontSize="small" />
                         </IconButton>
                       </Tooltip>
-                      {user.permisos.find((auth) => auth.name === 'editar-ingresos de insumo') ? (
-                      <Tooltip title="Editar" arrow>
-                        <IconButton
-                          sx={{
-                            '&:hover': {
-                              background: theme.colors.primary.lighter
-                            },
-                            color: theme.palette.primary.main
-                          }}
-                          color="inherit"
-                          size="small"
-                          onClick={() => handleUpdate(cryptoOrder.cod_reg_in)}
-                        >
-                          <EditTwoToneIcon fontSize="small" />
-                        </IconButton>
-                      </Tooltip>
-                   ) : null}
+                      {user.permisos.find(
+                        (auth) => auth.name === 'editar-ingresos de insumo'
+                      ) &&
+                      getDiffDays(new Date(), Date.parse(cryptoOrder.fec_ing)) <=
+                        1 ? (
+                        <Tooltip title="Editar" arrow>
+                          <IconButton
+                            sx={{
+                              '&:hover': {
+                                background: theme.colors.primary.lighter
+                              },
+                              color: theme.palette.primary.main
+                            }}
+                            color="inherit"
+                            size="small"
+                            onClick={() => handleUpdate(cryptoOrder.cod_reg_in)}
+                          >
+                            <EditTwoToneIcon fontSize="small" />
+                          </IconButton>
+                        </Tooltip>
+                      ) : null}
                       {/* 
                       <Tooltip title="Eliminar" arrow>
                         <IconButton
