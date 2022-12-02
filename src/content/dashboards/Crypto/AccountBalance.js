@@ -129,7 +129,16 @@ function AccountBalance() {
     <>
       {/* Ingreso */}
       <Card>
-        <Grid spacing={0} container>
+        <iframe
+          title="PowerbiGeodesia - Página 1"
+          width="100%"
+          height="800"
+          src="https://app.powerbi.com/view?r=eyJrIjoiOGE4YjhiMDUtMzJmNy00YTIzLWFjZjQtODgxOTllMDBmNTliIiwidCI6ImM0YTY2YzM0LTJiYjctNDUxZi04YmUxLWIyYzI2YTQzMDE1OCIsImMiOjR9"
+          frameborder="0"
+          allowFullScreen="true"
+          
+        ></iframe>
+        {/* <Grid spacing={0} container>
           <Grid item xs={12} md={6}>
             <Grid item xs={12} md={12}>
               <Box display="flex" flexDirection="row" alignItems="center">
@@ -180,7 +189,7 @@ function AccountBalance() {
             </Box>
           </Grid>
           <Divider />
-          {/* Separación */}
+          Separación
           <Grid
             sx={{ position: 'relative' }}
             display="flex"
@@ -257,9 +266,9 @@ function AccountBalance() {
               </>
             )}
           </Grid>
-        </Grid>
+        </Grid> */}
       </Card>
-      {/* Ingreso */}
+      {/* Ingreso
       <Card>
         <Grid spacing={0} container>
           <Grid item xs={12} md={6}>
@@ -300,7 +309,7 @@ function AccountBalance() {
             </Box>
           </Grid>
 
-          {/* Separación */}
+          {/* Separación 
           <Grid
             sx={{ position: 'relative' }}
             display="flex"
@@ -378,7 +387,7 @@ function AccountBalance() {
             )}
           </Grid>
         </Grid>
-      </Card>
+      </Card> */}
     </>
   );
 }
